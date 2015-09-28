@@ -80,12 +80,12 @@ angular.module('easypoll')
 
         $scope.$on('logout', function (event) {
             $scope.rightmenus.length=0;
-            //$scope.rightmenus.push(
-            //    {
-            //        title : "Sign in",
-            //        action : "signIn"
-            //    }
-            //);
+            $scope.rightmenus.push(
+                {
+                    title : "Sign in",
+                    action : "signIn"
+                }
+            );
         });
 
         $scope.$on('login', function (event) {
