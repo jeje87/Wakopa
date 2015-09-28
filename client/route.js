@@ -35,6 +35,11 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
                     }]
                 }
             })
+            .state('questionView', {
+                url: '/question/view/:id/:answerId',
+                templateUrl: 'client/easypoll/views/questions/questionView.ng.html',
+                controller: 'QuestionViewCtrl'
+            })
             .state('questionList', {
                 url: '/questions',
                 templateUrl: 'client/easypoll/views/questions/questionList.ng.html',

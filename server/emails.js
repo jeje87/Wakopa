@@ -9,20 +9,39 @@ Meteor.methods({
 
         sendQuestion: function(question) {
 
-            var email = {
-                to: 'jeromepiquet@gmail.com',
-                from: 'no-reply@wakopa.com',
-                subject: 'Jerome send you this question',
-                text: '',
-                html: question.label
-            };
+            var user = Meteor.users.findOne({ "_id" : Meteor.userId() });
+            var sender=user.profile.name;
 
             this.unblock();
 
-            sendEmailGunAPI(email,function (error, result) {
-                if (error) {
-                    throwError(503,error.response.message,"");
+            question.respondents.forEach(function(respondent) {
+
+                if(respondent.email && respondent.email!=="") {
+
+                    var answerId=Random.id();
+
+                    var dns='http://www.wakopa.com/';
+                    if(Meteor.absoluteUrl().indexOf("localhost")>-1) {
+                        dns='http://localhost:3000/';
+                    }
+
+                    var urlAnswer = dns+'question/view/'+question._id+'/'+answerId;
+
+                    var email = {
+                        to: respondent.email,
+                        from: 'no-reply@wakopa.com',
+                        subject: sender + ' send you this question',
+                        text: '',
+                        html: question.label + '<br/><br/>You can give your answer here : ' + urlAnswer
+                    };
+
+                    sendEmailGunAPI(email, function (error, result) {
+                        if (error) {
+                            throwError(503, error.response.message, "");
+                        }
+                    });
                 }
+
             });
         }
     }
