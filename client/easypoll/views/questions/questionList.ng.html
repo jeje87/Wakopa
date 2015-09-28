@@ -1,0 +1,10 @@
+
+<button id="btnAdd" type="button" class="btn btn-success" ng-click="add()">Create new question</button>
+<h4>Existing questions:</h4>
+<div class="list-group alternateColor">
+
+    <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">{{question.label}}</a>
+
+</div>
+<button id="btnLoadMore" type="button" class="btn btn-primary" ng-click="loadMore()">Load more</button>
+

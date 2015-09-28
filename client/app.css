@@ -1,0 +1,62 @@
+
+body  {
+  margin:10px;
+}
+
+.polls  {
+  display:flex;
+  flex-flow:row wrap;
+  justify-content:center;
+}
+.poll   {
+  width:25%;
+  margin:20px;
+}
+
+a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, button.list-group-item:focus {
+  background-color: #FDF892;
+}
+
+.questionView {
+  margin-top:15px;
+}
+
+.answerView {
+  margin:5px;
+}
+
+#txtAddDescriptionQuestion, #txtDescription {
+  display:none;
+}
+
+.vAlign {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 6px 12px;
+}
+
+#btnDeleteItem {
+  margin-right:5px;
+}
+
+.alternateColor a:nth-child(odd) {
+  background: #EFF5F7;
+}
+
+.alternateColor a:nth-child(odd):hover {
+  background-color: #FDF892;
+}
+
+
+.tab-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-radius: 0px 0px 5px 5px;
+  padding: 20px;
+}
+
+.nav-tabs {
+  margin-bottom: 0;
+}
+

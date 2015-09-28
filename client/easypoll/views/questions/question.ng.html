@@ -1,0 +1,79 @@
+    <form>
+
+        <div class="form-group">
+            <label>Question:</label>
+            <textarea type="text" class="form-control" id="txtLabel" name="txtLabel" rows="2" placeholder="type your question here" ng-model="question.label"></textarea>
+        </div>
+
+        <div class="form-group">
+            <ul class="nav nav-tabs" data-tabs="tabs">
+                <li role="presentation" class="active"><a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a></li>
+                <li role="presentation"><a data-toggle="tab"  href="#tabInvite">Invite</a></li>
+                <li role="presentation"><a data-toggle="tab"  href="#tabOptions">Options</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="tabAnswer" class="tab-pane active">
+                    <div class="form-group">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dpdTypeQuestion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Choose a predefined template...
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dpdTypeQuestion">
+                                <li ng-repeat="typeAnswer in typeAnswers" ng-click="dpdTypeSelect(typeAnswer)"><a id="{{typeAnswer.id}}" href="#">{{typeAnswer.label}}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-group" ng-repeat="answer in question.answers">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="answer.label" placeholder="type your answer here" focus="true">
+                                <span class="input-group-btn">
+                                    <button ng-click="removeAnswer(answer._id)" id="btnRemoveItem" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="btnAddAnswer" type="button" ng-click="addAnswer()" class="btn btn-success">Add answer</button>
+                </div>
+                <div id="tabInvite" class="tab-pane">
+                    <div class="form-group">
+                        <div class="form-group" ng-repeat="respondent in question.respondents">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="respondent.email" placeholder="insert an email here">
+                                <span class="input-group-btn">
+                                    <button ng-click="removeRespondent(respondent._id)" id="btnRemoveItem" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button id="btnAddRespondent" type="button" ng-click="addRespondent()" class="btn btn-success">Add email</button>
+                            </div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-4">
+                                <button id="btnSend" type="button" ng-click="send()" class="btn btn-success">Send this question</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="tabOptions" class="tab-pane">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <button id="btnCancel" type="submit" ng-click="back()" class="btn btn-default btn-block">Back</button>
+            </div>
+            <div class="col-md-4">
+                <button id="btnDelete" type="submit" ng-click="delete()" class="btn btn-danger btn-block">Delete</button>
+            </div>
+            <div class="col-md-4">
+                <button id="btnAdd" type="button" ng-click="save()" class="btn btn-warning btn-block">Save</button>
+            </div>
+        </div>
+
+    </form>
