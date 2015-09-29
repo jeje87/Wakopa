@@ -13,11 +13,11 @@ throwError = function(error, reason, details) {
 
 Meteor.methods({
 
-    saveQuestion: function(question) {
+    saveQuestion: function (question) {
 
-        if(!question._id) {
+        if (!question._id) {
 
-            if(Meteor.isServer) {
+            if (Meteor.isServer) {
                 question.createDate = new Date();
                 question.userId = Meteor.userId();
             }
@@ -25,38 +25,50 @@ Meteor.methods({
             return Questions.insert(question);
 
         }
-        else if(question.deleteDate) {
+        else if (question.deleteDate) {
 
-            if(Meteor.isServer) {
+            if (Meteor.isServer) {
                 question.deleteDate = new Date();
                 question.deleteUser = Meteor.userId();
             }
 
             return Questions.update(
-                {"_id":question._id},
-                { $set:
+                {"_id": question._id},
                 {
-                    deleteDate: question.deleteDate,
-                    deleteUser: question.deleteUser
-                }
+                    $set: {
+                        deleteDate: question.deleteDate,
+                        deleteUser: question.deleteUser
+                    }
                 }
             );
 
+        }
+        else {
+            return Questions.update(
+                {"_id": question._id},
+                {
+                    $set: {
+                        label: question.label,
+                        answers: question.answers,
+                        respondents: question.respondents
+                    }
+                }
+            );
+        }
+
+    },
+    isAuthorized: function (questionId, respondentId, answerId) {
+
+        var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "respondents.mails" : { $elemMatch: { "answerId":  answerId }}})
+
+        if(question)
+        {
+           return true;
         }
         else
         {
-            return Questions.update(
-                {"_id":question._id},
-                { $set:
-                {
-                    label: question.label,
-                    answers: question.answers,
-                    respondents: question.respondents
-                }
-                }
-            );
+            throwError(401, "", "");
         }
-
     }
 
 });

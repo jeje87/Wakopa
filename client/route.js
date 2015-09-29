@@ -4,6 +4,7 @@ angular.module("easypoll").run(["$rootScope", "$state", function($rootScope, $st
         if (error === "AUTH_REQUIRED") {
             $state.go("login");
         }
+        $state.go("login");
 
     });
 }]);
@@ -36,9 +37,14 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
                 }
             })
             .state('questionView', {
-                url: '/question/view/:id/:answerId',
+                url: '/question/view/:questionId/:respondentId/:answerId',
                 templateUrl: 'client/easypoll/views/questions/questionView.ng.html',
-                controller: 'QuestionViewCtrl'
+                controller: 'QuestionViewCtrl',
+                resolve: {
+                    "currentUser": ["$stateParams","$meteor", function ($stateParams,$meteor) {
+                        return Meteor.call('isAuthorized',  "dd", $stateParams.respondentId, $stateParams.answerId)
+                    }]
+                }
             })
             .state('questionList', {
                 url: '/questions',

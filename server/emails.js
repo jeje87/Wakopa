@@ -25,7 +25,7 @@ Meteor.methods({
                         dns='http://localhost:3000/';
                     }
 
-                    var urlAnswer = dns+'question/view/'+question._id+'/'+answerId;
+                    var urlAnswer = dns+'question/view/'+question._id+'/'+respondent._id+'/'+answerId;
 
                     var email = {
                         to: respondent.email,
@@ -38,6 +38,13 @@ Meteor.methods({
                     sendEmailGunAPI(email, function (error, result) {
                         if (error) {
                             throwError(503, error.response.message, "");
+                        }
+                        else
+                        {
+                            //historise
+                            Questions.update( {"_id" : question._id , "respondents._id" : respondent._id } ,
+                                {$addToSet : {"respondents.$.mails" : {'date' : new Date() ,'answerId':answerId }} } );
+
                         }
                     });
                 }
