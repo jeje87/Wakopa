@@ -1,10 +1,16 @@
 angular.module("easypoll").run(["$rootScope", "$state", function($rootScope, $state) {
     $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
-
+console.log(error);
         if (error === "AUTH_REQUIRED") {
             $state.go("login");
         }
-        $state.go("login");
+        else if (error.error === 401) {
+            $state.go("401");
+        }
+        else {
+            $state.go("error");
+        }
+
 
     });
 }]);
@@ -41,8 +47,8 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
                 templateUrl: 'client/easypoll/views/questions/questionView.ng.html',
                 controller: 'QuestionViewCtrl',
                 resolve: {
-                    "currentUser": ["$stateParams","$meteor", function ($stateParams,$meteor) {
-                        return Meteor.call('isAuthorized',  "dd", $stateParams.respondentId, $stateParams.answerId)
+                    "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
+                        return $meteor.call('isAuthorized',  $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId)
                     }]
                 }
             })
@@ -55,6 +61,16 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
                         return $meteor.requireUser();
                     }]
                 }
+            })
+            .state('401', {
+                url: '/401',
+                templateUrl: 'client/easypoll/views/common/401.ng.html',
+                controller: '401Ctrl'
+            })
+            .state('error', {
+                url: '/error',
+                templateUrl: 'client/easypoll/views/common/error.ng.html',
+                controller: 'ErrorCtrl'
             });
 
         $urlRouterProvider.otherwise("/questions");
