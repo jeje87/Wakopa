@@ -26,9 +26,12 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="form-group" ng-repeat="answer in question.answers">
+                        <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
+                            <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
                                 <div class="input-group">
+                                    <span class="input-group-btn" as-sortable-item-handle>
+                                        <button ng-click="" id="btnRemoveItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-th"></span></button>
+                                    </span>
                                     <input type="text" class="form-control" ng-model="answer.label" placeholder="type your answer here" focus="true">
                                     <span class="input-group-btn">
                                         <button ng-click="removeAnswer(answer._id)" id="btnRemoveItem" type="button" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
