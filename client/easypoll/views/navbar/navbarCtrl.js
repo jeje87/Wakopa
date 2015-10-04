@@ -83,7 +83,8 @@ angular.module('easypoll')
             $scope.rightmenus.push(
                 {
                     title : "Sign in",
-                    action : "signIn"
+                    action : "signIn",
+                    button : false
                 }
             );
         });
@@ -93,7 +94,8 @@ angular.module('easypoll')
             $scope.rightmenus.push(
                 {
                     title : "Sign off",
-                    action : "signOff"
+                    action : "signOff",
+                    button : true
                 }
             );
         });
