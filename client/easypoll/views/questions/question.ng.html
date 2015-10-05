@@ -12,13 +12,15 @@
             </div>
 
             <div class="form-group">
+
                 <ul class="nav nav-tabs" data-tabs="tabs">
                     <li role="presentation" class="active"><a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabInvite">Invite</a></li>
                     <li role="presentation"><a data-toggle="tab"  href="#tabOptions">Options</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabInvite">Send</a></li>
                 </ul>
 
                 <div class="tab-content">
+
                     <div id="tabAnswer" class="tab-pane active">
 
                         <div class="form-group">
@@ -41,11 +43,11 @@
                             <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
                                 <div class="input-group">
                                     <span class="input-group-btn" as-sortable-item-handle>
-                                        <button ng-click="" id="btnRemoveItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon glyphicon-th"></span></button>
+                                        <button tabindex="-1" ng-click="" id="btnRemoveItem" type="button" class="btn btn-default"><span tabindex="-1" class="glyphicon glyphicon glyphicon-th"></span></button>
                                     </span>
                                     <input type="text" class="form-control" ng-model="answer.label" placeholder="type your answer here" focus="true">
                                     <span class="input-group-btn">
-                                        <button ng-click="removeAnswer(answer._id)" id="btnRemoveItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button tabindex="-1" ng-click="removeAnswer(answer._id)" id="btnRemoveItem" type="button" class="btn btn-default"><span tabindex="-1" class="glyphicon glyphicon-remove"></span></button>
                                     </span>
                                 </div>
                             </div>
@@ -58,7 +60,13 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
+
+                    <div id="tabOptions" class="tab-pane">
+
+                    </div>
+
                     <div id="tabInvite" class="tab-pane">
 
                             <div class="form-group" ng-repeat="respondent in question.respondents">
@@ -83,8 +91,7 @@
                             </div>
 
                     </div>
-                    <div id="tabOptions" class="tab-pane">
-                    </div>
+
                 </div>
             </div>
             <div class="row">
