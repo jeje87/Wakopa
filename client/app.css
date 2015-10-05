@@ -65,3 +65,6 @@ a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, 
   padding-left: 0px;
 }
 
+.panel-default, .navbar {
+  border-radius: 5px;
+}
