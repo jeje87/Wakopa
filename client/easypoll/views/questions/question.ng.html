@@ -39,6 +39,18 @@
                             </div>
                         </div>
 
+                        <div ng-if="question.answers.length==0" class="form-group" >
+                            <div class="nothing text-center bg-info">
+                                <h5>
+                                    Click on
+                                    <br/><br/>
+                                    <button id="btnAddAnswer" type="button" ng-click="addAnswer()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add answer</button>
+                                    <br/><br/>
+                                    to add an answer
+                                </h5>
+                            </div>
+                        </div>
+
                         <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
                             <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
                                 <div class="input-group">
@@ -69,6 +81,18 @@
 
                     <div id="tabInvite" class="tab-pane">
 
+                            <div ng-if="question.respondents.length==0" class="form-group" >
+                                <div class="nothing text-center bg-info">
+                                    <h5>
+                                    Click on
+                                    <br/><br/>
+                                    <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Add email</button>
+                                    <br/><br/>
+                                    to add a respondant
+                                    </h5>
+                                </div>
+                            </div>
+
                             <div class="form-group" ng-repeat="respondent in question.respondents">
                                 <div class="input-group">
                                     <input type="text" class="form-control" ng-model="respondent.email" placeholder="insert an email here">
@@ -80,7 +104,7 @@
 
                             <div class="row">
                                 <div class="col-xs-6 col-sm-3">
-                                    <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-default btn-block"><span class="glyphicon glyphicon-user"></span> Add email</button>
+                                    <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-user"></span> Add email</button>
                                 </div>
                                 <div class="col-xs-0 col-sm-6">
 

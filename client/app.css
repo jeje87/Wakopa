@@ -72,3 +72,10 @@ a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, 
 .input-group .form-control {
   z-index: 5;
 }
+
+.nothing {
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #E6E6E6;
+}
