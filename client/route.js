@@ -1,6 +1,6 @@
 angular.module("easypoll").run(["$rootScope", "$state", function($rootScope, $state) {
     $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
-console.log(error);
+
         if (error === "AUTH_REQUIRED") {
             $state.go("login");
         }

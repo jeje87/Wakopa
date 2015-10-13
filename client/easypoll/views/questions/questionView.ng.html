@@ -1,5 +1,30 @@
-<span>{{questionId}}</span>
-<br />
-<span>{{respondentId}}</span>
-<br />
-<span>{{answerId}}</span>
+<form class="question-form">
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <span>{{question.label}}</span>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="form-group">
+
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li role="presentation" class="active"><a data-toggle="tab" href="#tabAnswer">Your answer</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabAllAnswers">All answers</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="tabAnswer" class="tab-pane active">
+                    </div>
+                    <div id="tabAllAnswers" class="tab-pane active">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
