@@ -1,25 +1,40 @@
 <form class="questionList-form">
     <div class="panel panel-default">
         <div class="panel-body">
-            <button id="btnAdd" type="button" class="btn btn-primary pull-right" ng-click="add()"><span class="glyphicon glyphicon-plus"></span> Add question</button>
-            <h4>Existing questions:</h4>
-            <div class="list-group alternateColor">
+            <div class="form-group">
+                <div class="col-xs-6 col-sm-6">
+                    <h4>Your surveys :</h4>
+                </div>
+                <div class="col-xs-6 col-sm-6">
+                    <button id="btnAdd" type="button" class="btn btn-primary pull-right" ng-click="add()"><span class="glyphicon glyphicon-plus"></span> Add question</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12">
 
-                <div ng-if="questions.length==0" class="form-group" >
-                    <div class="nothing text-center">
-                        <h5>
-                            Click on
-                            <br/><br/>
-                            <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()"><span class="glyphicon glyphicon-plus"></span> Add question</button>
-                            <br/><br/>to add your first question
-                        </h5>
+                    <div class="list-group alternateColor">
+
+                        <div ng-if="questions.length==0" class="form-group" >
+                            <div class="nothing text-center">
+                                <h5>
+                                    Click on
+                                    <br/><br/>
+                                    <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()"><span class="glyphicon glyphicon-plus"></span> Add question</button>
+                                    <br/><br/>to add your first question
+                                </h5>
+                            </div>
+                        </div>
+
+                        <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">{{question.label}}</a>
+
                     </div>
                 </div>
-
-                <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">{{question.label}}</a>
-
             </div>
-            <button ng-if="questions.length>0" id="btnLoadMore" type="button" class="btn btn-primary" ng-click="loadMore()"><span class="glyphicon glyphicon-download"></span> Load more</button>
+            <div class="form-group">
+                <div class="col-xs-12 col-sm-12">
+                    <button ng-if="questions.length>0" id="btnLoadMore" type="button" class="btn btn-primary" ng-click="loadMore()"><span class="glyphicon glyphicon-download"></span> Load more</button>
+                </div>
+            </div>
         </div>
     </div>
 </form>
