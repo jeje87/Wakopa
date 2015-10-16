@@ -1,6 +1,7 @@
 angular.module("easypoll").controller("QuestionCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
     function ($scope, $stateParams,$meteor,$location,Notification) {
 
+        $scope.pageClass = 'page-home';
         $meteor.subscribe('Questions');
 
         $scope.typeAnswers = [
