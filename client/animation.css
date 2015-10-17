@@ -23,6 +23,7 @@ html         { overflow-y:hidden; }
 }
 
 .slide.ng-leave.ng-leave-active {
+    position: absolute;
     -webkit-transform: translateX(100%);
     transform: translateX(100%);
 }
