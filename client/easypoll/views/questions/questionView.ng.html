@@ -2,7 +2,7 @@
     <div class="panel panel-default">
 
         <div class="panel-heading">
-            <span>{{question.label}}</span>
+            <span><h4>{{question.label}}</h4></span>
         </div>
 
         <div class="panel-body">
@@ -11,12 +11,19 @@
 
                 <ul class="nav nav-tabs" data-tabs="tabs">
                     <li role="presentation" class="active"><a data-toggle="tab" href="#tabAnswer">Your answer</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabAllAnswers">All answers</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabAllAnswers">Results</a></li>
                 </ul>
 
                 <div class="tab-content">
 
                     <div id="tabAnswer" class="tab-pane active">
+
+                        <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
+                            <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
+                                <button tabindex="-1" ng-click="vote(answer._id)" type="button" ng-class="answer.selected ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
+                            </div>
+                        </div>
+
                     </div>
                     <div id="tabAllAnswers" class="tab-pane active">
                     </div>
