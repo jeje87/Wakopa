@@ -42,9 +42,12 @@ Meteor.methods({
                         else
                         {
                             //historise
-                            Questions.update( {"_id" : question._id , "respondents._id" : respondent._id } ,
-                                {$addToSet : {"respondents.$.mails" : {'date' : new Date() ,'answerId':answerId }} } );
-
+                            //Questions.update( {"_id" : question._id , "respondents._id" : respondent._id } ,
+                            //    {$addToSet : {"respondents.$.mails" : {'date' : new Date() ,'answerId':answerId }} } );
+                            Questions.update( {"_id" : question._id } ,
+                                {$addToSet : {"mails" : {'respondentId':respondent._id, 'date' : new Date() ,'answerId':answerId }} } );
+                            //Questions.update( {"_id" : question._id } ,
+                            //    {$set : {"mails" : {'respondentId':respondent._id, 'date' : new Date() ,'answerId':answerId }} } );
                         }
                     });
                 }

@@ -10,13 +10,17 @@
             <div class="form-group">
 
                 <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li role="presentation" class="active"><a data-toggle="tab" href="#tabAnswer">Your answer</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabAllAnswers">Results</a></li>
+                    <li role="presentation" class="active"><a data-toggle="tab"  href="#tabAllAnswers">Results</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#tabAnswer">Your answer</a></li>
                 </ul>
 
                 <div class="tab-content">
 
-                    <div id="tabAnswer" class="tab-pane active">
+                    <div id="tabAllAnswers" class="tab-pane active">
+                            <nvd3 options="options" data="data"></nvd3>
+                    </div>
+
+                    <div id="tabAnswer" class="tab-pane">
 
                         <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
                             <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
@@ -24,8 +28,6 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div id="tabAllAnswers" class="tab-pane active">
                     </div>
 
                 </div>
