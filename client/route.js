@@ -48,6 +48,7 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
                 controller: 'QuestionViewCtrl',
                 resolve: {
                     "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
+                        //return true; // TODO enlever cela
                         return $meteor.call('isAuthorized',  $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId)
                     }]
                 }

@@ -1,5 +1,5 @@
-angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$stateParams', '$meteor','$location',
-    function ($scope, $stateParams,$meteor,$location) {
+angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
+    function ($scope, $stateParams,$meteor,$location,Notification) {
 
         $meteor.subscribe('Questions');
 
@@ -8,7 +8,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
         $scope.answerId = $stateParams.answerId;
 
         $scope.question = $meteor.object(Questions, $stateParams.questionId, false);
-        //Session.set('question',$scope.question);
+       // Session.set('question',$scope.question);
 
         $scope.options = {
             chart: {
@@ -30,9 +30,9 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
             }
         };
 
-        Tracker.autorun(function() {
-            //alert(Session.get('question'));
-        });
+        //Tracker.autorun(function() {
+        //    alert(Session.get('question'));
+        //});
 
         //var calcAnswers = [];
         //_.each($scope.question.answers, function(answer) {
@@ -53,7 +53,16 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
             }
         ];
 
-
+        $scope.isSelectedByMe = function (id, respondentId) {
+            debugger;
+            _.each($scope.question.answers, function(answer) {
+                var me = _.findWhere(answer.selectedBy, {respondentId: respondentId});
+                if (me) {
+                    return true;
+                }
+            });
+            return false;
+        };
 
         $scope.vote = function(id) {
 
@@ -63,13 +72,45 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
             var selAnswer = _.findWhere($scope.question.answers, {_id: id})
             selAnswer.selected=true;
 
-            var curRespondent = _.findWhere($scope.question.respondents, {_id: $scope.respondentId});
-
-            if (!curRespondent.answers) {
-                curRespondent["answers"] = [];
+            if (!selAnswer.selectedBy) {
+                selAnswer["selectedBy"] = [];
             }
-            curRespondent.answers.length=0;
-            curRespondent.answers.push(selAnswer);
+
+            //var curRespondent = _.findWhere($scope.question.respondents, {_id: $scope.respondentId});
+            selAnswer.selectedBy.push($scope.respondentId);
+
+            Meteor.call('selectedAnswer', $scope.questionId,$scope.respondentId,$scope.answerId, id  ,function(err,id) {
+
+                if(err){
+                    Notification.Error('An error has occurred');
+                    console.log(err);
+                    return;
+                }
+                Notification.success('Changes saved successfully');
+
+            });
+
+
+            //Meteor.call('selectAnswer',  angular.copy($scope.question),function(err,id) {
+            //
+            //    if(err){
+            //        Notification.Error('An error has occurred');
+            //        console.log(err);
+            //        return;
+            //    }
+            //
+            //    if($stateParams.id && $stateParams.id==="new") {
+            //        Notification.success('Question added successfully');
+            //        $location.path("/question/" + id);
+            //    }
+            //    else {
+            //        Notification.success('Changes saved successfully');
+            //    }
+            //
+            //});
+
+
+
         }
     }]
 );
