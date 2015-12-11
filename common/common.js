@@ -13,6 +13,11 @@ throwError = function(error, reason, details) {
 
 Meteor.methods({
 
+    getAnswerByUser: function (questionId, idUser) {
+
+        var question = Questions.findOne({"_id" : questionId,"answers._id" : respondentId, "mails.answerId" : answerId });
+
+    },
     saveQuestion: function (question) {
 
         if (!question._id) {
@@ -61,24 +66,30 @@ Meteor.methods({
 
         var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
         if(question) {
-            var selAnswer = _.findWhere(question.answers, {_id: selectedAnswerId});
+
+            var respondent = _.findWhere(question.respondents, {_id: respondentId});
+
+
+            //var selAnswer = _.findWhere(question.answers, {_id: selectedAnswerId});
 
             if (Meteor.isClient) {
-                selAnswer.selected = true;
+                //selAnswer.selected = true;
             }
             else if (Meteor.isServer) {
 
-                if (!selAnswer.selectedBy) {
-                    selAnswer["selectedBy"] = [];
-                }
+               // if (!respondent.answers) {
+              //      respondent["answers"] = [];
+               // }
 
                 //var curRespondent = _.findWhere($scope.question.respondents, {_id: $scope.respondentId});
-                selAnswer.selectedBy.push(respondentId);
+                //respondent.answers.push(answerId);
 
                 Questions.update(
-                    {"_id": question._id, "answers._id": selectedAnswerId},
                     {
-                        $addToSet: {"answers.$.selectedBy": {"respondentId" : respondentId}}
+                        "_id": question._id, "respondents._id": respondentId
+                    },
+                    {
+                        $addToSet: {"respondents.$.answers": selectedAnswerId}
                     }
                 )
             }

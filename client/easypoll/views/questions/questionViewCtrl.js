@@ -64,22 +64,15 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
             return false;
         };
 
-        $scope.vote = function(id) {
+        $scope.vote = function(answer) {
 
             _.each($scope.question.answers, function(answer) {
                 answer.selected=false;
             });
-            var selAnswer = _.findWhere($scope.question.answers, {_id: id})
-            selAnswer.selected=true;
 
-            if (!selAnswer.selectedBy) {
-                selAnswer["selectedBy"] = [];
-            }
+            answer.selected=true;
 
-            //var curRespondent = _.findWhere($scope.question.respondents, {_id: $scope.respondentId});
-            selAnswer.selectedBy.push($scope.respondentId);
-
-            Meteor.call('selectedAnswer', $scope.questionId,$scope.respondentId,$scope.answerId, id  ,function(err,id) {
+            Meteor.call('selectedAnswer', $scope.questionId,$scope.respondentId,$scope.answerId, answer._id  ,function(err,id) {
 
                 if(err){
                     Notification.Error('An error has occurred');
