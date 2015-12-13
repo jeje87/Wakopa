@@ -1,7 +1,7 @@
 angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
     function ($scope, $stateParams,$meteor,$location,Notification) {
 
-        $meteor.subscribe('Questions');
+        $meteor.subscribe('QuestionsLight');
 
         $scope.questionId = $stateParams.questionId;
         $scope.respondentId = $stateParams.respondentId;
@@ -30,41 +30,23 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
             }
         };
 
-        //Tracker.autorun(function() {
-        //    alert(Session.get('question'));
-        //});
+        $scope.getResults = function () {
+            Meteor.call('getResults', $scope.questionId  ,function(err,data) {
 
-        //var calcAnswers = [];
-        //_.each($scope.question.answers, function(answer) {
-        //    calcAnswers.push({
-        //        key: answer.label,
-        //        y: 5
-        //    });
-        //});
-        //
-        $scope.data = [
-            {
-                key: "Yes",
-                y: 5
-            },
-            {
-                key: "No",
-                y: 2
-            }
-        ];
-
-        $scope.isSelectedByMe = function (id, respondentId) {
-            debugger;
-            _.each($scope.question.answers, function(answer) {
-                var me = _.findWhere(answer.selectedBy, {respondentId: respondentId});
-                if (me) {
-                    return true;
+                if(err){
+                    Notification.Error('An error has occurred');
+                    console.log(err);
+                    return;
                 }
+                $scope.data=data;
+
             });
-            return false;
         };
 
         $scope.vote = function(answer) {
+
+            debugger;
+
 
             _.each($scope.question.answers, function(answer) {
                 answer.selected=false;
@@ -83,28 +65,13 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
             });
 
-
-            //Meteor.call('selectAnswer',  angular.copy($scope.question),function(err,id) {
-            //
-            //    if(err){
-            //        Notification.Error('An error has occurred');
-            //        console.log(err);
-            //        return;
-            //    }
-            //
-            //    if($stateParams.id && $stateParams.id==="new") {
-            //        Notification.success('Question added successfully');
-            //        $location.path("/question/" + id);
-            //    }
-            //    else {
-            //        Notification.success('Changes saved successfully');
-            //    }
-            //
-            //});
-
-
-
         }
+
+        Tracker.autorun(function () {
+            $scope.getResults();
+        });
+
+
     }]
 );
 

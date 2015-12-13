@@ -13,11 +13,6 @@ throwError = function(error, reason, details) {
 
 Meteor.methods({
 
-    getAnswerByUser: function (questionId, idUser) {
-
-        var question = Questions.findOne({"_id" : questionId,"answers._id" : respondentId, "mails.answerId" : answerId });
-
-    },
     saveQuestion: function (question) {
 
         if (!question._id) {
@@ -62,28 +57,56 @@ Meteor.methods({
         }
 
     },
+    getResults: function (questionId) {
+
+        var question = Questions.findOne({"_id" : questionId});
+
+        var data=[];
+
+        question.answers.forEach(function(answer) {
+            data.push(
+                {
+                    "_id" : answer._id,
+                    "key" : answer.label,
+                    "y" : 0
+                }
+            );
+        });
+
+        question.respondents.forEach(function(respondent) {
+            respondent.answers.forEach(function(_id) {
+                var findAnswer = _.findWhere(data, {"_id": _id});
+                if(findAnswer) {
+                    findAnswer.y += 1;
+                }
+            });
+        });
+
+        return data;
+
+    },
     selectedAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
 
         var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
         if(question) {
 
-            var respondent = _.findWhere(question.respondents, {_id: respondentId});
-
-
-            //var selAnswer = _.findWhere(question.answers, {_id: selectedAnswerId});
-
             if (Meteor.isClient) {
-                //selAnswer.selected = true;
+
             }
             else if (Meteor.isServer) {
 
-               // if (!respondent.answers) {
-              //      respondent["answers"] = [];
-               // }
+                //supprime les réponses existantes
+                Questions.update(
+                    {
+                        "_id": question._id, "respondents._id": respondentId
+                    },
+                    {
+                        $set : {'respondents.$.answers': [] }
+                    }
+                );
 
-                //var curRespondent = _.findWhere($scope.question.respondents, {_id: $scope.respondentId});
-                //respondent.answers.push(answerId);
-
+                //si le tableau answers n'existe pas, il est créé
+                //prévu pour les reponses multiples
                 Questions.update(
                     {
                         "_id": question._id, "respondents._id": respondentId
@@ -91,7 +114,7 @@ Meteor.methods({
                     {
                         $addToSet: {"respondents.$.answers": selectedAnswerId}
                     }
-                )
+                );
             }
 
             return true;
