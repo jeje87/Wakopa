@@ -1,6 +1,7 @@
 angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
     function ($scope, $stateParams,$meteor,$location,Notification) {
 
+        //on ne renvoit pas toutes les infos
         $meteor.subscribe('QuestionsLight');
 
         $scope.questionId = $stateParams.questionId;
@@ -44,9 +45,6 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
         };
 
         $scope.vote = function(answer) {
-
-            debugger;
-
 
             _.each($scope.question.answers, function(answer) {
                 answer.selected=false;
