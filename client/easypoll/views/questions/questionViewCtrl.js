@@ -39,8 +39,8 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                     console.log(err);
                     return;
                 }
-                console.log("data changed");
                 $scope.data=data;
+                $scope.api.updateWithData($scope.data);
 
             });
         };
