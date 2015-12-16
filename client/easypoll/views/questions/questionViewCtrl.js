@@ -7,7 +7,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
         $scope.questionId = $stateParams.questionId;
         $scope.respondentId = $stateParams.respondentId;
         $scope.answerId = $stateParams.answerId;
-
+        $scope.data=[{key:"wait", y:100}];
         $scope.question = $meteor.object(Questions, $stateParams.questionId, false);
        // Session.set('question',$scope.question);
 
@@ -18,7 +18,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                 x: function(d){return d.key;},
                 y: function(d){return d.y;},
                 showLabels: true,
-                transitionDuration: 500,
+                transitionDuration: 2000,
                 labelThreshold: 0.01,
                 legend: {
                     margin: {
@@ -39,6 +39,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                     console.log(err);
                     return;
                 }
+                console.log("data changed");
                 $scope.data=data;
 
             });
@@ -63,12 +64,17 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
             });
 
-        }
+        };
 
         Tracker.autorun(function () {
             $scope.getResults();
+           // Notification.success('Changes detected');
         });
 
+        //$scope.$watch('question', function() {
+        //    console.log("changed");
+        //    //Notification.success('Changes detected');
+        //});
 
     }]
 );

@@ -101,7 +101,7 @@ Meteor.methods({
             }
             else if (Meteor.isServer) {
 
-                //supprime les réponses existantes
+                //supprime les réponses existantes pour cet utilisateur
                 Questions.update(
                     {
                         "_id": question._id, "respondents._id": respondentId
