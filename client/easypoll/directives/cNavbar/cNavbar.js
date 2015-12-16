@@ -5,6 +5,7 @@ angular.module('easypoll')
             restrict : 'AE',
             scope : {
                 brand : '=',
+                username : '=',
                 buttons : '=',
                 navfn : '&'
             },

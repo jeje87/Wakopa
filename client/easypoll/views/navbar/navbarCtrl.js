@@ -7,7 +7,6 @@ angular.module('easypoll')
 
         $scope.buttons = [];
 
-
         $scope.navfn = function(action){
             switch(action){
                 case 'signOut':
@@ -36,6 +35,7 @@ angular.module('easypoll')
                     buttonClass:"btn btn-primary navbar-button"
                 }
             );
+            $scope.username = "";
         });
 
         $scope.$on('login', function (event) {
@@ -48,6 +48,9 @@ angular.module('easypoll')
                     buttonClass:" btn btn-default navbar-button"
                 }
             );
+            if(Meteor.user() && Meteor.user().profile) {
+                $scope.username = Meteor.user().profile.name;
+            }
         });
 
 
