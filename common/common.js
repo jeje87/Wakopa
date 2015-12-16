@@ -61,25 +61,21 @@ Meteor.methods({
 
         var question = Questions.findOne({"_id": questionId});
 
-        var data = [];
+        var data = {"_ids":[],"labels":[],"values":[]};
 
         if (Meteor.isServer) {
             question.answers.forEach(function (answer) {
-                data.push(
-                    {
-                        "_id": answer._id,
-                        "key": answer.label,
-                        "y": 0
-                    }
-                );
+                data._ids.push(answer._id);
+                data.labels.push(answer.label);
+                data.values.push(0);
             });
 
             question.respondents.forEach(function (respondent) {
                 if (respondent.answers) {
                     respondent.answers.forEach(function (_id) {
-                        var findAnswer = _.findWhere(data, {"_id": _id});
-                        if (findAnswer) {
-                            findAnswer.y += 1;
+                        var findId = data._ids.indexOf(_id);
+                        if (findId!==-1) {
+                            data.values[findId]+=1;
                         }
                     });
                 }

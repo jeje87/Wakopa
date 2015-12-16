@@ -7,29 +7,11 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
         $scope.questionId = $stateParams.questionId;
         $scope.respondentId = $stateParams.respondentId;
         $scope.answerId = $stateParams.answerId;
-        $scope.data=[{key:"wait", y:100}];
+        $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+        $scope.data = [300, 500, 100, 40, 120];
         $scope.question = $meteor.object(Questions, $stateParams.questionId, false);
        // Session.set('question',$scope.question);
 
-        $scope.options = {
-            chart: {
-                type: 'pieChart',
-                height: 400,
-                x: function(d){return d.key;},
-                y: function(d){return d.y;},
-                showLabels: true,
-                transitionDuration: 2000,
-                labelThreshold: 0.01,
-                legend: {
-                    margin: {
-                        top: 5,
-                        right: 35,
-                        bottom: 5,
-                        left: 0
-                    }
-                }
-            }
-        };
 
         $scope.getResults = function () {
             Meteor.call('getResults', $scope.questionId  ,function(err,data) {
@@ -39,8 +21,8 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                     console.log(err);
                     return;
                 }
-                $scope.data=data;
-                $scope.api.updateWithData($scope.data);
+                $scope.labels = data.labels;
+                $scope.data = data.values;
 
             });
         };
@@ -68,7 +50,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
         Tracker.autorun(function () {
             $scope.getResults();
-           // Notification.success('Changes detected');
+            //Notification.success('Changes detected');
         });
 
         //$scope.$watch('question', function() {

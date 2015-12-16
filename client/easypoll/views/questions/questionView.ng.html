@@ -17,7 +17,9 @@
                 <div class="tab-content">
 
                     <div id="tabAllAnswers" class="tab-pane active">
-                       <nvd3 options="options" data="data" api="api" config="{refreshDataOnly: true, deepWatchData: true}" objectEquality="true"></nvd3>
+                        <canvas id="pie" class="chart chart-pie"
+                                chart-data="data" chart-labels="labels">
+                        </canvas>
                     </div>
 
                     <div id="tabAnswer" class="tab-pane">
