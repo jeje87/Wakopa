@@ -87,6 +87,24 @@ Meteor.methods({
 
 
     },
+    getAnswerUser: function (questionId,respondentId,answerId) {
+
+        var ret=null;
+        var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
+        if(question) {
+
+             question.respondents.forEach(function (respondent) {
+                if (respondent._id==respondentId) {
+                    ret=respondent;
+                    return;
+                }
+            });
+
+
+        }
+        return ret;
+
+    },
     selectedAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
 
         var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });

@@ -7,11 +7,32 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
         $scope.questionId = $stateParams.questionId;
         $scope.respondentId = $stateParams.respondentId;
         $scope.answerId = $stateParams.answerId;
-        $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
-        $scope.data = [300, 500, 100, 40, 120];
+        //$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
+        //$scope.data = [300, 500, 100, 40, 120];
         $scope.question = $meteor.object(Questions, $stateParams.questionId, false);
        // Session.set('question',$scope.question);
 
+        $scope.getAnswerUser = function () {
+            Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
+
+                if(err){
+                    Notification.Error('An error has occurred');
+                    console.log(err);
+                    return;
+                }
+
+                console.log( data);
+
+                if(data) {
+                    $scope.user = {};
+                    $scope.user.to = data.email;
+                }
+
+
+            });
+        };
+
+        $scope.getAnswerUser();
 
         $scope.getResults = function () {
             Meteor.call('getResults', $scope.questionId  ,function(err,data) {
