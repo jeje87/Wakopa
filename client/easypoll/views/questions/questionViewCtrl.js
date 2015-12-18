@@ -1,18 +1,18 @@
 angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
     function ($scope, $stateParams,$meteor,$location,Notification) {
 
-        //on ne renvoit pas toutes les infos
-        $meteor.subscribe('QuestionsLight');
+        $meteor.subscribe('QuestionsLight');  //on ne renvoit pas toutes les infos
 
         $scope.questionId = $stateParams.questionId;
         $scope.respondentId = $stateParams.respondentId;
         $scope.answerId = $stateParams.answerId;
-        //$scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales", "Tele Sales", "Corporate Sales"];
-        //$scope.data = [300, 500, 100, 40, 120];
         $scope.question = $meteor.object(Questions, $stateParams.questionId, false);
+
        // Session.set('question',$scope.question);
 
-        $scope.getAnswerUser = function () {
+
+
+        var getAnswerUser = function () {
             Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
 
                 if(err){
@@ -28,13 +28,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                     $scope.user.to = data.email;
                 }
 
-
             });
         };
 
-        $scope.getAnswerUser();
-
-        $scope.getResults = function () {
+        var getResults = function () {
             Meteor.call('getResults', $scope.questionId  ,function(err,data) {
 
                 if(err){
@@ -69,15 +66,28 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
         };
 
-        Tracker.autorun(function () {
-            $scope.getResults();
-            //Notification.success('Changes detected');
-        });
 
         //$scope.$watch('question', function() {
         //    console.log("changed");
-        //    //Notification.success('Changes detected');
+        //
         //});
+
+        var init = function () {
+
+            getAnswerUser();
+
+            Tracker.autorun(function () {
+
+                getResults();
+                Notification.success('Changes detected');
+
+            });
+        };
+
+        init();
+
+
+
 
     }]
 );

@@ -2,9 +2,9 @@
     <div class="panel panel-default">
 
         <div class="panel-heading">
-            <span><h3>{{question.label}}</h3></span>
-            <span><h4>{{user.from}}</h4></span>
-            <span><h4>{{user.to}}</h4></span>
+            <span><h4>{{question.label}}</h4></span>
+            <span><h5>{{user.from}}</h5></span>
+            <span><h5>{{user.to}}</h5></span>
         </div>
 
         <div class="panel-body">
@@ -20,7 +20,7 @@
 
                     <div id="tabAllAnswers" class="tab-pane active">
                         <canvas id="pie" class="chart chart-pie"
-                                chart-data="data" chart-labels="labels">
+                                chart-data="data" chart-labels="labels" chart-legend="true">
                         </canvas>
                     </div>
 
