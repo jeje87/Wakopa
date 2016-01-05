@@ -66,7 +66,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
         };
 
-
+        //http://localhost:3000/question/view/qXmKcfyHNWpy3ZwD5/sZ2zmuKpLxwxw7vA3/Zt5PMDMGhReZ5zvBb#tabAllAnswers
         //$scope.$watch('question', function() {
         //    console.log("changed");
         //
@@ -74,14 +74,14 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
         var init = function () {
 
-            getAnswerUser();
+            /*getAnswerUser();
 
             Tracker.autorun(function () {
 
                 getResults();
                 Notification.success('Changes detected');
 
-            });
+            });*/
         };
 
         init();
