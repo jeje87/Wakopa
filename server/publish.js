@@ -6,8 +6,8 @@ Meteor.publish('Questions', function(){
     return Questions.find({"userId":this.userId, "deleteDate": { $exists: false}});
 });
 
-Meteor.publish('QuestionsLight', function() {
-    return Questions.find({"userId":this.userId, "deleteDate": { $exists: false}},{fields: {mails:0}});
+Meteor.publish('QuestionsView', function() {
+    return Questions.find({"deleteDate": { $exists: false}},{fields: {mails:0}});
 });
 
 var configureFacebook = function() {

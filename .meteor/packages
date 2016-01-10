@@ -4,7 +4,6 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 meteor
 angularui:angular-ui-router
 accounts-password
@@ -13,6 +12,20 @@ accounts-google
 twbs:bootstrap
 mquandalle:bower
 gfk:mailgun-api
-angular
 accounts-ui
 service-configuration
+standard-minifiers
+meteor-base
+mobile-experience
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+es5-shim
+angular@1.3.1
+mongo

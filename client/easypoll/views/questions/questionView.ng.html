@@ -19,13 +19,13 @@
                 <div class="tab-content">
 
                     <div id="tabAllAnswers" class="tab-pane active">
-                        <canvas id="pie" class="chart chart-pie"
-                                chart-data="data" chart-labels="labels" chart-legend="true">
+                        <span><h5>{{results.info}}</h5></span>
+                        <canvas id="pie1" class="chart chart-pie"
+                                chart-data="results.data" chart-labels="results.labels" chart-legend="true">
                         </canvas>
                     </div>
 
                     <div id="tabAnswer" class="tab-pane">
-                        <span><h5>{{question.answers.length}}</h5></span>
                         <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
                             <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
                                 <button tabindex="-1" ng-click="vote(answer)" type="button" ng-class="answer.selected ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
