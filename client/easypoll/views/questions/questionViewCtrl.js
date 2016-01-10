@@ -16,6 +16,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                 if(data) {
                     $scope.user = {};
                     $scope.user.to = data.email;
+                    $scope.user.answers = data.answers;
                 }
 
             });
@@ -34,7 +35,6 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                 $scope.safeApply(function () {
                     $scope.results.labels = data.labels;
                     $scope.results.data = data.values;
-                    $scope.results.info = data.values;
                 });
 
             });
@@ -43,13 +43,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
         //action du vote
         $scope.vote = function(answer) {
 
-            /*_.each($scope.question.answers, function(answer) {
-                answer.selected=false;
-            });
+            $scope.user.answers.length = 0;
+            $scope.user.answers.push(answer._id);
 
-            answer.selected=true;
-            */
-            Meteor.call('selectedAnswer', $stateParams.questionId,$stateParams.respondentId,$stateParams.answerId, answer._id  ,function(err,id) {
+            Meteor.call('selecteAnswer', $stateParams.questionId,$stateParams.respondentId,$stateParams.answerId, answer._id  ,function(err,data) {
 
                 if(err){
                     Notification.Error('An error has occurred');
@@ -59,6 +56,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
                 Notification.success('Changes saved successfully');
 
             });
+        };
+
+        $scope.selectedByMe = function(answer) {
+            return _.contains($scope.user.answers, answer._id);
         };
 
         //Pour question de sécurité, on ne renvoit pas toutes les infos -> QuestionsView et non Questions

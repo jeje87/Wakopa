@@ -105,7 +105,7 @@ Meteor.methods({
         return ret;
 
     },
-    selectedAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
+    selecteAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
 
         var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
         if(question) {
