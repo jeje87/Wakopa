@@ -1,5 +1,4 @@
-angular.module("easypoll").controller("QuestionListCtrl", ['$scope', '$stateParams', '$meteor','$location',
-    function ($scope, $stateParams,$meteor,$location) {
+angular.module("easypoll").controller("QuestionListCtrl", function ($scope, $stateParams,$meteor,$location) {
 
         $scope.nbLine=10;
         $meteor.subscribe('Questions');
@@ -21,5 +20,6 @@ angular.module("easypoll").controller("QuestionListCtrl", ['$scope', '$statePara
 
         getQuestions();
 
-    }]);
+    }
+);
 

@@ -1,5 +1,4 @@
-angular.module("easypoll").controller("QuestionCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
-    function ($scope, $stateParams,$meteor,$location,Notification) {
+angular.module("easypoll").controller("QuestionCtrl", function ($scope, $stateParams,$meteor,$location,Notification) {
 
         $scope.pageClass = 'page-home';
         $meteor.subscribe('Questions');
@@ -86,5 +85,6 @@ angular.module("easypoll").controller("QuestionCtrl", ['$scope', '$stateParams',
             $scope.addAnswer("");
         }
 
-    }]);
+    }
+);
 

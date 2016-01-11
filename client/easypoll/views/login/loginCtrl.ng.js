@@ -1,5 +1,4 @@
-angular.module("easypoll").controller("LoginCtrl", ['$scope','$rootScope', '$stateParams', '$meteor','$location','$alert',
-    function ($scope, $rootScope, $stateParams,$meteor,$location,$alert) {
+angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope, $stateParams,$meteor,$location,$alert) {
 
         $scope.login = function() {
             Meteor.loginWithPassword($scope.form.email,$scope.form.password,function(err){
@@ -35,5 +34,5 @@ angular.module("easypoll").controller("LoginCtrl", ['$scope','$rootScope', '$sta
         }
 
 
-    }]
+    }
 );

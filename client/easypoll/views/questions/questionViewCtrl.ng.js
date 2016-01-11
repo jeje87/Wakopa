@@ -1,5 +1,4 @@
-angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$stateParams', '$meteor','$location','Notification',
-    function ($scope, $stateParams,$meteor,$location,Notification) {
+angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $stateParams,$meteor,$location,Notification) {
 
         $scope.results = {};
 
@@ -85,6 +84,6 @@ angular.module("easypoll").controller("QuestionViewCtrl", ['$scope', '$statePara
 
         //http://localhost:3000/question/view/qXmKcfyHNWpy3ZwD5/sZ2zmuKpLxwxw7vA3/Zt5PMDMGhReZ5zvBb#tabAllAnswers
 
-    }]
+    }
 );
 

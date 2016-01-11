@@ -1,5 +1,4 @@
-angular.module("easypoll").controller("RegisterCtrl", ['$scope', '$rootScope', '$location',
-    function ($scope, $rootScope ,$location) {
+angular.module("easypoll").controller("RegisterCtrl", function ($scope, $rootScope ,$location) {
 
         $scope.cancel = function() {
             $location.path('/login');
@@ -17,5 +16,5 @@ angular.module("easypoll").controller("RegisterCtrl", ['$scope', '$rootScope', '
             });
         };
 
-    }]
+    }
 );

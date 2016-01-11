@@ -1,4 +1,4 @@
-angular.module("easypoll").run(["$rootScope", "$state", function($rootScope, $state) {
+angular.module("easypoll").run(function($rootScope, $state) {
     $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
 
         if (error === "AUTH_REQUIRED") {
@@ -13,28 +13,27 @@ angular.module("easypoll").run(["$rootScope", "$state", function($rootScope, $st
 
 
     });
-}]);
+});
 
 
-angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$locationProvider','NotificationProvider',
-    function ($urlRouterProvider, $stateProvider, $locationProvider,NotificationProvider) {
+angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, $locationProvider,NotificationProvider) {
 
         $locationProvider.html5Mode(true);
 
         $stateProvider
             .state('login', {
                 url: '/login',
-                templateUrl: 'client/easypoll/views/login/login.ng.html',
+                templateUrl: 'client/easypoll/views/login/login.html',
                 controller: 'LoginCtrl'
             })
             .state('register', {
                 url: '/register',
-                templateUrl: 'client/easypoll/views/login/register.ng.html',
+                templateUrl: 'client/easypoll/views/login/register.html',
                 controller: 'RegisterCtrl'
             })
             .state('question', {
                 url: '/question/:id',
-                templateUrl: 'client/easypoll/views/questions/question.ng.html',
+                templateUrl: 'client/easypoll/views/questions/question.html',
                 controller: 'QuestionCtrl',
                 resolve: {
                     "currentUser": ["$meteor", function ($meteor) {
@@ -44,7 +43,7 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
             })
             .state('questionView', {
                 url: '/question/view/:questionId/:respondentId/:answerId',
-                templateUrl: 'client/easypoll/views/questions/questionView.ng.html',
+                templateUrl: 'client/easypoll/views/questions/questionView.html',
                 controller: 'QuestionViewCtrl',
                 resolve: {
                     "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
@@ -54,7 +53,7 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
             })
             .state('questionList', {
                 url: '/questions',
-                templateUrl: 'client/easypoll/views/questions/questionList.ng.html',
+                templateUrl: 'client/easypoll/views/questions/questionList.html',
                 controller: 'QuestionListCtrl',
                 resolve: {
                     "currentUser": ["$meteor", function ($meteor) {
@@ -64,12 +63,12 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
             })
             .state('401', {
                 url: '/401',
-                templateUrl: 'client/easypoll/views/common/401.ng.html',
+                templateUrl: 'client/easypoll/views/common/401.html',
                 controller: '401Ctrl'
             })
             .state('error', {
                 url: '/error',
-                templateUrl: 'client/easypoll/views/common/error.ng.html',
+                templateUrl: 'client/easypoll/views/common/error.html',
                 controller: 'ErrorCtrl'
             });
 
@@ -84,6 +83,7 @@ angular.module('easypoll').config(['$urlRouterProvider', '$stateProvider', '$loc
             positionX: 'center',
             positionY: 'top'
         });
-    }]);
+    }
+);
 
 

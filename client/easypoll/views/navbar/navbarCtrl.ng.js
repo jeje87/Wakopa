@@ -1,6 +1,6 @@
 angular.module('easypoll')
 
-    .controller('navbarCtrl',['$scope','$state',function($scope,$state){
+    .controller('navbarCtrl', function($scope,$state){
 
 
         $scope.brand = "<span class='glyphicon glyphicon-question-sign'></span> EasyPoll";
@@ -61,5 +61,6 @@ angular.module('easypoll')
             $scope.$emit('logout');
         }
 
-    }]);
+    }
+    );
 
