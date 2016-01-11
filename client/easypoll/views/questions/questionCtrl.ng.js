@@ -1,5 +1,6 @@
 angular.module("easypoll").controller("QuestionCtrl", function ($scope, $stateParams,$meteor,$location,Notification) {
 
+        $scope.allowSave=false;
         $scope.pageClass = 'page-home';
         $meteor.subscribe('Questions');
 
@@ -61,18 +62,26 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
             $scope.question.respondents = _.without($scope.question.respondents, _.findWhere($scope.question.respondents, {_id: id}));
         };
 
-        $scope.send = function() {
-            Meteor.call('sendQuestion',  angular.copy($scope.question),function(err,id) {
+
+        var sendMail = (idRespondent) => {
+            Meteor.call('sendQuestion',  angular.copy($scope.question), idRespondent ,function(err,id) {
 
                 if(err){
                     Notification.error('An error has occurred');
                     console.log(err);
                     return;
                 }
-                console.log(id);
                 Notification.success('Question sended successfully');
 
             });
+        };
+
+        $scope.sendAll = function() {
+            sendMail();
+        };
+
+        $scope.sendTo = function(idRespondent) {
+            sendMail(idRespondent);
         };
 
         if($stateParams.id && $stateParams.id!=="new") {

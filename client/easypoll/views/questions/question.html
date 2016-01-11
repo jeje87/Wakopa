@@ -97,7 +97,8 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" ng-model="respondent.email" placeholder="insert an email here">
                                     <span class="input-group-btn">
-                                        <button ng-click="removeRespondent(respondent._id)" id="btnRemoveItem" type="button" class="btn btn-primary"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button ng-click="removeRespondent(respondent._id)" id="btnRemoveItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button ng-click="sendTo(respondent._id)" id="btnSendToItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>
                                     </span>
                                 </div>
                             </div>
@@ -110,7 +111,7 @@
 
                                 </div>
                                 <div class="col-xs-6 col-sm-3">
-                                    <button id="btnSend" type="button" ng-click="send()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Send</button>
+                                    <button id="btnSend" type="button" ng-click="sendAll()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Send to all</button>
                                 </div>
                             </div>
 
@@ -126,7 +127,7 @@
 
                 </div>
                 <div class="col-xs-6 col-sm-4">
-                    <button id="btnAdd" type="button" ng-click="save()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+                    <button id="btnAdd" type="button" ng-click="save()" class="btn btn-primary btn-block" ><span class="glyphicon glyphicon-floppy-disk"></span> Save</button> <!-- ng-disabled="!allowSave" -->
                 </div>
             </div>
         </div>
