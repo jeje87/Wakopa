@@ -17,6 +17,7 @@
                     <li role="presentation" class="active"><a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a></li>
                     <li role="presentation"><a data-toggle="tab"  href="#tabOptions">Options</a></li>
                     <li role="presentation"><a data-toggle="tab"  href="#tabInvite">Send</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabResults">Results</a></li>
                 </ul>
 
                 <div class="tab-content">
@@ -114,6 +115,14 @@
                                     <button id="btnSend" type="button" ng-click="sendAll()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Send to all</button>
                                 </div>
                             </div>
+
+                    </div>
+
+                    <div id="tabResults" class="tab-pane">
+
+                        <canvas id="pie1" class="chart chart-pie"
+                                chart-data="results.data" chart-labels="results.labels" chart-legend="true">
+                        </canvas>
 
                     </div>
 
