@@ -1,10 +1,18 @@
 angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $stateParams,$meteor,$location,Notification) {
 
+    //*********************************************************************************************
+    //************************************ Déclarations *******************************************
+    //*********************************************************************************************
+
     $scope.results = {};
     $scope.user = {};
 
+    //*********************************************************************************************
+    //********************************* Méthodes privées ******************************************
+    //*********************************************************************************************
+
     //renvoi la réponse de l'utilisateur connecté
-    var getAnswerUser = function () {
+    let getAnswerUser = function () {
         Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
 
             if(err){
@@ -23,7 +31,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     };
 
     //renvoi les résultats de la question affichée
-    var getResultsClient = function () {
+    let getResultsClient = function () {
         Meteor.call('getResults', $stateParams.questionId  ,function(err,data) {
 
             if(err){
@@ -39,6 +47,14 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
 
         });
     };
+
+    let init = function () {
+        getAnswerUser();
+    };
+
+    //*********************************************************************************************
+    //********************************* Méthodes publiques ****************************************
+    //*********************************************************************************************
 
     //action du vote
     $scope.vote = function(answer) {
@@ -77,9 +93,9 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         getResultsClient();
     });
 
-    var init = function () {
-        getAnswerUser();
-    };
+    //*********************************************************************************************
+    //********************************** Initialisation *******************************************
+    //*********************************************************************************************
 
     init();
 
