@@ -1,0 +1,6 @@
+
+https://github.com/a5hik/ng-sortable
+
+chart :
+http://jtblin.github.io/angular-chart.js/
+http://www.chartjs.org/docs/

@@ -1,0 +1,153 @@
+<form class="question-form">
+    <div class="panel panel-default">
+        <div class="panel-body">
+
+            <div class="form-group">
+                <button ng-if="question._id" id="btnAdd" type="button" class="btn btn-default pull-right" ng-click="delete()"><span class="glyphicon glyphicon-remove"></span> Delete</button>
+            </div>
+
+            <div class="form-group">
+                <label>Question:</label>
+                <textarea type="text" class="form-control" id="txtLabel" name="txtLabel" rows="2" placeholder="type your question here" ng-model="question.label"></textarea>
+            </div>
+
+            <div class="form-group">
+
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li role="presentation" class="active"><a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabRespondents">Respondents</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabOptions">Options</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabManage">Manage</a></li>
+                    <li role="presentation"><a data-toggle="tab"  href="#tabResults">Results</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="tabAnswer" class="tab-pane active">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="dropdown">
+                                        <button class="btn btn-default dropdown-toggle" type="button" id="dpdTypeQuestion" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Choose a template...
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dpdTypeQuestion">
+                                            <li ng-repeat="typeAnswer in typeAnswers" ng-click="dpdTypeSelect(typeAnswer)"><a id="{{typeAnswer.id}}" href="#">{{typeAnswer.label}}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-if="question.answers.length==0" class="form-group" >
+                            <div class="nothing text-center bg-info">
+                                <h5>
+                                    Click on
+                                    <br/><br/>
+                                    <button id="btnAddAnswer" type="button" ng-click="addAnswer()" class="btn btn-primary"><span class="glyphicon glyphicon-plus"></span> Add answer</button>
+                                    <br/><br/>
+                                    to add an answer
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
+                            <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
+                                <div class="input-group">
+                                    <span class="input-group-btn" as-sortable-item-handle>
+                                        <button tabindex="-1" ng-click="" id="btnRemoveItem" type="button" class="btn btn-default"><span tabindex="-1" class="glyphicon glyphicon glyphicon-th"></span></button>
+                                    </span>
+                                    <input type="text" class="form-control" ng-model="answer.label" placeholder="type your answer here" focus="true">
+                                    <span class="input-group-btn">
+                                        <button tabindex="-1" ng-click="removeAnswer(answer._id)" id="btnRemoveItem" type="button" class="btn btn-default"><span tabindex="-1" class="glyphicon glyphicon-remove"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4">
+                                    <button id="btnAddAnswer" type="button" ng-click="addAnswer()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-plus"></span> Add answer</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="Respondents" class="tab-pane">
+
+                            <div ng-if="question.respondents.length==0" class="form-group" >
+                                <div class="nothing text-center bg-info">
+                                    <h5>
+                                    Click on
+                                    <br/><br/>
+                                    <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Add email</button>
+                                    <br/><br/>
+                                    to add a respondent
+                                    </h5>
+                                </div>
+                            </div>
+
+                            <div class="form-group" ng-repeat="respondent in question.respondents">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" ng-model="respondent.email" placeholder="insert an email here">
+                                    <span class="input-group-btn">
+                                        <button ng-click="removeRespondent(respondent._id)" id="btnRemoveItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+                                        <button ng-click="sendTo(respondent._id)" id="btnSendToItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-3">
+                                    <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-user"></span> Add email</button>
+                                </div>
+                                <div class="col-xs-0 col-sm-6">
+
+                                </div>
+                                <div class="col-xs-6 col-sm-3">
+                                    <button id="btnSend" type="button" ng-click="sendAll()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Send to all</button>
+                                </div>
+                            </div>
+
+                    </div>
+
+
+                    <div id="tabOptions" class="tab-pane">
+                        <span>Auto-end at :</span>
+                        <br/><br/>
+                        <span>Respondents can add an answer ?</span>
+                    </div>
+
+                    <div id="tabManage" class="tab-pane">
+
+
+                    </div>
+
+                    <div id="tabResults" class="tab-pane">
+
+                        <canvas id="pie1" class="chart chart-pie"
+                                chart-data="results.data" chart-labels="results.labels" chart-legend="true">
+                        </canvas>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-4">
+                    <button id="btnCancel" type="submit" ng-click="back()" class="btn btn-default btn-block"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
+                </div>
+                <div class="col-xs-0 col-sm-4">
+
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <button id="btnAdd" type="button" ng-click="save()" class="btn btn-primary btn-block" ><span class="glyphicon glyphicon-floppy-disk"></span> Save</button> <!-- ng-disabled="!allowSave" -->
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

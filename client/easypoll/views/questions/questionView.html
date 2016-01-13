@@ -1,0 +1,42 @@
+<form class="question-form">
+    <div class="panel panel-default">
+
+        <div class="panel-heading">
+            <span><h4>{{question.label}}</h4></span>
+            <span><h5>{{user.from}}</h5></span>
+            <span><h5>{{user.to}}</h5></span>
+        </div>
+
+        <div class="panel-body">
+
+            <div class="form-group">
+
+                <ul class="nav nav-tabs" data-tabs="tabs">
+                    <li role="presentation" class="active"><a data-toggle="tab"  href="#tabAllAnswers">Results</a></li>
+                    <li role="presentation"><a data-toggle="tab" href="#tabAnswer">Your answer</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div id="tabAllAnswers" class="tab-pane active">
+                        <canvas id="pie1" class="chart chart-pie"
+                                chart-data="results.data" chart-labels="results.labels" chart-legend="true">
+                        </canvas>
+                    </div>
+
+                    <div id="tabAnswer" class="tab-pane">
+                        <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
+                            <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
+                                <button tabindex="-1" ng-click="vote(answer)" type="button" ng-class="selectedByMe(answer) ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
