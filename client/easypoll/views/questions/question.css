@@ -1,0 +1,13 @@
+.margin-top{
+    margin-top: 0px;
+}
+
+@media(max-width:767px){
+    .margin-top{
+        margin-top: 10px;
+    }
+}
+
+.question-form .tab-content {
+    background-color: white;
+}

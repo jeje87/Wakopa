@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form class="login-form">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group col-sm-12">
+                        <label>Email</label>
+                        <input type="email"  class="form-control" id="email" value="" ng-model="form.email">
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label>Password</label>
+                        <input type="password" name="" class="form-control" id="password" value="" ng-model="form.password">
+                    </div>
+                     <div class="form-group col-sm-12">
+                         <button type="submit" class="btn btn-primary btn-block" ng-click="login()">Login</button>
+                     </div>
+                    <div class="form-group col-xs-12 col-sm-offset-2 col-sm-4">
+                        <button  class="btn btn-link center-block" ng-click="register()">Create an account</button>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-4">
+                        <button  class="btn btn-link center-block" ng-click="forgetPassword()">Password forgotten</button>
+                    </div>
+                    <div class="form-group col-xs-12 col-sm-6 col-sm-offset-3">
+                            <button  class="btn btn-primary btn-block btn-facebook" ng-click="loginWithFacebook()">Connect with Facebook</button>
+                     </div>
+                    <div class="form-group col-xs-12 col-sm-6 col-sm-offset-3">
+                            <button  class="btn btn-primary btn-block btn-google" ng-click="loginWithGoogle()">Connect with Google</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
