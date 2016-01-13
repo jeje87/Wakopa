@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="JavaScriptLibraryMappings">
+<<<<<<< HEAD
     <file url="PROJECT" libraries="{meteor-packages-auto-import-browser}" />
+=======
+>>>>>>> f9e6ddf547fd098cfb676b05538b294c8adb4ff8
     <includedPredefinedLibrary name="ECMAScript 6" />
     <includedPredefinedLibrary name="Meteor project library" />
   </component>
