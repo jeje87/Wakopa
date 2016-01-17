@@ -17,6 +17,9 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     $scope.subscribe('Questions', () => [
     ]);
 
+    $scope.subscribe('Templates', () => [
+    ]);
+
     //*********************************************************************************************
     //********************************* Méthodes privées ******************************************
     //*********************************************************************************************
@@ -62,13 +65,14 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
                 }
             });
 
-            //var question = $meteor.object(Questions, $stateParams.id, false);
-            //$scope.question = {"_id":question._id,"label":question.label,answers:question.answers,respondents:question.respondents};
         }
         else {
-            $scope.question = {"label":"",answers:[],respondents:[]};
-            $scope.addAnswer("");
-            $scope.addAnswer("");
+
+            $scope.helpers({
+                question: () => {
+                    return Templates.findOne({"name":"question"});
+                }
+            });
 
             $scope.setActiveTab("Answers");
         }
@@ -81,7 +85,6 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     /* conservation tab active*/
     $scope.setActiveTab = function( activeTab ){
         localStorage.setItem("activeTab", activeTab);
-        console.log("setActiveTab");
     };
 
     $scope.getActiveTab = function(){

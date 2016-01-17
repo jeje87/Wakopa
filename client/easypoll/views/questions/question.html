@@ -43,7 +43,7 @@
 
                 <div class="tab-content">
 
-                    <div id="tabAnswer" class="tab-pane active">
+                    <div id="tabAnswer" class="tab-pane" ng-class="isActiveTab('Answers') ? 'active' : ''">
 
                         <div class="form-group">
                             <div class="row">
@@ -97,7 +97,7 @@
 
                     </div>
 
-                    <div id="tabRespondents" class="tab-pane">
+                    <div id="tabRespondents" class="tab-pane" ng-class="isActiveTab('Respondents') ? 'active' : ''">
 
                             <div ng-if="question.respondents.length==0" class="form-group" >
                                 <div class="nothing text-center bg-info">
@@ -136,18 +136,18 @@
                     </div>
 
 
-                    <div id="tabOptions" class="tab-pane">
+                    <div id="tabOptions" class="tab-pane" ng-class="isActiveTab('Options') ? 'active' : ''">
                         <span>Auto-end at :</span>
                         <br/><br/>
                         <span>Respondents can add an answer ?</span>
                     </div>
 
-                    <div id="tabManage" class="tab-pane">
+                    <div id="tabManage" class="tab-pane" ng-class="isActiveTab('Manage') ? 'active' : ''">
 
 
                     </div>
 
-                    <div id="tabResults" class="tab-pane">
+                    <div id="tabResults" class="tab-pane" ng-class="isActiveTab('Results') ? 'active' : ''">
 
                         <canvas id="pie1" class="chart chart-pie"
                                 chart-data="results.data" chart-labels="results.labels" chart-legend="true">

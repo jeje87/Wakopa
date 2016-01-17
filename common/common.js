@@ -15,7 +15,9 @@ Meteor.methods({
 
     saveQuestion: function (question) {
 
-        if (!question._id) {
+        if (question._id === "-1") {
+
+            delete question._id; //pour utiliser un id auto
 
             if (Meteor.isServer) {
                 question.createDate = new Date();

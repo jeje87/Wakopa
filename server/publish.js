@@ -2,6 +2,10 @@ Meteor.publish('Subjects', function(userId){
     return Subjects.find({userId:userId});
 });
 
+Meteor.publish('Templates', function(){
+    return Templates.find({"deleteDate": { $exists: false}});
+});
+
 Meteor.publish('Questions', function(){
     return Questions.find({"userId":this.userId, "deleteDate": { $exists: false}});
 });
