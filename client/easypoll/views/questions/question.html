@@ -12,16 +12,16 @@
             </div>
 
             <div class="form-group">
-
-                <ul class="nav nav-tabs" data-tabs="tabs">
+                <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">{{getActiveTab}}</a>
+                <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal" data-tabs="tabs">
                     <li role="presentation"
                         ng-class="isActiveTab('Answers') ? 'active' : ''"
-                        ng-click="setActiveTab('Answers')">
+                        ng-click="setActiveTab('Answers',this)">
                         <a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a>
                     </li>
                     <li role="presentation"
                         ng-class="isActiveTab('Respondents') ? 'active' : ''"
-                        ng-click="setActiveTab('Respondents')">
+                        ng-click="setActiveTab('Respondents',this)">
                         <a data-toggle="tab"  href="#tabRespondents">Respondents</a>
                     </li>
                     <li role="presentation"

@@ -7,6 +7,7 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     //$scope.allowSave=false;
     //$scope.pageClass = 'page-home';
     $scope.results = {};
+    $scope.navSelectedName="";
 
     $scope.subscribe('Questions', () => [
     ]);
@@ -76,6 +77,31 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
                 return Templates.findOne({"name":"templateAnswers"});
             }
         });
+
+        $(function() {
+
+            //$('.nav-tabs-dropdown').each(function(i, elm) {
+            //
+            //    $(elm).text($(elm).next('ul').find('li.active a').text());
+            //
+            //});
+            //http://bootsnipp.com/snippets/featured/nav-tabs-dropdown
+            $('.nav-tabs-dropdown').on('click', function(e) {
+
+                e.preventDefault();
+
+                $(e.target).toggleClass('open').next('ul').slideToggle();
+
+            });
+
+            $('#nav-tabs-wrapper a[data-toggle="tab"]').on('click', function(e) {
+
+                e.preventDefault();
+
+                $(e.target).closest('ul').hide().prev('a').removeClass('open').text($(this).text());
+
+            });
+        });
     };
 
     //*********************************************************************************************
@@ -83,9 +109,9 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     //*********************************************************************************************
 
     /* conservation tab active*/
-    $scope.setActiveTab = function( activeTab ){
+    $scope.setActiveTab = function( activeTab, elem ){
         localStorage.setItem("activeTab", activeTab);
-    };
+     };
 
     $scope.getActiveTab = function(){
         return localStorage.getItem("activeTab");
@@ -117,7 +143,7 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
 
         });
 
-    }
+    };
 
     $scope.delete = function() {
         $scope.question.deleteDate=new Date();
@@ -169,8 +195,6 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     //*********************************************************************************************
 
     init();
-
-
 
     }
 );
