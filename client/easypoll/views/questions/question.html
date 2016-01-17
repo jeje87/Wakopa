@@ -14,11 +14,31 @@
             <div class="form-group">
 
                 <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li role="presentation" class="active"><a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabRespondents">Respondents</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabOptions">Options</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabManage">Manage</a></li>
-                    <li role="presentation"><a data-toggle="tab"  href="#tabResults">Results</a></li>
+                    <li role="presentation"
+                        ng-class="isActiveTab('Answers') ? 'active' : ''"
+                        ng-click="setActiveTab('Answers')">
+                        <a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a>
+                    </li>
+                    <li role="presentation"
+                        ng-class="isActiveTab('Respondents') ? 'active' : ''"
+                        ng-click="setActiveTab('Respondents')">
+                        <a data-toggle="tab"  href="#tabRespondents">Respondents</a>
+                    </li>
+                    <li role="presentation"
+                        ng-class="isActiveTab('Options') ? 'active' : ''"
+                        ng-click="setActiveTab('Options')">
+                        <a data-toggle="tab"  href="#tabOptions">Options</a>
+                    </li>
+                    <li role="presentation"
+                        ng-class="isActiveTab('Manage') ? 'active' : ''"
+                        ng-click="setActiveTab('Manage')">
+                        <a data-toggle="tab"  href="#tabManage">Manage</a>
+                    </li>
+                    <li role="presentation"
+                        ng-class="isActiveTab('Results') ? 'active' : ''"
+                        ng-click="setActiveTab('Results')">
+                        <a data-toggle="tab"  href="#tabResults">Results</a>
+                    </li>
                 </ul>
 
                 <div class="tab-content">

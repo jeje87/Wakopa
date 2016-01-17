@@ -7,6 +7,7 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     $scope.allowSave=false;
     $scope.pageClass = 'page-home';
     $scope.results = {};
+    //test
 
     $scope.typeAnswers = [
         {"_id":"1", "label":"Yes or No","values":[{"_id":Random.id(),"label":"Yes"},{"_id":Random.id(),"label":"No"}]},
@@ -52,6 +53,7 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     };
 
     let init = function () {
+
         if($stateParams.id && $stateParams.id!=="new") {
 
             $scope.helpers({
@@ -59,6 +61,7 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
                     return Questions.findOne($stateParams.id);
                 }
             });
+
             //var question = $meteor.object(Questions, $stateParams.id, false);
             //$scope.question = {"_id":question._id,"label":question.label,answers:question.answers,respondents:question.respondents};
         }
@@ -66,12 +69,30 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
             $scope.question = {"label":"",answers:[],respondents:[]};
             $scope.addAnswer("");
             $scope.addAnswer("");
+
+            $scope.setActiveTab("Answers");
         }
     };
 
     //*********************************************************************************************
     //********************************* Méthodes publiques ****************************************
     //*********************************************************************************************
+
+    /* conservation tab active*/
+    $scope.setActiveTab = function( activeTab ){
+        localStorage.setItem("activeTab", activeTab);
+        console.log("setActiveTab");
+    };
+
+    $scope.getActiveTab = function(){
+        return localStorage.getItem("activeTab");
+    };
+
+    $scope.isActiveTab = function( index ){
+        var activeTab = $scope.getActiveTab();
+        return (activeTab === index );
+    };
+    /* conservation tab active*/
 
     $scope.save = function() {
 
@@ -145,6 +166,10 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
 
     init();
 
+
+
     }
 );
+
+
 
