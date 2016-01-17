@@ -54,7 +54,7 @@
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" aria-labelledby="dpdTypeQuestion">
-                                            <li ng-repeat="typeAnswer in typeAnswers" ng-click="dpdTypeSelect(typeAnswer)"><a id="{{typeAnswer.id}}" href="#">{{typeAnswer.label}}</a></li>
+                                            <li ng-repeat="template in templateAnswers.templates" ng-click="dpdTypeSelect(template)"><a id="{{template.id}}" href="#">{{template.label}}</a></li>
                                         </ul>
                                     </div>
                                 </div>

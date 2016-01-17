@@ -4,15 +4,9 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     //************************************ Déclarations *******************************************
     //*********************************************************************************************
 
-    $scope.allowSave=false;
-    $scope.pageClass = 'page-home';
+    //$scope.allowSave=false;
+    //$scope.pageClass = 'page-home';
     $scope.results = {};
-    //test
-
-    $scope.typeAnswers = [
-        {"_id":"1", "label":"Yes or No","values":[{"_id":Random.id(),"label":"Yes"},{"_id":Random.id(),"label":"No"}]},
-        {"_id":"2", "label":"Yes, No or Maybe","values":[{"_id":Random.id(),"label":"Yes"},{"_id":Random.id(),"label":"No"},{"_id":Random.id(),"label":"Maybe"}]}
-    ];
 
     $scope.subscribe('Questions', () => [
     ]);
@@ -76,6 +70,12 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
 
             $scope.setActiveTab("Answers");
         }
+
+        $scope.helpers({
+            templateAnswers: () => {
+                return Templates.findOne({"name":"templateAnswers"});
+            }
+        });
     };
 
     //*********************************************************************************************
@@ -130,6 +130,7 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     };
 
     $scope.dpdTypeSelect = function(item) {
+        item._id = Random.id();
         $scope.question.answers=item.values;
     };
 
