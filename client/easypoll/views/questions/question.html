@@ -25,11 +25,6 @@
                         <a data-toggle="tab"  href="#tabRespondents">Respondents</a>
                     </li>
                     <li role="presentation"
-                        ng-class="isActiveTab('Options') ? 'active' : ''"
-                        ng-click="setActiveTab('Options')">
-                        <a data-toggle="tab"  href="#tabOptions">Options</a>
-                    </li>
-                    <li role="presentation"
                         ng-class="isActiveTab('Manage') ? 'active' : ''"
                         ng-click="setActiveTab('Manage')">
                         <a data-toggle="tab"  href="#tabManage">Manage</a>
@@ -135,16 +130,10 @@
 
                     </div>
 
-
-                    <div id="tabOptions" class="tab-pane" ng-class="isActiveTab('Options') ? 'active' : ''">
+                    <div id="tabManage" class="tab-pane" ng-class="isActiveTab('Manage') ? 'active' : ''">
                         <span>Auto-end at :</span>
                         <br/><br/>
                         <span>Respondents can add an answer ?</span>
-                    </div>
-
-                    <div id="tabManage" class="tab-pane" ng-class="isActiveTab('Manage') ? 'active' : ''">
-
-
                     </div>
 
                     <div id="tabResults" class="tab-pane" ng-class="isActiveTab('Results') ? 'active' : ''">

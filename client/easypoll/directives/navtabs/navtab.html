@@ -1,0 +1,8 @@
+<a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">{{activeTab}}</a>
+<ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal" data-tabs="tabs">
+    <li role="presentation"
+        ng-class="isActiveTab('Answers') ? 'active' : ''"
+        ng-click="setActiveTab('Answers',this)"  ng-repeat="tab in tabs">
+        <a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a>
+    </li>
+</ul>
