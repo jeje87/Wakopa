@@ -38,19 +38,6 @@ a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, 
   background-color: #FDF892;
 }
 
-
-.tab-content {
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  border-radius: 0px 0px 5px 5px;
-  padding: 20px;
-}
-
-.nav-tabs {
-  margin-bottom: 0;
-}
-
 .container {
   padding-right: 0px;
   padding-left: 0px;

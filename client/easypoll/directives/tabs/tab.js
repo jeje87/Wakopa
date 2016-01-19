@@ -13,10 +13,11 @@ angular.module('easypoll')
             scope.disabled = false;
             if(attr.disable) {
                 attr.$observe('disable', function(value) {
-                    scope.disabled = (value !== 'false')
+                    scope.disabled = (value !== 'false');
                 })
             }
-            tabsetCtrl.addTab(scope)
+            tabsetCtrl.addTab(scope);
+
         }
     }
 });
