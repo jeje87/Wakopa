@@ -35,7 +35,7 @@ angular.module('easypoll')
 
                 e.preventDefault();
 
-                $(e.target).toggleClass('open').next('ul').slideToggle();
+                $(e.target).toggleClass('open').next('ul').show();
 
             });
 
