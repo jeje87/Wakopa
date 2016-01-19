@@ -1,0 +1,19 @@
+<div role="tabpanel">
+    <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">activeTab</a>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"
+            ng-class="{'active':tab.active, 'disabled':tab.disabled}"
+            ng-repeat="tab in tabset.tabs">
+
+            <a href=""
+               role="tab"
+               ng-click="tabset.select(tab)">{{tab.heading}}</a>
+        </li>
+    </ul>
+
+    <div class="tab-content">
+        <ng-transclude>
+        </ng-transclude>
+    </div>
+
+</div>

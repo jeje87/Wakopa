@@ -4,7 +4,7 @@ angular.module('easypoll')
         restrict: 'E',
         transclude: true,
         scope: { },
-        templateUrl: 'tabset.html',
+        templateUrl: 'client/easypoll/directives/tabs/tabset.html',
         bindToController: true,
         controllerAs: 'tabset',
         controller: function() {

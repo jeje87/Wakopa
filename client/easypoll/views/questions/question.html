@@ -12,33 +12,9 @@
             </div>
 
             <div class="form-group">
-                <a href="#" class="nav-tabs-dropdown btn btn-block btn-primary">{{getActiveTab}}</a>
-                <ul id="nav-tabs-wrapper" class="nav nav-tabs nav-tabs-horizontal" data-tabs="tabs">
-                    <li role="presentation"
-                        ng-class="isActiveTab('Answers') ? 'active' : ''"
-                        ng-click="setActiveTab('Answers',this)">
-                        <a data-toggle="tab"  id="btnTabAnswers" href="#tabAnswer">Answers</a>
-                    </li>
-                    <li role="presentation"
-                        ng-class="isActiveTab('Respondents') ? 'active' : ''"
-                        ng-click="setActiveTab('Respondents',this)">
-                        <a data-toggle="tab"  href="#tabRespondents">Respondents</a>
-                    </li>
-                    <li role="presentation"
-                        ng-class="isActiveTab('Manage') ? 'active' : ''"
-                        ng-click="setActiveTab('Manage')">
-                        <a data-toggle="tab"  href="#tabManage">Manage</a>
-                    </li>
-                    <li role="presentation"
-                        ng-class="isActiveTab('Results') ? 'active' : ''"
-                        ng-click="setActiveTab('Results')">
-                        <a data-toggle="tab"  href="#tabResults">Results</a>
-                    </li>
-                </ul>
 
-                <div class="tab-content">
-
-                    <div id="tabAnswer" class="tab-pane" ng-class="isActiveTab('Answers') ? 'active' : ''">
+                <tabset>
+                    <tab heading="Answers">
 
                         <div class="form-group">
                             <div class="row">
@@ -90,61 +66,60 @@
                             </div>
                         </div>
 
-                    </div>
+                    </tab>
+                    <tab heading="Respondents">
 
-                    <div id="tabRespondents" class="tab-pane" ng-class="isActiveTab('Respondents') ? 'active' : ''">
-
-                            <div ng-if="question.respondents.length==0" class="form-group" >
-                                <div class="nothing text-center bg-info">
-                                    <h5>
+                        <div ng-if="question.respondents.length==0" class="form-group" >
+                            <div class="nothing text-center bg-info">
+                                <h5>
                                     Click on
                                     <br/><br/>
                                     <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span> Add email</button>
                                     <br/><br/>
                                     to add a respondent
-                                    </h5>
-                                </div>
+                                </h5>
                             </div>
+                        </div>
 
-                            <div class="form-group" ng-repeat="respondent in question.respondents">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" ng-model="respondent.email" placeholder="insert an email here">
+                        <div class="form-group" ng-repeat="respondent in question.respondents">
+                            <div class="input-group">
+                                <input type="text" class="form-control" ng-model="respondent.email" placeholder="insert an email here">
                                     <span class="input-group-btn">
                                         <button ng-click="removeRespondent(respondent._id)" id="btnRemoveItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
                                         <button ng-click="sendTo(respondent._id)" id="btnSendToItem" type="button" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span></button>
                                     </span>
-                                </div>
                             </div>
+                        </div>
 
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-3">
-                                    <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-user"></span> Add email</button>
-                                </div>
-                                <div class="col-xs-0 col-sm-6">
-
-                                </div>
-                                <div class="col-xs-6 col-sm-3">
-                                    <button id="btnSend" type="button" ng-click="sendAll()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Send to all</button>
-                                </div>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-3">
+                                <button id="btnAddRespondent" type="submit" ng-click="addRespondent()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-user"></span> Add email</button>
                             </div>
+                            <div class="col-xs-0 col-sm-6">
 
-                    </div>
+                            </div>
+                            <div class="col-xs-6 col-sm-3">
+                                <button id="btnSend" type="button" ng-click="sendAll()" class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Send to all</button>
+                            </div>
+                        </div>
 
-                    <div id="tabManage" class="tab-pane" ng-class="isActiveTab('Manage') ? 'active' : ''">
+                    </tab>
+                    <tab heading="Manage">
+
                         <span>Auto-end at :</span>
                         <br/><br/>
                         <span>Respondents can add an answer ?</span>
-                    </div>
 
-                    <div id="tabResults" class="tab-pane" ng-class="isActiveTab('Results') ? 'active' : ''">
+                    </tab>
+                    <tab heading="Results">
 
                         <canvas id="pie1" class="chart chart-pie"
                                 chart-data="results.data" chart-labels="results.labels" chart-legend="true">
                         </canvas>
 
-                    </div>
+                    </tab>
+                </tabset>
 
-                </div>
             </div>
             <div class="row">
                 <div class="col-xs-6 col-sm-4">
