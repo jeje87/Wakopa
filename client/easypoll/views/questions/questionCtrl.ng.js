@@ -1,4 +1,5 @@
-angular.module("easypoll").controller("QuestionCtrl", function ($scope, $stateParams,$meteor,$location,Notification) {
+angular.module("easypoll").controller("QuestionCtrl",
+    function ($scope, $stateParams,$meteor,$location,Notification,meteorService) {
 
     //*********************************************************************************************
     //************************************ Déclarations *******************************************
@@ -19,35 +20,36 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
     //********************************* Méthodes privées ******************************************
     //*********************************************************************************************
 
+        let manageError = (error) => {
+            Notification.Error('An error has occurred');
+            console.log(error);
+        };
+
     let sendMail = (idRespondent) => {
-        Meteor.call('sendQuestion',  angular.copy($scope.question), idRespondent ,function(err,id) {
 
-            if(err){
-                Notification.error('An error has occurred');
-                console.log(err);
-                return;
-            }
-            Notification.success('Question sended successfully');
-
-        });
+        meteorService.sendQuestion($scope.question, idRespondent)
+            .then(()  => {
+                Notification.success('Question sended successfully');
+            })
+            .catch(err => {
+                manageError(err)
+            });
     };
 
     //renvoi les résultats de la question affichée
     let getResultsClient = function (questionId) {
-        Meteor.call('getResults', questionId  ,function(err,data) {
 
-            if(err){
-                Notification.Error('An error has occurred');
-                console.log(err);
-                return;
-            }
-
-            $scope.safeApply(function () {
-                $scope.results.labels = data.labels;
-                $scope.results.data = data.values;
+        meteorService.getResults(questionId)
+            .then((data)  => {
+                $scope.safeApply(function () {
+                    $scope.results.labels = data.labels;
+                    $scope.results.data = data.values;
+                });
+            })
+            .catch(err => {
+                manageError(err)
             });
 
-        });
     };
 
     let init = function () {
@@ -101,23 +103,19 @@ angular.module("easypoll").controller("QuestionCtrl", function ($scope, $statePa
 
     $scope.save = function() {
 
-        Meteor.call('saveQuestion',  angular.copy($scope.question),function(err,id) {
-
-            if(err){
-                Notification.Error('An error has occurred');
-                console.log(err);
-                return;
-            }
-
-            if($stateParams.id && $stateParams.id==="new") {
-                Notification.success('Question added successfully');
-                $location.path("/question/" + id);
-            }
-            else {
-                Notification.success('Changes saved successfully');
-            }
-
-        });
+        meteorService.saveQuestion($scope.question)
+            .then((id)  => {
+                if($stateParams.id && $stateParams.id==="new") {
+                    Notification.success('Question added successfully');
+                    $location.path("/question/" + id);
+                }
+                else {
+                    Notification.success('Changes saved successfully');
+                }
+            })
+            .catch(err => {
+                manageError(err)
+            });
 
     };
 
