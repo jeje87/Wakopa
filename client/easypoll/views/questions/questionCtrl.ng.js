@@ -11,7 +11,6 @@ angular.module("easypoll").controller("QuestionCtrl",
         $scope.navSelectedName = "";
 
         $scope.subscribe('Questions', () => []);
-
         $scope.subscribe('Templates', () => []);
 
         //*********************************************************************************************
