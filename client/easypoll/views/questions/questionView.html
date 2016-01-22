@@ -11,29 +11,23 @@
 
             <div class="form-group">
 
-                <ul class="nav nav-tabs" data-tabs="tabs">
-                    <li role="presentation" class="active"><a data-toggle="tab"  href="#tabAllAnswers">Results</a></li>
-                    <li role="presentation"><a data-toggle="tab" href="#tabAnswer">Your answer</a></li>
-                </ul>
+                <tabset>
 
-                <div class="tab-content">
-
-                    <div id="tabAllAnswers" class="tab-pane active">
+                    <tab heading="Results">
                         <canvas id="pie1" class="chart chart-pie"
                                 chart-data="results.data" chart-labels="results.labels" chart-legend="true">
                         </canvas>
-                    </div>
+                    </tab>
 
-                    <div id="tabAnswer" class="tab-pane">
+                    <tab heading="Your answer">
                         <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
                             <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
                                 <button tabindex="-1" ng-click="vote(answer)" type="button" ng-class="selectedByMe(answer) ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
                             </div>
                         </div>
+                    </tab>
 
-                    </div>
-
-                </div>
+                </tabset>
 
             </div>
 

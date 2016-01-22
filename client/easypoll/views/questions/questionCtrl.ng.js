@@ -84,21 +84,21 @@ angular.module("easypoll").controller("QuestionCtrl",
         //*********************************************************************************************
 
         /* conservation tab active*/
-        $scope.setActiveTab = function (activeTab, elem) {
+        $scope.setActiveTab = (activeTab, elem) => {
             localStorage.setItem("activeTab", activeTab);
         };
 
-        $scope.getActiveTab = function () {
+        $scope.getActiveTab = () => {
             return localStorage.getItem("activeTab");
         };
 
-        $scope.isActiveTab = function (index) {
+        $scope.isActiveTab = (index) => {
             var activeTab = $scope.getActiveTab();
             return (activeTab === index );
         };
         /* conservation tab active*/
 
-        $scope.save = function () {
+        $scope.save = () => {
 
             meteorService.saveQuestion($scope.question)
                 .then((id) => {
@@ -116,42 +116,42 @@ angular.module("easypoll").controller("QuestionCtrl",
 
         };
 
-        $scope.delete = function () {
+        $scope.delete = () => {
             $scope.question.deleteDate = new Date();
             $scope.save();
             $scope.back();
         };
 
-        $scope.back = function () {
+        $scope.back  = () => {
             $location.path("/questionList");
         };
 
-        $scope.dpdTypeSelect = function (item) {
+        $scope.dpdTypeSelect  = (item) => {
             item._id = Random.id();
             $scope.question.answers = item.values;
         };
 
-        $scope.addAnswer = function (label) {
+        $scope.addAnswer = (label) => {
             $scope.question.answers.push({"_id": Random.id(), "label": label});
         };
 
-        $scope.removeAnswer = function (id) {
+        $scope.removeAnswer = (id) => {
             $scope.question.answers = _.without($scope.question.answers, _.findWhere($scope.question.answers, {_id: id}));
         };
 
-        $scope.addRespondent = function (label) {
+        $scope.addRespondent = (label) => {
             $scope.question.respondents.push({"_id": Random.id(), "label": label});
         };
 
-        $scope.removeRespondent = function (id) {
+        $scope.removeRespondent = (id) => {
             $scope.question.respondents = _.without($scope.question.respondents, _.findWhere($scope.question.respondents, {_id: id}));
         };
 
-        $scope.sendAll = function () {
+        $scope.sendAll = () => {
             sendMail();
         };
 
-        $scope.sendTo = function (idRespondent) {
+        $scope.sendTo = (idRespondent) => {
             sendMail(idRespondent);
         };
 
