@@ -122,11 +122,11 @@ angular.module("easypoll").controller("QuestionCtrl",
             $scope.back();
         };
 
-        $scope.back  = () => {
+        $scope.back = () => {
             $location.path("/questionList");
         };
 
-        $scope.dpdTypeSelect  = (item) => {
+        $scope.dpdTypeSelect = (item) => {
             item._id = Random.id();
             $scope.question.answers = item.values;
         };
