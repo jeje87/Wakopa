@@ -3,7 +3,7 @@
         <div class="panel-body">
             <div class="form-group">
                 <div class="col-xs-12 col-sm-12">
-                    <button id="btnAdd" type="button" class="btn btn-primary pull-right" ng-click="add()"><span class="glyphicon glyphicon-plus"></span> Add question</button>
+
                 </div>
             </div>
             <div class="form-group">
@@ -12,6 +12,11 @@
                     <tabset>
 
                         <tab heading="Your questions">
+
+                            <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
+                                <span class="glyphicon glyphicon-plus"></span> Add question
+                            </button>
+
                             <div class="list-group alternateColor">
 
                                 <div ng-if="questions.length==0" class="form-group" >
@@ -29,7 +34,9 @@
 
                             </div>
 
-                            <button ng-if="questions.length>0" id="btnLoadMore" type="button" class="btn btn-primary" ng-click="loadMore()"><span class="glyphicon glyphicon-download"></span> Load more</button>
+                            <button ng-if="questions.length>0" id="btnLoadMore" type="button" class="btn btn-primary" ng-click="loadMore()">
+                                <span class="glyphicon glyphicon-download"></span>Load more
+                            </button>
 
                         </tab>
 
