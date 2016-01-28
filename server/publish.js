@@ -1,6 +1,3 @@
-Meteor.publish('Subjects', function(userId){
-    return Subjects.find({userId:userId});
-});
 
 Meteor.publish('Templates', function(){
     return Templates.find({"deleteDate": { $exists: false}});
@@ -13,6 +10,11 @@ Meteor.publish('Questions', function(){
 Meteor.publish('QuestionsView', function() {
     return Questions.find({"deleteDate": { $exists: false}},{fields: {mails:0}});
 });
+
+Meteor.publish('QuestionsUser', function(){
+    return Questions.find({"respondents._id":this.userId, "deleteDate": { $exists: false}});
+});
+
 
 var configureFacebook = function() {
 

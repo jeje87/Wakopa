@@ -1,0 +1,12 @@
+<div class="list-group alternateColor">
+
+    <div ng-if="answers.length==0" class="form-group" >
+        <div class="nothing text-center">
+            <h5>
+                No responses
+            </h5>
+        </div>
+    </div>
+
+    <a ui-sref="question({ id: answer._id })" class="list-group-item" ng-repeat="answer in answers">{{answer.label}}</a>
+</div>
