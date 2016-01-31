@@ -4,7 +4,7 @@ angular.module('easypoll')
         return {
             restrict : 'E',
             scope : {},
-            templateUrl : 'client/easypoll/directives/answersList/answersList.html',
+            templateUrl : 'client/easypoll/views/questions/directives/answersList/answersList.html',
             controller: function($scope, $stateParams, $meteor, $location, $reactive) {
 
                 $scope.perPage = 10;
