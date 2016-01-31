@@ -12,7 +12,7 @@ angular.module('easypoll')
 
                 $scope.helpers({
                     answers: () => {
-                        return Questions.find({}, {limit: parseInt($scope.getReactively("perPage")),
+                        return Questions.find({"respondents._id":Meteor.userId()}, {limit: parseInt($scope.getReactively("perPage")),
                             skip: parseInt((parseInt($scope.getReactively("page") - 1)) * parseInt($scope.getReactively("perPage"))),
                             sort: {createDate: -1}});
                     }

@@ -2,7 +2,8 @@ angular.module("easypoll").controller("QuestionListCtrl", function ($scope, $sta
 
 
     $reactive(this).attach($scope);
-    $scope.subscribe('Questions');
+    $scope.subscribe('QuestionsUser');
+
     //getQuestions();
 
     }

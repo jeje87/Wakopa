@@ -1,22 +1,33 @@
-
-Meteor.publish('Templates', function(){
-    return Templates.find({"deleteDate": { $exists: false}});
+Meteor.publish('Templates', function () {
+    return Templates.find({"deleteDate": {$exists: false}});
 });
 
-Meteor.publish('Questions', function(){
-    return Questions.find({"userId":this.userId, "deleteDate": { $exists: false}});
+Meteor.publish('Questions', function () {
+    return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}});
 });
 
-Meteor.publish('QuestionsView', function() {
-    return Questions.find({"deleteDate": { $exists: false}},{fields: {mails:0}});
+Meteor.publish('QuestionsView', function () {
+    return Questions.find({"deleteDate": {$exists: false}}, {fields: {mails: 0}});
 });
 
-Meteor.publish('QuestionsUser', function(){
-    return Questions.find({"respondents._id":this.userId, "deleteDate": { $exists: false}});
+Meteor.publish('QuestionsUser', function () {
+    return Questions.find({
+            $or: [
+                {"userId": this.userId},
+                {"respondents._id": this.userId}
+            ],
+            "deleteDate": {$exists: false}
+        },
+        {fields: {_id: 1, label: 1, userId: 1, "respondents._id": 1}})
 });
 
+//,
+//$and:
+//    [
+//        {"deleteDate": { $exists: false}}
+//    ]
 
-var configureFacebook = function() {
+var configureFacebook = function () {
 
     ServiceConfiguration.configurations.remove({
         service: "facebook"
@@ -29,7 +40,7 @@ var configureFacebook = function() {
 
 };
 
-var configureGoogle = function() {
+var configureGoogle = function () {
 
     ServiceConfiguration.configurations.remove({
         service: "google"
