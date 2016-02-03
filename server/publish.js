@@ -3,29 +3,24 @@ Meteor.publish('Templates', function () {
 });
 
 Meteor.publish('Questions', function () {
-    return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}});
+    return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{sort: {createDate: -1}});
 });
 
 Meteor.publish('QuestionsView', function () {
-    return Questions.find({"deleteDate": {$exists: false}}, {fields: {mails: 0}});
+    return Questions.find({"deleteDate": {$exists: false}}, {sort: {createDate: -1}, fields: {mails: 0}});
 });
 
-Meteor.publish('QuestionsUser', function () {
-    return Questions.find({
-            $or: [
-                {"userId": this.userId},
-                {"respondents._id": this.userId}
-            ],
+FindFromPublication.publish('AnswersUser', function() {
+    return Questions.find(
+        {
+            "respondents._id": this.userId,
             "deleteDate": {$exists: false}
         },
-        {fields: {_id: 1, label: 1, userId: 1, "respondents._id": 1}})
+        {
+            sort: {createDate: -1},
+            fields: {_id: 1, label: 1, userId: 1, "respondents._id": 1}
+        })
 });
-
-//,
-//$and:
-//    [
-//        {"deleteDate": { $exists: false}}
-//    ]
 
 var configureFacebook = function () {
 

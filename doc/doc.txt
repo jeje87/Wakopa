@@ -4,3 +4,7 @@ https://github.com/a5hik/ng-sortable
 chart :
 http://jtblin.github.io/angular-chart.js/
 http://www.chartjs.org/docs/
+
+Pagination
+https://www.discovermeteor.com/blog/pagination-problems-meteor/
+https://github.com/versolearning/find-from-publication

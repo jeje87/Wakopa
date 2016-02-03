@@ -10,11 +10,11 @@ angular.module('easypoll')
                 $scope.perPage = 10;
                 $scope.page = 1;
 
+                Meteor.subscribe('AnswersUser');
+
                 $scope.helpers({
                     answers: () => {
-                        return Questions.find({"respondents._id":Meteor.userId()}, {limit: parseInt($scope.getReactively("perPage")),
-                            skip: parseInt((parseInt($scope.getReactively("page") - 1)) * parseInt($scope.getReactively("perPage"))),
-                            sort: {createDate: -1}});
+                        return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
                     }
                 });
 

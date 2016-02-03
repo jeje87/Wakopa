@@ -8,14 +8,13 @@ angular.module('easypoll')
             controller: function($scope, $stateParams, $meteor, $location, $reactive) {
 
                 $scope.perPage = 10;
-                $scope.page = 1;
                 $scope.nbQuestionTot = 1;
+
+                $scope.subscribe('Questions');
 
                 $scope.helpers({
                     questions: () => {
-                        return Questions.find({"userId":Meteor.userId()}, {limit: parseInt($scope.getReactively("perPage")),
-                            skip: parseInt((parseInt($scope.getReactively("page") - 1)) * parseInt($scope.getReactively("perPage"))),
-                            sort: {createDate: -1}});
+                         return Questions.find({"userId":Meteor.userId()}, {limit: $scope.getReactively("perPage"), sort: {createDate: -1}});
                     }
                 });
 
@@ -24,7 +23,7 @@ angular.module('easypoll')
                 };
 
                 $scope.loadMore = () => {
-                    $scope.page  += 1;
+                    $scope.perPage  += 10;
                 };
 
                 //$scope.$watch($scope.questions, function() {$scope.questions2=$scope.questions;});
