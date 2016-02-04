@@ -10,6 +10,8 @@ Meteor.publish('QuestionsView', function () {
     return Questions.find({"deleteDate": {$exists: false}}, {sort: {createDate: -1}, fields: {mails: 0}});
 });
 
+//https://atmospherejs.com/percolate/find-from-publication
+//https://www.discovermeteor.com/blog/pagination-problems-meteor/
 FindFromPublication.publish('AnswersUser', function() {
     return Questions.find(
         {
@@ -22,32 +24,3 @@ FindFromPublication.publish('AnswersUser', function() {
         })
 });
 
-var configureFacebook = function () {
-
-    ServiceConfiguration.configurations.remove({
-        service: "facebook"
-    });
-    ServiceConfiguration.configurations.insert({
-        service: "facebook",
-        appId: Meteor.settings.facebookAppId,
-        secret: Meteor.settings.facebookSecret
-    });
-
-};
-
-var configureGoogle = function () {
-
-    ServiceConfiguration.configurations.remove({
-        service: "google"
-    });
-    ServiceConfiguration.configurations.insert({
-        service: "google",
-        clientId: Meteor.settings.googleAppId,
-        secret: Meteor.settings.googleSecret
-    });
-
-};
-
-
-configureFacebook();
-configureGoogle();
