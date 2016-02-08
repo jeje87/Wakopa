@@ -10,6 +10,26 @@ throwError = function(error, reason, details) {
     }
 };
 
+getUserEmailLogin = function (userId) {
+
+    if (Meteor.isServer) {
+        var user = Meteor.users.findOne(userId);
+        var mail = "";
+
+        if (user.services && user.services.google) {
+            mail = user.services.google.email;
+        }
+        else if (user.services && user.services.facebook) {
+            mail = user.services.facebook.email;
+        }
+        else if (user.emails) {
+            mail = user.emails[0].address;
+        }
+        return mail;
+    }
+};
+
+
 Meteor.methods({
 
     saveQuestion: function (question) {
@@ -89,41 +109,47 @@ Meteor.methods({
     },
     getAnswerUser: function (questionId,respondentId,answerId) {
 
-        try {
+        if (Meteor.isServer) {
+            let question;
 
-            var ret = null;
-            var question;
             if (respondentId === -1 && answerId === -1) {
+
+                //consultation depuis la liste des réponses
+                //on utilise l'email pour récuperer la réponse de l'utilisateur
                 let email = getUserEmailLogin(this.userId);
+
                 question = Questions.findOne({
                     "_id": questionId,
                     "respondents.email": email
                 });
+
+                for (let i = 0; i < question.respondents.length; i++) {
+                    if (question.respondents[i].email === email) {
+                        return question.respondents[i];
+                    }
+                }
             }
             else {
+
+                //consultation depuis un lien
+                //on utilise les id  pour récuperer la réponse de l'utilisateur
                 question = Questions.findOne({
                     "_id": questionId,
                     "respondents._id": respondentId,
                     "mails.answerId": answerId
                 });
-            }
-            if (question) {
 
-                question.respondents.forEach(function (respondent) {
-                    if (respondent._id == respondentId) {
-                        ret = respondent;
-                        return;
+                for (let i = 0; i < question.respondents.length; i++) {
+                    if (question.respondents[i]._id == respondentId) {
+                        return question.respondents[i];
                     }
-                });
-
-
+                }
             }
-            return ret;
+
+            //si on est là c'est qu'il y'a un prb !!s
+            return null;
         }
-        catch (err)
-        {
-            throw err;
-        }
+
 
     },
     selecteAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {

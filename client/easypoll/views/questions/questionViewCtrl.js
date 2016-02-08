@@ -4,6 +4,9 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     //************************************ Déclarations *******************************************
     //*********************************************************************************************
 
+    let respondentId = $stateParams.respondentId || -1;
+    let answerId = $stateParams.answerId || -1;
+
     $scope.results = {};
     $scope.user = {};
 
@@ -13,20 +16,17 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
 
     //renvoi la réponse de l'utilisateur connecté
     let getAnswerUser = function () {
-        debugger;
-        let respondentId = $stateParams.respondentId || -1;
-        let answerId = $stateParams.answerId || -1;
+
         Meteor.call('getAnswerUser', $stateParams.questionId, respondentId, answerId, function(err,data) {
 
             if(err){
-                Notification.Error('An error has occurred');
+                Notification.error('An error has occurred');
                 console.log(err);
                 return;
             }
 
             if(data) {
 
-                alert(data.email);
                 $scope.user.to = data.email;
                 $scope.user.answers = data.answers;
             }
@@ -66,10 +66,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         $scope.user.answers.length = 0;
         $scope.user.answers.push(answer._id);
 
-        Meteor.call('selecteAnswer', $stateParams.questionId,$stateParams.respondentId,$stateParams.answerId, answer._id  ,function(err,data) {
+        Meteor.call('selecteAnswer', $stateParams.questionId, respondentId, answerId, answer._id  ,function(err,data) {
 
             if(err){
-                Notification.Error('An error has occurred');
+                Notification.error('An error has occurred');
                 console.log(err);
                 return;
             }
