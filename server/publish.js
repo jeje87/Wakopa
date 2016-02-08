@@ -1,3 +1,4 @@
+
 Meteor.publish('Templates', function () {
     return Templates.find({"deleteDate": {$exists: false}});
 });

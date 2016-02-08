@@ -7,6 +7,7 @@
             </h5>
         </div>
     </div>
+    <!--/question/view/:questionId/:respondentId/:answerId-->
+    <a ui-sref="questionView2({ questionId:question._id })" class="list-group-item" ng-repeat="question in questions">{{question.label}} -- {{question.respondents.length}}</a>
 
-    <a ui-sref="question({ id: answer._id })" class="list-group-item" ng-repeat="answer in answers">{{answer.label}}</a>
 </div>

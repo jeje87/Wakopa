@@ -13,14 +13,10 @@ angular.module('easypoll')
                 Meteor.subscribe('AnswersUser');
 
                 $scope.helpers({
-                    answers: () => {
+                    questions: () => {
                         return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
                     }
                 });
-
-                $scope.add = function () {
-                    $location.path("/question/new");
-                };
 
                 $scope.loadMore = () => {
                     $scope.page  += 1;

@@ -10,7 +10,6 @@ throwError = function(error, reason, details) {
     }
 };
 
-
 Meteor.methods({
 
     saveQuestion: function (question) {
@@ -81,7 +80,6 @@ Meteor.methods({
                         }
                     });
                 }
-                ;
             });
         }
 
@@ -91,20 +89,41 @@ Meteor.methods({
     },
     getAnswerUser: function (questionId,respondentId,answerId) {
 
-        var ret=null;
-        var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
-        if(question) {
+        try {
 
-             question.respondents.forEach(function (respondent) {
-                if (respondent._id==respondentId) {
-                    ret=respondent;
-                    return;
-                }
-            });
+            var ret = null;
+            var question;
+            if (respondentId === -1 && answerId === -1) {
+                let email = getUserEmailLogin(this.userId);
+                question = Questions.findOne({
+                    "_id": questionId,
+                    "respondents.email": email
+                });
+            }
+            else {
+                question = Questions.findOne({
+                    "_id": questionId,
+                    "respondents._id": respondentId,
+                    "mails.answerId": answerId
+                });
+            }
+            if (question) {
+
+                question.respondents.forEach(function (respondent) {
+                    if (respondent._id == respondentId) {
+                        ret = respondent;
+                        return;
+                    }
+                });
 
 
+            }
+            return ret;
         }
-        return ret;
+        catch (err)
+        {
+            throw err;
+        }
 
     },
     selecteAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
@@ -156,6 +175,22 @@ Meteor.methods({
         if(question)
         {
            return true;
+        }
+        else
+        {
+            throwError(401, "", "");
+        }
+    },
+    isAuthorized2: function (questionId) {
+
+        var mail = getUserEmailLogin(this.userId);
+
+        //var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "respondents.mails" : { $elemMatch: { "answerId":  answerId }}})
+        var question = Questions.findOne({"_id" : questionId,"respondents.email" : mail });
+
+        if(question)
+        {
+            return true;
         }
         else
         {

@@ -13,7 +13,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
 
     //renvoi la réponse de l'utilisateur connecté
     let getAnswerUser = function () {
-        Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
+        debugger;
+        let respondentId = $stateParams.respondentId || -1;
+        let answerId = $stateParams.answerId || -1;
+        Meteor.call('getAnswerUser', $stateParams.questionId, respondentId, answerId, function(err,data) {
 
             if(err){
                 Notification.Error('An error has occurred');
@@ -23,6 +26,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
 
             if(data) {
 
+                alert(data.email);
                 $scope.user.to = data.email;
                 $scope.user.answers = data.answers;
             }

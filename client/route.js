@@ -51,6 +51,16 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
                     }]
                 }
             })
+            .state('questionView2', {
+                url: '/question/view/:questionId',
+                templateUrl: 'client/easypoll/views/questions/questionView.html',
+                controller: 'QuestionViewCtrl',
+                resolve: {
+                    "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
+                        return $meteor.call('isAuthorized2',  $stateParams.questionId)
+                    }]
+                }
+            })
             .state('questionList', {
                 url: '/questions',
                 templateUrl: 'client/easypoll/views/questions/questionList.html',
