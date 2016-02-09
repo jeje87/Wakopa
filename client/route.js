@@ -57,7 +57,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
                 controller: 'QuestionViewCtrl',
                 resolve: {
                     "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
-                        return $meteor.call('isAuthorized2',  $stateParams.questionId)
+                        return $meteor.call('isAuthorized',  $stateParams.questionId)
                     }]
                 }
             })

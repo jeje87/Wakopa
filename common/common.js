@@ -107,49 +107,27 @@ Meteor.methods({
 
 
     },
-    getAnswerUser: function (questionId,respondentId,answerId) {
+    getAnswerUser: function (questionId) {
 
         if (Meteor.isServer) {
+
             let question;
+            let email = getUserEmailLogin(this.userId);
 
-            if (respondentId === -1 && answerId === -1) {
+            question = Questions.findOne({
+                "_id": questionId,
+                "respondents.email": email
+            });
 
-                //consultation depuis la liste des réponses
-                //on utilise l'email pour récuperer la réponse de l'utilisateur
-                let email = getUserEmailLogin(this.userId);
-
-                question = Questions.findOne({
-                    "_id": questionId,
-                    "respondents.email": email
-                });
-
-                for (let i = 0; i < question.respondents.length; i++) {
-                    if (question.respondents[i].email === email) {
-                        return question.respondents[i];
-                    }
-                }
-            }
-            else {
-
-                //consultation depuis un lien
-                //on utilise les id  pour récuperer la réponse de l'utilisateur
-                question = Questions.findOne({
-                    "_id": questionId,
-                    "respondents._id": respondentId,
-                    "mails.answerId": answerId
-                });
-
-                for (let i = 0; i < question.respondents.length; i++) {
-                    if (question.respondents[i]._id == respondentId) {
-                        return question.respondents[i];
-                    }
+            for (let i = 0; i < question.respondents.length; i++) {
+                if (question.respondents[i].email === email) {
+                    return question.respondents[i];
                 }
             }
 
-            //si on est là c'est qu'il y'a un prb !!s
+            //si on en est là c'est qu'il y'a un prb !!
             return null;
         }
-
 
     },
     selecteAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
@@ -195,28 +173,23 @@ Meteor.methods({
     },
     isAuthorized: function (questionId, respondentId, answerId) {
 
-        //var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "respondents.mails" : { $elemMatch: { "answerId":  answerId }}})
-        var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
+        let query;
+
+        if (respondentId && answerId) {
+            //provenance = lien
+            query={"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId };
+        }
+        else {
+            //provenance = interface
+            let mail = getUserEmailLogin(this.userId);
+            query={"_id"  : questionId,"respondents.email" : mail };
+        }
+
+        var question = Questions.findOne(query);
 
         if(question)
         {
            return true;
-        }
-        else
-        {
-            throwError(401, "", "");
-        }
-    },
-    isAuthorized2: function (questionId) {
-
-        var mail = getUserEmailLogin(this.userId);
-
-        //var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "respondents.mails" : { $elemMatch: { "answerId":  answerId }}})
-        var question = Questions.findOne({"_id" : questionId,"respondents.email" : mail });
-
-        if(question)
-        {
-            return true;
         }
         else
         {
