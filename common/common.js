@@ -130,9 +130,16 @@ Meteor.methods({
         }
 
     },
-    selecteAnswer: function (questionId,respondentId,answerId,selectedAnswerId) {
+    selecteAnswer: function (questionId, selectedAnswerId) {
 
-        var question = Questions.findOne({"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId });
+        let question;
+        let email = getUserEmailLogin(this.userId);
+
+        question = Questions.findOne({
+            "_id": questionId,
+            "respondents.email": email
+        });
+
         if(question) {
 
             if (Meteor.isClient) {
@@ -143,7 +150,7 @@ Meteor.methods({
                 //supprime les réponses existantes pour cet utilisateur
                 Questions.update(
                     {
-                        "_id": question._id, "respondents._id": respondentId
+                        "_id": question._id, "respondents.email": email
                     },
                     {
                         $set : {'respondents.$.answers': [] }
@@ -154,7 +161,7 @@ Meteor.methods({
                 //prévu pour les reponses multiples
                 Questions.update(
                     {
-                        "_id": question._id, "respondents._id": respondentId
+                        "_id": question._id, "respondents.email": email
                     },
                     {
                         $addToSet: {"respondents.$.answers": selectedAnswerId}

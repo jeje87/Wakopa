@@ -4,9 +4,6 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     //************************************ Déclarations *******************************************
     //*********************************************************************************************
 
-    let respondentId = $stateParams.respondentId || -1;
-    let answerId = $stateParams.answerId || -1;
-
     $scope.results = {};
     $scope.user = {};
 
@@ -17,7 +14,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     //renvoi la réponse de l'utilisateur connecté
     let getAnswerUser = function () {
 
-        Meteor.call('getAnswerUser', $stateParams.questionId, respondentId, answerId, function(err,data) {
+        Meteor.call('getAnswerUser', $stateParams.questionId, function(err,data) {
 
             if(err){
                 Notification.error('An error has occurred');
@@ -36,6 +33,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
 
     //renvoi les résultats de la question affichée
     let getResultsClient = function () {
+
         Meteor.call('getResults', $stateParams.questionId  ,function(err,data) {
 
             if(err){
@@ -66,13 +64,14 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         $scope.user.answers.length = 0;
         $scope.user.answers.push(answer._id);
 
-        Meteor.call('selecteAnswer', $stateParams.questionId, respondentId, answerId, answer._id  ,function(err,data) {
+        Meteor.call('selecteAnswer', $stateParams.questionId, answer._id  ,function(err,data) {
 
             if(err){
                 Notification.error('An error has occurred');
                 console.log(err);
                 return;
             }
+            getResultsClient();
             Notification.success('Changes saved successfully');
 
         });
@@ -96,6 +95,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     $scope.autorun(() => {
         getResultsClient();
     });
+
+    $scope.back = () => {
+        $location.path("/questionList");
+    };
 
     //*********************************************************************************************
     //********************************** Initialisation *******************************************

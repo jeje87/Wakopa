@@ -13,6 +13,11 @@
     margin-bottom: 10px;
 }
 
-.panel-body {
+.answers {
     min-height:650px;
+}
+
+.chart-container {
+    max-width: 600px;
+    margin: auto;
 }

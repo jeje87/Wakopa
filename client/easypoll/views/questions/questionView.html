@@ -2,29 +2,54 @@
     <div class="panel panel-default">
 
         <div class="panel-heading">
-            <span><h4>{{question.label}}</h4></span>
-            <span><h5>{{user.from}}</h5></span>
-            <span><h5>{{user.to}}</h5></span>
+
+            <div class="row">
+                <div class="col-xs-6 col-sm-2">
+                    <button id="btnCancel" type="submit" ng-click="back()" class="btn btn-default btn-block"><span class="glyphicon glyphicon-arrow-left"></span> Back</button>
+                </div>
+                <div class="col-xs-0 col-sm-8">
+
+                </div>
+                <div class="col-xs-6 col-sm-2">
+                </div>
+            </div>
+
         </div>
 
-        <div class="panel-body">
+        <div class="answers panel-body">
+
+            <div class="panel panel-default">
+                <div class="question panel-body">
+                    <span><h4>{{question.label}}</h4></span>
+                    <span><h5>{{user.from}}</h5></span>
+                    <span><h5>{{user.to}}</h5></span>
+                </div>
+            </div>
 
             <div class="form-group">
 
                 <tabset>
 
-                    <tab heading="Results">
-                        <canvas id="pie1" class="chart chart-pie"
-                                chart-data="results.data" chart-labels="results.labels" chart-legend="true">
-                        </canvas>
-                    </tab>
+                    <tab heading="Answers">
 
-                    <tab heading="Your answer">
+                        <div class="chart-container">
+                            <canvas id="pie1" class="chart chart-pie"
+                                    chart-data="results.data" chart-labels="results.labels" chart-legend="true">
+                            </canvas>
+                        </div>
+
+                        <span><h5>Your answer:</h5></span>
+
                         <div class="form-group" as-sortable="sortableOptions" ng-model="question.answers">
                             <div class="form-group" ng-repeat="answer in question.answers" as-sortable-item>
                                 <button tabindex="-1" ng-click="vote(answer)" type="button" ng-class="selectedByMe(answer) ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
                             </div>
                         </div>
+
+                    </tab>
+
+                    <tab heading="Details">
+
                     </tab>
 
                 </tabset>

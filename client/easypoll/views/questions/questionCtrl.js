@@ -11,7 +11,7 @@ angular.module("easypoll").controller("QuestionCtrl",
         $scope.navSelectedName = "";
 
         $scope.subscribe('Questions', () => []);
-        $scope.subscribe('Templates', () => []);
+        $scope.subscribe('Templates', () => []); //TODO mettre en cache
 
         //*********************************************************************************************
         //********************************* Méthodes privées ******************************************
