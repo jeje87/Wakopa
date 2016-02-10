@@ -82,8 +82,12 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     };
 
     //Pour question de sécurité, on ne renvoit pas toutes les infos -> QuestionsView et non Questions
-    $scope.subscribe('QuestionsView', () => [
+    var handle = $scope.subscribe('QuestionsView', () => [
     ]);
+
+    $scope.$on('$destroy', function() {
+        handle.stop();
+    });
 
     //lie la variable $scope.question à la collection Mongo
     $scope.helpers({

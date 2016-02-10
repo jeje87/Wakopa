@@ -10,8 +10,13 @@ angular.module("easypoll").controller("QuestionCtrl",
         $scope.results = {};
         $scope.navSelectedName = "";
 
-        $scope.subscribe('Questions', () => []);
-        $scope.subscribe('Templates', () => []); //TODO mettre en cache
+        var handle = $scope.subscribe('Questions', () => []);
+        var handle2 = $scope.subscribe('Templates', () => []); //TODO mettre en cache
+
+        $scope.$on('$destroy', function() {
+            handle.stop();
+            handle2.stop();s
+        });
 
         //*********************************************************************************************
         //********************************* Méthodes privées ******************************************
