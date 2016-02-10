@@ -15,7 +15,7 @@ angular.module("easypoll").controller("QuestionCtrl",
 
         $scope.$on('$destroy', function() {
             handle.stop();
-            handle2.stop();s
+            handle2.stop();
         });
 
         //*********************************************************************************************

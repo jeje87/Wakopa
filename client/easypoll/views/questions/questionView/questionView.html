@@ -32,6 +32,14 @@
 
                     <tab heading="Answers">
 
+                        <div ng-if="results.data.length==0" class="form-group" >
+                            <div class="nothing text-center bg-info">
+                                <h5>
+                                    nothing
+                                </h5>
+                            </div>
+                        </div>
+
                         <div class="chart-container">
                             <canvas id="pie1" class="chart chart-pie"
                                     chart-data="results.data" chart-labels="results.labels" chart-legend="true">
