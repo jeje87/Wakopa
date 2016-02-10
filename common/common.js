@@ -121,6 +121,9 @@ Meteor.methods({
 
             for (let i = 0; i < question.respondents.length; i++) {
                 if (question.respondents[i].email === email) {
+                    if(!question.respondents[i].answers) {
+                        question.respondents[i].answers = [];
+                    }
                     return question.respondents[i];
                 }
             }
@@ -130,7 +133,7 @@ Meteor.methods({
         }
 
     },
-    selecteAnswer: function (questionId, selectedAnswerId) {
+    selectAnswer: function (questionId, selectedAnswerId) {
 
         let question;
         let email = getUserEmailLogin(this.userId);

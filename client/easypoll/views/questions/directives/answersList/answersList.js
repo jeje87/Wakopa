@@ -10,7 +10,11 @@ angular.module('easypoll')
                 $scope.perPage = 10;
                 $scope.page = 1;
 
-                Meteor.subscribe('AnswersUser');
+                var handle = Meteor.subscribe('AnswersUser');
+
+                $scope.$on('$destroy', function() {
+                    handle.stop();
+                });
 
                 $scope.helpers({
                     questions: () => {
