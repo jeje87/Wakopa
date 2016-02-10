@@ -6,6 +6,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
 
     $scope.results = {};
     $scope.user = {};
+    $scope.totValue = 0;
 
     //*********************************************************************************************
     //********************************* Méthodes privées ******************************************
@@ -41,6 +42,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
                 console.log(err);
                 return;
             }
+
+            $scope.totValue = data.values.reduce(function(prev, cur) {
+                return prev + cur;
+            });
 
             $scope.safeApply(function () {
                 $scope.results.labels = data.labels;

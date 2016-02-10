@@ -32,15 +32,15 @@
 
                     <tab heading="Answers">
 
-                        <div ng-if="results.data.length==0" class="form-group" >
+                        <div ng-if="totValue==0" class="form-group" >
                             <div class="nothing text-center bg-info">
                                 <h5>
-                                    nothing
+                                    No response received
                                 </h5>
                             </div>
                         </div>
 
-                        <div class="chart-container">
+                        <div ng-if="totValue>0" class="chart-container">
                             <canvas id="pie1" class="chart chart-pie"
                                     chart-data="results.data" chart-labels="results.labels" chart-legend="true">
                             </canvas>
