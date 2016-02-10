@@ -3,7 +3,11 @@
 
 }
 
-    .question-view-form-content  {
-        min-height:650px;
+    .question-view-form .question-view-form-content  {
+        min-height:550px;
+    }
+
+    .question-view-form .question-info  {
+        background-color: white;
     }
 

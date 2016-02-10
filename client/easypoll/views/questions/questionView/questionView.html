@@ -18,8 +18,8 @@
 
         <div class="panel-body question-view-form-content">
 
-            <div class="panel panel-default">
-                <div class="question panel-body">
+            <div class="panel panel-default question-info">
+                <div class="panel-body">
                     <span><h4>{{question.label}}</h4></span>
                     <span><h5>{{user.from}}</h5></span>
                     <span><h5>{{user.to}}</h5></span>
@@ -45,10 +45,6 @@
                                 <button tabindex="-1" ng-click="vote(answer)" type="button" ng-class="selectedByMe(answer) ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
                             </div>
                         </div>
-
-                    </tab>
-
-                    <tab heading="Details">
 
                     </tab>
 
