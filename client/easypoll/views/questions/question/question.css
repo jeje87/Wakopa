@@ -1,0 +1,20 @@
+
+.question-form {
+
+}
+
+    .question-form-content  {
+        min-height:650px;
+    }
+
+
+@media(max-width:767px){
+    .margin-top{
+        margin-top: 10px;
+    }
+}
+
+.chart-container {
+    max-width: 600px;
+    margin: auto;
+}

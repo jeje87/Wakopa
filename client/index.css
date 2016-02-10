@@ -1,0 +1,49 @@
+
+body  {
+
+}
+
+.container {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+
+.panel-default, .navbar {
+  border-radius: 5px;
+}
+
+.input-group .form-control {
+  z-index: 5;
+}
+
+.nothing {
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px;
+  background-color: #E6E6E6;
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
+
+@media(max-width:767px){
+  .margin-top{
+    margin-top: 10px;
+  }
+}
+
+.list-color a:nth-child(odd) {
+  background: #EFF5F7;
+}
+
+.list-color a:nth-child(odd):hover {
+  background-color: #FDF892;
+}
+
+.list-color a.list-group-item:hover, button.list-group-item:hover, a.list-group-item:focus, button.list-group-item:focus {
+  background-color: #FDF892;
+}
+

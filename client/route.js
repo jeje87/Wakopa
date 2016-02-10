@@ -33,7 +33,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
             })
             .state('question', {
                 url: '/question/:id',
-                templateUrl: 'client/easypoll/views/questions/question.html',
+                templateUrl: 'client/easypoll/views/questions/question/question.html',
                 controller: 'QuestionCtrl',
                 resolve: {
                     "currentUser": ["$meteor", function ($meteor) {
@@ -43,7 +43,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
             })
             .state('questionView', {
                 url: '/question/view/:questionId/:respondentId/:answerId',
-                templateUrl: 'client/easypoll/views/questions/questionView.html',
+                templateUrl: 'client/easypoll/views/questions/questionView/questionView.html',
                 controller: 'QuestionViewCtrl',
                 resolve: {
                     "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
@@ -53,7 +53,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
             })
             .state('questionView2', {
                 url: '/question/view/:questionId',
-                templateUrl: 'client/easypoll/views/questions/questionView.html',
+                templateUrl: 'client/easypoll/views/questions/questionView/questionView.html',
                 controller: 'QuestionViewCtrl',
                 resolve: {
                     "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
@@ -63,7 +63,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
             })
             .state('questionList', {
                 url: '/questions',
-                templateUrl: 'client/easypoll/views/questions/questionList.html',
+                templateUrl: 'client/easypoll/views/questions/questionList/questionList.html',
                 controller: 'QuestionListCtrl',
                 resolve: {
                     "currentUser": ["$meteor", function ($meteor) {

@@ -22,10 +22,6 @@ angular.module('easypoll')
                     }
                 });
 
-                $scope.add = function () {
-                    $location.path("/question/new");
-                };
-
                 $scope.loadMore = () => {
                     $scope.perPage  += 10;
                 };
