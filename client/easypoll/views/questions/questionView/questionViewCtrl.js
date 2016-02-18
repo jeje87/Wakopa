@@ -15,10 +15,10 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     //renvoi la réponse de l'utilisateur connecté
     let getAnswerUser = function () {
 
-        Meteor.call('getAnswerUser', $stateParams.questionId, function(err,data) {
+        Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId, function(err,data) {
 
             if(err){
-                Notification.error('An error has occurred');
+                Notification.error('An error has occurred (getAnswerUser)');
                 console.log(err);
                 return;
             }

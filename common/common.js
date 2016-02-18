@@ -107,24 +107,46 @@ Meteor.methods({
 
 
     },
-    getAnswerUser: function (questionId) {
+    getAnswerUser: function (questionId, respondentId, answerId) {
 
         if (Meteor.isServer) {
 
             let question;
-            let email = getUserEmailLogin(this.userId);
 
-            question = Questions.findOne({
-                "_id": questionId,
-                "respondents.email": email
-            });
+            if(typeof respondentId == "undefined") {
+                let email = getUserEmailLogin(this.userId);
 
-            for (let i = 0; i < question.respondents.length; i++) {
-                if (question.respondents[i].email === email) {
-                    if(!question.respondents[i].answers) {
-                        question.respondents[i].answers = [];
+                question = Questions.findOne({
+                    "_id": questionId,
+                    "respondents.email": email
+                });
+
+                for (let i = 0; i < question.respondents.length; i++) {
+                    if (question.respondents[i].email === email) {
+                        if (!question.respondents[i].answers) {
+                            question.respondents[i].answers = [];
+                        }
+                        return question.respondents[i];
                     }
-                    return question.respondents[i];
+                }
+            }
+            else {
+
+                //consultation depuis un lien
+                //on utilise les id  pour récuperer la réponse de l'utilisateur
+                question = Questions.findOne({
+                    "_id": questionId,
+                    "respondents._id": respondentId,
+                    "mails.answerId": answerId
+                });
+
+                for (let i = 0; i < question.respondents.length; i++) {
+                    if (question.respondents[i]._id == respondentId) {
+                        if (!question.respondents[i].answers) {
+                            question.respondents[i].answers = [];
+                        }
+                        return question.respondents[i];
+                    }
                 }
             }
 
