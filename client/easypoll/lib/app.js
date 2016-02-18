@@ -1,4 +1,4 @@
-angular.module('easypoll', ['angular-meteor', 'ui.router','mgcrea.ngStrap',
+angular.module('easypoll', ['angular-meteor','angular-meteor.auth', 'ui.router','mgcrea.ngStrap',
                             'ui-notification','ngSanitize','ui.sortable','ngAnimate','chart.js']);
 
 angular.module('ng').run(['$rootScope', function($rootScope) {

@@ -35,10 +35,21 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
                 url: '/question/:id',
                 templateUrl: 'client/easypoll/views/questions/question/question.html',
                 controller: 'QuestionCtrl',
-                resolve: {
-                    "currentUser": ["$meteor", function ($meteor) {
-                        return $meteor.requireUser();
-                    }]
+                resolve:  {
+                    "currentUser": ($meteor, $q) => {
+
+                        var deferred = $q.defer();
+
+                        if (Meteor.userId() == null) {
+                            deferred.reject("AUTH_REQUIRED");
+                        }
+                        else {
+                            deferred.resolve(true);
+                        }
+
+                        return deferred.promise;
+
+                    }
                 }
             })
             .state('questionView', {
@@ -46,9 +57,24 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
                 templateUrl: 'client/easypoll/views/questions/questionView/questionView.html',
                 controller: 'QuestionViewCtrl',
                 resolve: {
-                    "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
-                        return $meteor.call('isAuthorized',  $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId)
-                    }]
+
+                    "isAuthorized": ($q,$stateParams) => {
+
+                        var deferred = $q.defer();
+
+                        Meteor.call('isAuthorized', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId, function (err, data) {
+                            if (err || data === false) {
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(data);
+                            }
+
+                        });
+
+                        return deferred.promise;
+
+                    }
                 }
             })
             .state('questionView2', {
@@ -56,9 +82,24 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
                 templateUrl: 'client/easypoll/views/questions/questionView/questionView.html',
                 controller: 'QuestionViewCtrl',
                 resolve: {
-                    "isAuthorized": ["$stateParams","$meteor", function ($stateParams,$meteor) {
-                        return $meteor.call('isAuthorized',  $stateParams.questionId)
-                    }]
+
+                    "isAuthorized": ($q, $stateParams) => {
+
+                        var deferred = $q.defer();
+
+                        Meteor.call('isAuthorized', $stateParams.questionId, function (err, data) {
+                            if (err || data === false) {
+                                deferred.reject(err);
+                            }
+                            else {
+                                deferred.resolve(data);
+                            }
+
+                        });
+
+                        return deferred.promise;
+
+                    }
                 }
             })
             .state('questionList', {
@@ -66,9 +107,20 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
                 templateUrl: 'client/easypoll/views/questions/questionList/questionList.html',
                 controller: 'QuestionListCtrl',
                 resolve: {
-                    "currentUser": ["$meteor", function ($meteor) {
-                        return $meteor.requireUser();
-                    }]
+                    "currentUser": ($meteor, $q) => {
+
+                        var deferred = $q.defer();
+
+                        if (Meteor.userId() == null) {
+                            deferred.reject("AUTH_REQUIRED");
+                        }
+                        else {
+                            deferred.resolve(true);
+                        }
+
+                        return deferred.promise;
+
+                    }
                 }
             })
             .state('401', {

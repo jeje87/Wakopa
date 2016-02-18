@@ -110,42 +110,13 @@ Meteor.methods({
         }
 
     },
-    getResults: function (questionId) {
-
-        var question = Questions.findOne({"_id": questionId});
-
-        var data = {"_ids":[],"labels":[],"values":[]};
-
-        if (Meteor.isServer) {
-            question.answers.forEach(function (answer) {
-                data._ids.push(answer._id);
-                data.labels.push(answer.label);
-                data.values.push(0);
-            });
-
-            question.respondents.forEach(function (respondent) {
-                if (respondent.answers) {
-                    respondent.answers.forEach(function (_id) {
-                        var findId = data._ids.indexOf(_id);
-                        if (findId!==-1) {
-                            data.values[findId]+=1;
-                        }
-                    });
-                }
-            });
-        }
-
-        return data;
-
-
-    },
     getAnswerUser: function (questionId, respondentId, answerId) {
 
         if (Meteor.isServer) {
 
             let question;
 
-            if(!respondentId) {
+            if (!respondentId) {
 
                 let email = getUserEmailLogin(this.userId);
 
@@ -190,72 +161,74 @@ Meteor.methods({
     },
     selectAnswer: function (questionId, selectedAnswerId, respondentId, answerId) {
 
-        let question;
+        if (Meteor.isServer) {
+            let question;
 
-        if(!respondentId) {
+            if (!respondentId) {
 
-            let email = getUserEmailLogin(this.userId);
+                let email = getUserEmailLogin(this.userId);
 
-            question = Questions.findOne({
-                "_id": questionId,
-                "respondents.email": email
-            });
+                question = Questions.findOne({
+                    "_id": questionId,
+                    "respondents.email": email
+                });
 
-            //supprime les réponses existantes pour cet utilisateur
-            Questions.update(
-                {
-                    "_id": question._id, "respondents.email": email
-                },
-                {
-                    $set : {'respondents.$.answers': [] }
-                }
-            );
+                //supprime les réponses existantes pour cet utilisateur
+                Questions.update(
+                    {
+                        "_id": question._id, "respondents.email": email
+                    },
+                    {
+                        $set: {'respondents.$.answers': []}
+                    }
+                );
 
-            //si le tableau answers n'existe pas, il est créé
-            //prévu pour les reponses multiples
-            Questions.update(
-                {
-                    "_id": question._id, "respondents.email": email
-                },
-                {
-                    $addToSet: {"respondents.$.answers": selectedAnswerId}
-                }
-            );
+                //si le tableau answers n'existe pas, il est créé
+                //prévu pour les reponses multiples
+                Questions.update(
+                    {
+                        "_id": question._id, "respondents.email": email
+                    },
+                    {
+                        $addToSet: {"respondents.$.answers": selectedAnswerId}
+                    }
+                );
+            }
+            else {
+
+                //consultation depuis un lien
+                //on utilise les id  pour récuperer la réponse de l'utilisateur
+                question = Questions.findOne({
+                    "_id": questionId,
+                    "respondents._id": respondentId,
+                    "mails.answerId": answerId
+                });
+
+                //supprime les réponses existantes pour cet utilisateur
+                Questions.update(
+                    {
+                        "_id": question._id, "respondents._id": respondentId
+                    },
+                    {
+                        $set: {'respondents.$.answers': []}
+                    }
+                );
+
+                //si le tableau answers n'existe pas, il est créé
+                //prévu pour les reponses multiples
+                Questions.update(
+                    {
+                        "_id": question._id, "respondents._id": respondentId
+                    },
+                    {
+                        $addToSet: {"respondents.$.answers": selectedAnswerId}
+                    }
+                );
+
+            }
+
+            return true;
         }
-        else {
-
-            //consultation depuis un lien
-            //on utilise les id  pour récuperer la réponse de l'utilisateur
-            question = Questions.findOne({
-                "_id": questionId,
-                "respondents._id": respondentId,
-                "mails.answerId": answerId
-            });
-
-            //supprime les réponses existantes pour cet utilisateur
-            Questions.update(
-                {
-                    "_id": question._id, "respondents._id": respondentId
-                },
-                {
-                    $set : {'respondents.$.answers': [] }
-                }
-            );
-
-            //si le tableau answers n'existe pas, il est créé
-            //prévu pour les reponses multiples
-            Questions.update(
-                {
-                    "_id": question._id, "respondents._id": respondentId
-                },
-                {
-                    $addToSet: {"respondents.$.answers": selectedAnswerId}
-                }
-            );
-
-        }
-
-        return true;
 
     },
     isAuthorized: function (questionId, respondentId, answerId) {
@@ -264,24 +237,51 @@ Meteor.methods({
 
         if (respondentId && answerId) {
             //provenance = lien
-            query={"_id" : questionId,"respondents._id" : respondentId, "mails.answerId" : answerId };
+            query = {"_id": questionId, "respondents._id": respondentId, "mails.answerId": answerId};
         }
         else {
             //provenance = interface
             let mail = getUserEmailLogin(this.userId);
-            query={"_id"  : questionId,"respondents.email" : mail };
+            query = {"_id": questionId, "respondents.email": mail};
         }
 
         var question = Questions.findOne(query);
 
-        if(question)
-        {
-           return true;
+        if (question) {
+            return true;
         }
-        else
-        {
+        else {
             throwError(401, "", "");
         }
+    },
+    getResults: function (questionId) {
+
+        var question = Questions.findOne({"_id": questionId});
+
+        var data = {"_ids": [], "labels": [], "values": []};
+
+        if (Meteor.isServer) {
+            question.answers.forEach(function (answer) {
+                data._ids.push(answer._id);
+                data.labels.push(answer.label);
+                data.values.push(0);
+            });
+
+            question.respondents.forEach(function (respondent) {
+                if (respondent.answers) {
+                    respondent.answers.forEach(function (_id) {
+                        var findId = data._ids.indexOf(_id);
+                        if (findId !== -1) {
+                            data.values[findId] += 1;
+                        }
+                    });
+                }
+            });
+        }
+
+        return data;
+
+
     }
 
 });
