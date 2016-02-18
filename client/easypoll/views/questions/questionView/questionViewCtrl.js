@@ -69,7 +69,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         $scope.user.answers.length = 0;
         $scope.user.answers.push(answer._id);
 
-        Meteor.call('selectAnswer', $stateParams.questionId, answer._id  ,function(err,data) {
+        Meteor.call('selectAnswer', $stateParams.questionId, answer._id, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
 
             if(err){
                 Notification.error('An error has occurred');

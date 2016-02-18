@@ -10,6 +10,38 @@ throwError = function(error, reason, details) {
     }
 };
 
+getQuestion = function (questionId, respondentId, answerId) {
+
+    if (Meteor.isServer) {
+
+        let question;
+
+        if(typeof respondentId === "undefined") {
+
+            let email = getUserEmailLogin(this.userId);
+
+            question = Questions.findOne({
+                "_id": questionId,
+                "respondents.email": email
+            });
+
+        }
+        else {
+
+            //consultation depuis un lien
+            //on utilise les id  pour récuperer la réponse de l'utilisateur
+            question = Questions.findOne({
+                "_id": questionId,
+                "respondents._id": respondentId,
+                "mails.answerId": answerId
+            });
+
+        }
+
+        return question;
+    }
+};
+
 getUserEmailLogin = function (userId) {
 
     if (Meteor.isServer) {
@@ -113,7 +145,8 @@ Meteor.methods({
 
             let question;
 
-            if(typeof respondentId == "undefined") {
+            if(!respondentId) {
+
                 let email = getUserEmailLogin(this.userId);
 
                 question = Questions.findOne({
@@ -155,52 +188,74 @@ Meteor.methods({
         }
 
     },
-    selectAnswer: function (questionId, selectedAnswerId) {
+    selectAnswer: function (questionId, selectedAnswerId, respondentId, answerId) {
 
         let question;
-        let email = getUserEmailLogin(this.userId);
 
-        question = Questions.findOne({
-            "_id": questionId,
-            "respondents.email": email
-        });
+        if(!respondentId) {
 
-        if(question) {
+            let email = getUserEmailLogin(this.userId);
 
-            if (Meteor.isClient) {
+            question = Questions.findOne({
+                "_id": questionId,
+                "respondents.email": email
+            });
 
-            }
-            else if (Meteor.isServer) {
+            //supprime les réponses existantes pour cet utilisateur
+            Questions.update(
+                {
+                    "_id": question._id, "respondents.email": email
+                },
+                {
+                    $set : {'respondents.$.answers': [] }
+                }
+            );
 
-                //supprime les réponses existantes pour cet utilisateur
-                Questions.update(
-                    {
-                        "_id": question._id, "respondents.email": email
-                    },
-                    {
-                        $set : {'respondents.$.answers': [] }
-                    }
-                );
-
-                //si le tableau answers n'existe pas, il est créé
-                //prévu pour les reponses multiples
-                Questions.update(
-                    {
-                        "_id": question._id, "respondents.email": email
-                    },
-                    {
-                        $addToSet: {"respondents.$.answers": selectedAnswerId}
-                    }
-                );
-            }
-
-            return true;
+            //si le tableau answers n'existe pas, il est créé
+            //prévu pour les reponses multiples
+            Questions.update(
+                {
+                    "_id": question._id, "respondents.email": email
+                },
+                {
+                    $addToSet: {"respondents.$.answers": selectedAnswerId}
+                }
+            );
         }
-        else
-        {
-            throwError(401, "", "");
+        else {
+
+            //consultation depuis un lien
+            //on utilise les id  pour récuperer la réponse de l'utilisateur
+            question = Questions.findOne({
+                "_id": questionId,
+                "respondents._id": respondentId,
+                "mails.answerId": answerId
+            });
+
+            //supprime les réponses existantes pour cet utilisateur
+            Questions.update(
+                {
+                    "_id": question._id, "respondents._id": respondentId
+                },
+                {
+                    $set : {'respondents.$.answers': [] }
+                }
+            );
+
+            //si le tableau answers n'existe pas, il est créé
+            //prévu pour les reponses multiples
+            Questions.update(
+                {
+                    "_id": question._id, "respondents._id": respondentId
+                },
+                {
+                    $addToSet: {"respondents.$.answers": selectedAnswerId}
+                }
+            );
+
         }
 
+        return true;
 
     },
     isAuthorized: function (questionId, respondentId, answerId) {
