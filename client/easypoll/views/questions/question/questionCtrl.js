@@ -23,7 +23,7 @@ angular.module("easypoll").controller("QuestionCtrl",
         //*********************************************************************************************
 
         let manageError = (error) => {
-            Notification.Error('An error has occurred');
+            Notification.error('An error has occurred');
             console.log(error);
         };
 
@@ -118,6 +118,15 @@ angular.module("easypoll").controller("QuestionCtrl",
                 .catch(err => {
                     manageError(err)
                 });
+
+            //Meteor.call('saveQuestion', angular.copy($scope.question),function(err, result){
+            //    if(err){
+            //        Notification.error('An error has occurred');
+            //        console.log(err);
+            //        return;
+            //    }
+            //   alert(result);
+            //});
 
         };
 

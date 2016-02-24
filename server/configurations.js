@@ -26,6 +26,4 @@ var configureGoogle = function () {
 
 
 configureFacebook();
-configureGoogle();/**
- * Created by jpiquet on 04/02/2016.
- */
+configureGoogle();

@@ -77,7 +77,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
                 return;
             }
 
-            Notification.success('Changes saved successfully');
+            //Notification.success('Changes saved successfully');
 
         });
     };

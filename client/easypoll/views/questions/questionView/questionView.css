@@ -11,3 +11,14 @@
         background-color: white;
     }
 
+    .question-view-form .pie-legend li {
+        display: list-item;
+        white-space: normal;
+        text-align: left;
+    }
+
+    .question-view-form .votes button {
+        white-space: normal;
+    }
+
+
