@@ -1,50 +1,46 @@
-angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope, $stateParams,$meteor,$location) {
+angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope, $stateParams, $meteor, $location) {
 
-        $scope.login = function() {
-            Meteor.loginWithPassword($scope.form.email,$scope.form.password,function(err){
-                if(!err) {
-                    $scope.safeApply(function () {
-                        $rootScope.$broadcast('login');
-                        $location.path('/questions');
-                    });
-                }
-            });
-        };
+    let goToHome = () => {
+        $scope.safeApply(function () {
+            $rootScope.$broadcast('login');
+            $location.path('/questions');
+        });
+    };
 
-        $scope.register = function() {
-            $location.path('/register');
-        };
+    $scope.login = function () {
+        Meteor.loginWithPassword($scope.form.email, $scope.form.password, function (err) {
+            if (!err) {
+                goToHome();
+            }
+        });
+    };
 
-        $scope.loginWithFacebook = function() {
+    $scope.register = function () {
+        $location.path('/register');
+    };
 
-            Meteor.loginWithFacebook({
-                requestPermissions: [],
-                loginStyle: "popup"
-            },function(err){
-                if(!err) {
-                    $scope.safeApply(function () {
-                        $rootScope.$broadcast('login');
-                        $location.path('/questions');
-                    });
-                }
-            });
-        };
+    $scope.loginWithFacebook = function () {
 
-        $scope.loginWithGoogle = function() {
+        Meteor.loginWithFacebook({
+            requestPermissions: [],
+            loginStyle: "popup"
+        }, function (err) {
+            if (!err) {
+                goToHome();
+            }
+        });
+    };
 
-            Meteor.loginWithGoogle({
-                requestPermissions: [],
-                loginStyle: "popup"
-            },function(err){
-                if(!err) {
-                    $scope.safeApply(function () {
-                        $rootScope.$broadcast('login');
-                        $location.path('/questions');
-                    });
-                }
-            });
-        }
+    $scope.loginWithGoogle = function () {
 
-
+        Meteor.loginWithGoogle({
+            requestPermissions: [],
+            loginStyle: "popup"
+        }, function (err) {
+            if (!err) {
+                goToHome();
+            }
+        });
     }
-);
+
+});
