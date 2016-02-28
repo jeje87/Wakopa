@@ -1,13 +1,22 @@
-<div class="list-group list-color">
+<div class="answer-list">
 
-    <div ng-if="answers.length==0" class="form-group" >
-        <div class="nothing text-center">
-            <h5>
-                No responses
-            </h5>
+    <div class="list-group list-color">
+
+        <div ng-if="answers.length==0" class="form-group">
+            <div class="nothing text-center">
+                <h5>
+                    No responses
+                </h5>
+            </div>
         </div>
+        <!--/question/view/:questionId/:respondentId/:answerId-->
+        <a ui-sref="questionView2({ questionId:question._id })" class="list-group-item"
+           ng-repeat="question in questions">{{question.label}} -- {{question.respondents.length}}</a>
+
     </div>
-    <!--/question/view/:questionId/:respondentId/:answerId-->
-    <a ui-sref="questionView2({ questionId:question._id })" class="list-group-item" ng-repeat="question in questions">{{question.label}} -- {{question.respondents.length}}</a>
+
+    <button id="btnLoadMore" type="button" class="btn btn-primary btnLoadMore" ng-click="loadMore()">
+        <span class="glyphicon glyphicon-download"></span>Load more
+    </button>
 
 </div>

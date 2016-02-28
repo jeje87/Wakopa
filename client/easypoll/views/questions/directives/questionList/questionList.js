@@ -5,17 +5,14 @@ angular.module('easypoll')
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
-            controller: function($scope, $stateParams, $meteor, $location, $reactive) {
+            controller: function($scope) {
 
-                $scope.perPage = 10;
-                $scope.nbQuestionTot = 1;
-
-                if(!Session.get('limit')) {
-                    Session.set('limit', 10);
+                if(!Session.get('questionListlimit')) {
+                    Session.set('questionListlimit', 10);
                 }
 
-                var handle = $scope.subscribe('Questions' ,() => {
-                    return [ Session.get('limit') ];
+                var handle = $scope.subscribe('QuestionsUser' ,() => {
+                    return [ Session.get('questionListlimit') ];
                 });
 
                 $scope.$on('$destroy', function() {
@@ -24,15 +21,14 @@ angular.module('easypoll')
 
                 $scope.helpers({
                     questions: () => {
-                         return Questions.find({}); //, {limit: $scope.getReactively("perPage")}
+                         return Questions.findFromPublication("QuestionsUser",{},{sort: {createDate: -1}});
                     }
                 });
 
                 $scope.loadMore = () => {
-                    Session.set('limit', parseInt(Session.get('limit')) + 5);
+                    Session.set('questionListlimit', parseInt(Session.get('questionListlimit')) + 5);
                 };
 
-                //$scope.$watch($scope.questions, function() {$scope.questions2=$scope.questions;});
             }
         };
     });

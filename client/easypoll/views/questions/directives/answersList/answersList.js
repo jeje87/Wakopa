@@ -5,25 +5,28 @@ angular.module('easypoll')
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/answersList/answersList.html',
-            controller: function($scope, $stateParams, $meteor, $location, $reactive) {
+            controller: function($scope) {
 
-                $scope.perPage = 10;
-                $scope.page = 1;
+                if(!Session.get('answersListlimit')) {
+                    Session.set('answersListlimit', 10);
+                }
 
-                var handle = Meteor.subscribe('AnswersUser');
+                var handle = $scope.subscribe('AnswersUser' ,() => {
+                    return [ Session.get('answersListlimit') ];
+                });
 
                 $scope.$on('$destroy', function() {
                     handle.stop();
                 });
 
-                //$scope.helpers({
-                //    questions: () => {
-                //        return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
-                //    }
-                //});
+                $scope.helpers({
+                    questions: () => {
+                        return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
+                    }
+                });
 
                 $scope.loadMore = () => {
-                    $scope.page  += 1;
+                    Session.set('answersListlimit', parseInt(Session.get('answersListlimit')) + 5);
                 };
             }
         };
