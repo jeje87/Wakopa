@@ -16,11 +16,11 @@ angular.module('easypoll')
                     handle.stop();
                 });
 
-                $scope.helpers({
-                    questions: () => {
-                        return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
-                    }
-                });
+                //$scope.helpers({
+                //    questions: () => {
+                //        return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
+                //    }
+                //});
 
                 $scope.loadMore = () => {
                     $scope.page  += 1;

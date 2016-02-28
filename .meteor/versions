@@ -11,6 +11,7 @@ angular-meteor-data@0.0.9
 angular-templates@0.0.3
 angular:angular@1.4.7
 angularui:angular-ui-router@0.2.15
+appcache@1.0.6
 autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4

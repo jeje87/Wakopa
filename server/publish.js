@@ -3,8 +3,9 @@ Meteor.publish('Templates', function () {
     return Templates.find({"deleteDate": {$exists: false}});
 });
 
-Meteor.publish('Questions', function () {
-    return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{sort: {createDate: -1}});
+Meteor.publish('Questions', function (limit) {
+    var dl = limit || 10;
+    return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
 });
 
 Meteor.publish('QuestionsView', function () {

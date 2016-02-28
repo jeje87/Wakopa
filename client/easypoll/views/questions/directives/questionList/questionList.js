@@ -10,7 +10,13 @@ angular.module('easypoll')
                 $scope.perPage = 10;
                 $scope.nbQuestionTot = 1;
 
-                var handle = $scope.subscribe('Questions');
+                if(!Session.get('limit')) {
+                    Session.set('limit', 10);
+                }
+
+                var handle = $scope.subscribe('Questions' ,() => {
+                    return [ Session.get('limit') ];
+                });
 
                 $scope.$on('$destroy', function() {
                     handle.stop();
@@ -18,12 +24,12 @@ angular.module('easypoll')
 
                 $scope.helpers({
                     questions: () => {
-                         return Questions.find({"userId":Meteor.userId()}, {limit: $scope.getReactively("perPage"), sort: {createDate: -1}});
+                         return Questions.find({}); //, {limit: $scope.getReactively("perPage")}
                     }
                 });
 
                 $scope.loadMore = () => {
-                    $scope.perPage  += 10;
+                    Session.set('limit', parseInt(Session.get('limit')) + 5);
                 };
 
                 //$scope.$watch($scope.questions, function() {$scope.questions2=$scope.questions;});
