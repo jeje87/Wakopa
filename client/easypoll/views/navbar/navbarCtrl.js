@@ -40,17 +40,18 @@ angular.module('easypoll')
 
         $scope.$on('login', function (event) {
             $scope.buttons.length=0;
+            if(Meteor.user() && Meteor.user().profile) {
+                $scope.username = Meteor.user().profile.name;
+            }
             $scope.buttons.push(
                 {
-                    title:"Sign-out",
+                    title:$scope.username,
                     action:"signOut",
                     spanClass:"glyphicon glyphicon-log-out",
                     buttonClass:" btn btn-default navbar-button"
                 }
             );
-            if(Meteor.user() && Meteor.user().profile) {
-                $scope.username = Meteor.user().profile.name;
-            }
+
         });
 
 

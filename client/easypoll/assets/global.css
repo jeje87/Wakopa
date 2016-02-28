@@ -1,15 +1,7 @@
+
 .panel-default {
-    border-radius: 0;
-    border-bottom: 1px solid #bbb;
     /*box-shadow: 0 6px 12px rgba(0,0,0,.175);*/
     background-color: #f8f8f8;
-}
-
-.nothing {
-    border-radius: 5px;
-    margin: 20px;
-    padding: 20px;
-    background-color: #E6E6E6;
 }
 
 @media (min-width: 1200px) {
@@ -18,10 +10,79 @@
     }
 }
 
-@media(max-width:767px){
+@media (max-width: 768px) {
+
     .margin-top{
         margin-top: 10px;
     }
+
+    .panel {
+        margin-bottom: 0px;
+        border-bottom: none;
+    }
+
+    .panel-default, .navbar {
+        border-radius: 0px;
+    }
+
+    .panel-default {
+        border-bottom: none;
+    }
+
+    .panel-body {
+        padding: 5px;
+    }
+
+    .form-group {
+        margin-bottom: 5px;
+    }
+
+}
+
+@media (min-width: 768px) {
+
+    body  {
+        margin-top:10px;
+    }
+
+    .panel-default, .navbar {
+        border-radius: 5px;
+    }
+
+    .panel-default {
+        border-bottom: 1px solid #bbb;
+    }
+
+    .slide.ng-enter
+    {
+        position: absolute;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        opacity:0;
+    }
+    .slide.ng-enter-active
+    {
+        opacity:1;
+    }
+
+
+    .slide.ng-leave
+    {
+        position: absolute;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+    }
+    .slide.ng-leave-active
+    {
+        opacity:0;
+    }
+}
+
+.nothing {
+    border-radius: 5px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #E6E6E6;
 }
 
 .list-color a:nth-child(odd) {

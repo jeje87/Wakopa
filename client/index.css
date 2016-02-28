@@ -8,10 +8,6 @@ body  {
   padding-left: 0px;
 }
 
-.panel-default, .navbar {
-  border-radius: 5px;
-}
-
 .input-group .form-control {
   z-index: 5;
 }
