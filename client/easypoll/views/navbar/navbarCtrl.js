@@ -41,7 +41,7 @@ angular.module('easypoll')
         $scope.$on('login', function (event) {
             $scope.buttons.length=0;
             if(Meteor.user() && Meteor.user().profile) {
-                $scope.username = Meteor.user().profile.name;
+                $scope.username = Meteor.user().profile.name.split(" ")[0];
             }
             $scope.buttons.push(
                 {

@@ -6,6 +6,12 @@ div[role=tabpanel] .tab-content {
     padding: 20px;
 }
 
+@media (max-width: 768px) {
+    div[role=tabpanel] .tab-content {
+        padding: 5px;
+    }
+}
+
 div[role=tabpanel] .nav-tabs {
     margin-bottom: 0;
 }
