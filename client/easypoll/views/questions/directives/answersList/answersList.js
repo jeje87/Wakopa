@@ -1,6 +1,6 @@
 angular.module('easypoll')
 
-    .directive('answersList',function(){
+    .directive('answersList',function(meteorService){
         return {
             restrict : 'E',
             scope : {},
@@ -11,12 +11,8 @@ angular.module('easypoll')
                     Session.set('answersListlimit', 10);
                 }
 
-                var handle = $scope.subscribe('AnswersUser' ,() => {
-                    return [ Session.get('answersListlimit') ];
-                });
-
-                $scope.$on('$destroy', function() {
-                    handle.stop();
+                Tracker.autorun(function () {
+                    meteorService.subscribeAnswersUser(Session.get('answersListlimit'));
                 });
 
                 $scope.helpers({

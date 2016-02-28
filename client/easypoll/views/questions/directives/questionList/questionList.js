@@ -1,23 +1,34 @@
 angular.module('easypoll')
 
-    .directive('questionList',function(){
+    .directive('questionList',function(meteorService){
         return {
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
             controller: function($scope) {
 
+
+
                 if(!Session.get('questionListlimit')) {
                     Session.set('questionListlimit', 10);
                 }
 
-                var handle = $scope.subscribe('QuestionsUser' ,() => {
-                    return [ Session.get('questionListlimit') ];
+                Tracker.autorun(function () {
+                    meteorService.subscribeQuestionsUser(Session.get('questionListlimit'));
                 });
 
-                $scope.$on('$destroy', function() {
-                    handle.stop();
-                });
+
+                //var handle = $scope.subscribe('QuestionsUser' ,() =>
+                //    [ Session.get('questionListlimit') ], {
+                //        onStop: function (error) {
+                //            alert('stop');
+                //        }
+                //    }
+                //);
+
+                //$scope.$on('$destroy', function() {
+                //    handle.stop();
+                //});
 
                 $scope.helpers({
                     questions: () => {

@@ -1,6 +1,16 @@
 angular.module('easypoll')
     .service('meteorService', function () {
 
+        //var handle = $scope.subscribe('QuestionsUser' ,() =>
+        //        [ Session.get('questionListlimit') ], {
+        //        onStop: function (error) {
+        //            alert('stop');
+        //        }
+        //    }
+        //);
+
+
+
         return {
 
             saveQuestion: (question) => {
@@ -16,6 +26,16 @@ angular.module('easypoll')
             getResults: (questionId) => {
 
                 return Meteor.callPromise('getResults', questionId);
+
+            },
+            subscribeQuestionsUser: (limit) => {
+
+                Meteor.subscribe("QuestionsUser",limit);
+
+            },
+            subscribeAnswersUser: (limit) => {
+
+                Meteor.subscribe("AnswersUser",limit);
 
             }
         }
