@@ -30,7 +30,7 @@ Meteor.methods({
                         var urlAnswer = dns + 'question/view/' + question._id + '/' + respondent._id + '/' + answerId;
 
                         var html = `<div style="background:#E6E6E6;margin:0 auto;padding:15px;border-radius:10px">
-                                        <div style="background:white;text-align:center;width:400px;margin:0 auto;padding:15px;border-radius:10px">
+                                        <div style="background:white;text-align:center;width:350px;margin:0 auto;padding:10px;border-radius:10px">
                                             <h3 style="text-align:center;font-size:18px;font-weight:500;color:#337ab7;margin-top:0;">EasyPoll</h3>
                                             <p>${sender} vous a posé cette question :</p>
                                             <p style="font-size:15px;">${question.label}</p>
