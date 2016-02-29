@@ -12,7 +12,7 @@ angular.module('easypoll')
                 }
 
                 Tracker.autorun(function () {
-                    meteorService.subscribeAnswersUser(Session.get('answersListlimit'));
+                    meteorService.subscribe("AnswersUser", Session.get('answersListlimit'));
                 });
 
                 $scope.helpers({

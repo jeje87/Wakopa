@@ -1,4 +1,4 @@
-angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $stateParams,$meteor,$location,Notification) {
+angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $stateParams,$meteor,$location,Notification,meteorService) {
 
     //*********************************************************************************************
     //************************************ Déclarations *******************************************
@@ -86,12 +86,8 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         return _.contains($scope.user.answers, answer._id);
     };
 
-    //Pour question de sécurité, on ne renvoit pas toutes les infos -> QuestionsView et non Questions
-    var handle = $scope.subscribe('QuestionsView', () => [
-    ]);
-
-    $scope.$on('$destroy', function() {
-        handle.stop();
+    Tracker.autorun(function () {
+        meteorService.subscribe("QuestionsView");
     });
 
     //lie la variable $scope.question à la collection Mongo
