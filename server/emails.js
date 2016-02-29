@@ -29,12 +29,25 @@ Meteor.methods({
 
                         var urlAnswer = dns + 'question/view/' + question._id + '/' + respondent._id + '/' + answerId;
 
+                        var html = `<div style="background:#E6E6E6;margin:0 auto;padding:30px;border-radius:10px">
+                                        <div style="background:white;text-align:center;width:500px;margin:0 auto;padding:15px;border-radius:10px">
+                                            <h3 style="text-align:center;font-size:18px;font-weight:500;color:#337ab7;margin-top:0;">EasyPoll</h3>
+                                            <p>${sender} vous a posé cette question :</p>
+                                            <p style="font-size:16px;">${question.label}</p>
+                                            <a style="padding:15px 16px;text-align:center;line-height:1.3333333;text-decoration:none;display:inline-block;font-weight:400;border-radius:3px;background:#337ab7;color:white"
+                                                href="${urlAnswer}" target="_blank">
+                                                Donner votre réponse ici
+                                            </a>
+                                            <p>(aucune inscription n'est nécessaire pour répondre)</p>
+                                        </div>
+                                    </div>`;
+
                         var email = {
                             to: respondent.email,
                             from: 'no-reply@wakopa.com',
-                            subject: sender + ' send you this question',
+                            subject: sender + ' vous a posé cette question via l\'application EasyPoll',
                             text: '',
-                            html: question.label + '<br/><br/>You can give your answer here : ' + urlAnswer
+                            html: html
                         };
 
                         sendEmailGunAPI(email, function (error, result) {
