@@ -138,7 +138,9 @@ angular.module("easypoll").controller("QuestionCtrl",
         };
 
         $scope.dpdTypeSelect = (item) => {
-            //item._id = Random.id();
+            for(let i=0;i<item.values.length;i++) {
+                item.values[i]._id = Random.id();
+            }
             $scope.question.answers = item.values;
         };
 
