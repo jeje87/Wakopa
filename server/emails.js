@@ -38,13 +38,13 @@ Meteor.methods({
                                                 href="${urlAnswer}" target="_blank">
                                                 Donner votre réponse ici
                                             </a>
-                                            <p>(aucune inscription n'est nécessaire pour répondre)</p>
+                                            <p>Aucune inscription n'est nécessaire pour répondre</p>
                                         </div>
                                     </div>`;
 
                         var email = {
                             to: respondent.email,
-                            from: 'no-reply@wakopa.com',
+                            from: 'easypoll@wakopa.com',
                             subject: sender + ' vous a posé cette question via l\'application EasyPoll',
                             text: '',
                             html: html
