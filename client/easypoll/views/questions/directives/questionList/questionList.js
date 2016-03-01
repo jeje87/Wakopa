@@ -8,7 +8,7 @@ angular.module('easypoll')
             controller: function($scope, meteorService) {
 
                 if(!Session.get('questionListlimit')) {
-                    Session.set('questionListlimit', 10);
+                    Session.set('questionListlimit', 7);
                 }
 
                 Tracker.autorun(function () {

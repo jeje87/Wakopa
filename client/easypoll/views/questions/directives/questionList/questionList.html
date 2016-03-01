@@ -2,7 +2,9 @@
 
     <div class="list-group list-color">
 
-        <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">{{question.label}}</a>
+        <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">
+            {{question.label}}
+        </a>
 
         <div ng-if="nbQuestionTot==0" class="form-group" >
             <div class="nothing text-center">

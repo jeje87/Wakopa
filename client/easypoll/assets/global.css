@@ -97,3 +97,8 @@
     background-color: #FDF892;
 }
 
+.list-group-item {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
