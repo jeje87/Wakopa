@@ -29,16 +29,16 @@ Meteor.methods({
 
                         var urlAnswer = dns + 'question/view/' + question._id + '/' + respondent._id + '/' + answerId;
 
-                        var html = `<div style="background:#E6E6E6;margin:0 auto;padding:15px;border-radius:10px">
-                                        <div style="background:white;text-align:center;width:350px;margin:0 auto;padding:10px;border-radius:10px">
+                        var html = `<div style="margin:0 auto;">
+                                        <div style="background:white;text-align:center;width:350px;margin:0 auto;padding:10px;border-radius:10px;border:4px solid #337ab7">
                                             <h3 style="text-align:center;font-size:18px;font-weight:500;color:#337ab7;margin-top:0;">EasyPoll</h3>
                                             <p>${sender} vous a posé cette question :</p>
                                             <p style="font-size:15px;">${question.label}</p>
-                                            <a style="padding:15px 16px;text-align:center;line-height:1.3333333;text-decoration:none;display:inline-block;font-weight:400;border-radius:3px;background:#337ab7;color:white"
+                                            <a style="padding:15px 16px;text-align:center;line-height:1.3;text-decoration:none;display:inline-block;font-weight:400;border-radius:3px;background:#337ab7;color:white"
                                                 href="${urlAnswer}" target="_blank">
                                                 Donner votre réponse ici
                                             </a>
-                                            <p>Aucune inscription n'est nécessaire pour répondre</p>
+                                            <p>Aucune inscription n'est nécessaire</p>
                                         </div>
                                     </div>`;
 
