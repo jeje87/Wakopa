@@ -30,22 +30,25 @@ Meteor.methods({
                         var urlAnswer = dns + 'question/view/' + question._id + '/' + respondent._id + '/' + answerId;
 
                         var html = `<div style="margin:0 auto;">
-                                        <div style="background:white;text-align:center;width:350px;margin:0 auto;padding:10px;border-radius:10px;border:4px solid #337ab7">
-                                            <h3 style="text-align:center;font-size:18px;font-weight:500;color:#337ab7;margin-top:0;">EasyPoll</h3>
-                                            <p>${sender} vous a posé cette question :</p>
-                                            <p style="font-size:15px;">${question.label}</p>
+                                        <div style="background:white;text-align:center;width:350px;margin:0 auto;padding:10px;border-radius:10px;border:4px solid #337ab7;color:#000000;">
+                                            <h3 style="text-align:center;font-size:1.5em;font-weight:500;color:#337ab7;margin-top:0;"><a href="http://www.wakopa.com/">EasyPoll</a></h3>
+                                            <p style="color:#000000;">${sender} vous a posé cette question :</p>
+                                            <p style="font-size:1.2em;color:#000000;">${question.label}</p>
                                             <a style="padding:15px 16px;text-align:center;line-height:1.3;text-decoration:none;display:inline-block;font-weight:400;border-radius:3px;background:#337ab7;color:white"
                                                 href="${urlAnswer}" target="_blank">
                                                 Donner votre réponse ici
                                             </a>
-                                            <p>Aucune inscription n'est nécessaire</p>
+                                            <p style="color:#000000;">Aucune inscription n'est nécessaire !</p>
+                                            <p style="font-size:0.8em;color:#000000;">Cet email à été généré automatiquement
+                                                <br />par l'application <a style="color:#337ab7;text-decoration: underline;" href="http://www.wakopa.com/">EasyPoll</a>.
+                                                <br />Merci de ne pas y répondre.</p>
                                         </div>
                                     </div>`;
 
                         var email = {
                             to: respondent.email,
-                            from: 'easypoll@wakopa.com',
-                            subject: sender + ' vous a posé cette question via l\'application EasyPoll',
+                            from: 'EasyPoll <Easy.Poll@wakopa.com>',
+                            subject: sender + ' vous a posé une question',
                             text: '',
                             html: html
                         };
