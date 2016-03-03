@@ -7,6 +7,7 @@ angular.module('easypoll')
                 brand : '=',
                 username : '=',
                 buttons : '=',
+                leftbuttons : '=',
                 navfn : '&'
             },
             templateUrl : 'client/easypoll/directives/cNavbar/cNavbar.html',
@@ -41,6 +42,10 @@ angular.module('easypoll')
                  */
                 $scope.hasButtons = function(){
                     return (angular.isDefined($attrs.buttons));
+                };
+
+                $scope.hasLeftButtons = function(){
+                    return (angular.isDefined($attrs.leftbuttons));
                 };
 
             }]
