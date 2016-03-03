@@ -33,12 +33,12 @@ div[role=tabpanel] .nav-tabs-dropdown:before {
     right: 30px;
 }
 
-@media screen and (min-width: 641px) {
+@media screen and (min-width: 241px) {
     div[role=tabpanel] #nav-tabs-wrapper {
         display: block!important;
     }
 }
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 240px) {
     div[role=tabpanel] .nav-tabs-dropdown {
         display: block;
     }
@@ -76,5 +76,22 @@ div[role=tabpanel] .nav-tabs-dropdown:before {
     div[role=tabpanel] .nav-tabs-horizontal  > li.active > a:focus {
         color: #ffffff;
         background-color: #428bca;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-justified > li {
+        display: table-cell;
+        width: 1%;
+    }
+    .nav-justified > li > a  {
+        border-bottom: 1px solid #ddd !important;
+        border-radius: 4px 4px 0 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .nav-tabs.nav-justified > .active > a,
+    .nav-tabs.nav-justified > .active > a:hover,
+    .nav-tabs.nav-justified > .active > a:focus {
+        border-bottom-color: #fff !important;
     }
 }
