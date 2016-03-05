@@ -14,29 +14,8 @@ Meteor.publish('QuestionsView', function () {
 
 FindFromPublication.publish('QuestionsUser', function(limit) {
     var dl = limit || 10;
-    //var quest = Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
-    //debugger;
-    //for (let i = 0; i < quest.length; i++) {
-    //    quest[i].p100 = getP(quest[i]);
-    //}
-    //return quest;
     return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
 });
-
-let getP = (question) => {
-    //debugger;
-    if(question.respondents.length>0) {
-        let nbrResp = 0;
-        for (let i = 0; i < question.respondents.length; i++) {
-            if (question.respondents[i].answers && question.respondents[i].answers.length > 0) {
-                nbrResp++;
-            }
-        }
-        return (nbrResp / question.respondents.length) * 100;
-    }
-    return 0;
-};
-
 
 //https://atmospherejs.com/percolate/find-from-publication
 //https://www.discovermeteor.com/blog/pagination-problems-meteor/

@@ -7,6 +7,8 @@ angular.module('easypoll')
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
             controller: function($scope, meteorService) {
 
+
+
                 if(!Session.get('questionListlimit')) {
                     Session.set('questionListlimit', 5);
                 }
@@ -14,6 +16,7 @@ angular.module('easypoll')
                 Tracker.autorun(function () {
                     meteorService.subscribe("QuestionsUser",Session.get('questionListlimit'));
                 });
+
 
                 $scope.helpers({
                     questions: () => {
@@ -25,9 +28,7 @@ angular.module('easypoll')
                     Session.set('questionListlimit', parseInt(Session.get('questionListlimit')) + 5);
                 };
 
-                $scope.getPercent = (question) => {
-                    //debugger;
-                    //console.log("call");
+                $scope.getAvctPercent = (question) => {
                     if(question.respondents.length>0) {
                         let nbrResp = 0;
                         for (let i = 0; i < question.respondents.length; i++) {

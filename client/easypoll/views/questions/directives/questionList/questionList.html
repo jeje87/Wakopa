@@ -4,16 +4,17 @@
 
         <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">
             <div class="row">
+                <span style="display: none;">{{avct=getAvctPercent(question)}}</span>
                 <div class="col-xs-9">
                     {{question.label}}
                 </div>
                 <div class="col-xs-3">
                     <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="getPercent(question);"
-                             aria-valuemin="0" aria-valuemax="100" ng-style="{width : ( getPercent(question) + '%' ) }">
-                            {{( getPercent(question)+'%' )}}
+                        <div class="progress-bar" role="progressbar" aria-valuenow="avct;"
+                             aria-valuemin="0" aria-valuemax="100" ng-style="{width : avct + '%' }">
+                            {{ avct + '%' }}
                         </div>
-                        <span ng-if="getPercent(question)===0">0%</span>
+                        <span ng-if="avct===0">0%</span>
                     </div>
                 </div>
             </div>
