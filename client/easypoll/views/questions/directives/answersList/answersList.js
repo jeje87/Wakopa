@@ -8,7 +8,7 @@ angular.module('easypoll')
             controller: function($scope) {
 
                 if(!Session.get('answersListlimit')) {
-                    Session.set('answersListlimit', 7);
+                    Session.set('answersListlimit', 5);
                 }
 
                 Tracker.autorun(function () {
