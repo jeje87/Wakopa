@@ -5,16 +5,23 @@ angular.module('easypoll')
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
-            controller: function($scope, meteorService) {
+            controller: function($scope, meteorService, contextService) {
 
+                $scope.context = contextService.getContext();
 
-
-                if(!Session.get('questionListlimit')) {
-                    Session.set('questionListlimit', 5);
+                if(!$scope.context.questionList) {
+                    $scope.context.questionList = {};
+                    $scope.context.questionList.rowNumber = 5;
                 }
 
+                //$scope.bibi="bobo";
+
+                $scope.$on("$destroy", function(){
+                    contextService.saveContext();
+                });
+
                 Tracker.autorun(function () {
-                    meteorService.subscribe("QuestionsUser",Session.get('questionListlimit'));
+                    meteorService.subscribe("QuestionsUser",$scope.getReactively("context", true).questionList.rowNumber);
                 });
 
 
@@ -25,7 +32,7 @@ angular.module('easypoll')
                 });
 
                 $scope.loadMore = () => {
-                    Session.set('questionListlimit', parseInt(Session.get('questionListlimit')) + 5);
+                    $scope.context.questionList.rowNumber = $scope.context.questionList.rowNumber + 5;
                 };
 
                 $scope.getAvctPercent = (question) => {
