@@ -6,7 +6,8 @@ angular.module('easypoll')
         template: '<div role="tabpanel" ng-show="active" ng-transclude></div>',
         require: '^tabset',
         scope: {
-            heading: '@'
+            heading: '@',
+            selected: '='
         },
         link: function(scope, elem, attr, tabsetCtrl) {
             scope.active = false;

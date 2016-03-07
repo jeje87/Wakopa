@@ -8,19 +8,19 @@
             </div>
             <div class="form-group">
 
-                    <tabset>
+                    <tabset obj="focusinControl">
 
-                        <tab heading="Questions">
+                        <tab heading="Questions" ng-attr-selected="tabSelected==0" ng-click="keep(0);">
 
                             <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
-                                <span class="glyphicon glyphicon-plus"></span> Add 
+                                <span class="glyph1icon glyphicon-plus"></span> Add
                             </button>
 
                             <question-list></question-list>
 
                         </tab>
 
-                        <tab heading="Answers">
+                        <tab heading="Answers" ng-attr-selected="tabSelected==1" ng-click="keep(1);">
 
                             <answers-list></answers-list>
 

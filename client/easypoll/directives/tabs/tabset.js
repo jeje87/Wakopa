@@ -1,14 +1,23 @@
 angular.module('easypoll')
-.directive('tabset', function() {
+.directive('tabset', function factory() {
     return {
         restrict: 'E',
         transclude: true,
-        scope: { },
+        scope: {
+            obj: '='
+        },
         templateUrl: 'client/easypoll/directives/tabs/tabset.html',
         bindToController: true,
         controllerAs: 'tabset',
         controller: function() {
+
             var self = this;
+
+            self.internalControl = self.obj || {};
+            self.internalControl.test = function() {
+               alert('test');
+            };
+
             self.tabs = [];
             self.select = function(selectedTab,$event) {
                 if(selectedTab.disabled) { return }
@@ -23,8 +32,8 @@ angular.module('easypoll')
             };
 
             self.addTab = function addTab(tab) {
-                self.tabs.push(tab)
-                if(self.tabs.length === 1) {
+                self.tabs.push(tab);
+                if((typeof tab.selected == "undefined" && self.tabs.length === 1) || tab.selected) {
                     tab.active = true;
                     self.activeTab = tab.heading;
                 }
