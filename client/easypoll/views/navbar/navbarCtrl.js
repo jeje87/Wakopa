@@ -65,7 +65,7 @@ angular.module('easypoll')
                 else {
                     $scope.buttons.length = 0;
                     $scope.leftbuttons.length = 0;
-                    if(next.endsWith("login")===-1) {
+                    if(!next.endsWith("login")) {
                         $scope.buttons.push(
                             {
                                 title: "Sign-in",
