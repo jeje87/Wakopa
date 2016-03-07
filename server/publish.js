@@ -4,7 +4,7 @@ Meteor.publish('Templates', function () {
 });
 
 Meteor.publish('Questions', function (limit) {
-    var dl = limit || 10;
+    var dl = limit || 5;
     return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
 });
 
@@ -13,7 +13,7 @@ Meteor.publish('QuestionsView', function () {
 });
 
 FindFromPublication.publish('QuestionsUser', function(limit) {
-    var dl = limit || 10;
+    var dl = limit || 5;
     return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
 });
 

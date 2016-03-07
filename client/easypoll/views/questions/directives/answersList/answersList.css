@@ -3,10 +3,12 @@
 }
 
     .answer-list .list-group {
-         margin-top: 20px;
+        margin-top: 20px;
+        margin-bottom: 5px;
      }
 
-    .answer-list .btnLoadMore {
+    .answer-list .btnLoad {
+        margin-top: 5px;
         margin-bottom: 10px;
         margin-left: 5px;
     }

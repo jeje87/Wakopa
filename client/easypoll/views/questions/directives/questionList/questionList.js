@@ -5,25 +5,15 @@ angular.module('easypoll')
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
-            controller: function($scope, meteorService, contextService) {
+            controller: function($scope, meteorService) {
 
-                $scope.context = contextService.getContext();
+                let stateKey = "questionListState";
 
-                if(!$scope.context.questionList) {
-                    $scope.context.questionList = {};
-                    $scope.context.questionList.rowNumber = 5;
-                }
-
-                //$scope.bibi="bobo";
-
-                $scope.$on("$destroy", function(){
-                    contextService.saveContext();
-                });
+                Session.setDefault(stateKey, {limit :5});
 
                 Tracker.autorun(function () {
-                    meteorService.subscribe("QuestionsUser",$scope.getReactively("context", true).questionList.rowNumber);
+                    meteorService.subscribe("QuestionsUser",Session.get(stateKey).limit);
                 });
-
 
                 $scope.helpers({
                     questions: () => {
@@ -32,7 +22,18 @@ angular.module('easypoll')
                 });
 
                 $scope.loadMore = () => {
-                    $scope.context.questionList.rowNumber = $scope.context.questionList.rowNumber + 5;
+                    let state = Session.get(stateKey);
+                    state.limit += 5;
+                    Session.set(stateKey, state);
+                };
+
+                $scope.loadLess = () => {
+                    let state = Session.get(stateKey);
+                    state.limit -= 5;
+                    if (state.limit<5) {
+                        state.limit=5;
+                    }
+                    Session.set(stateKey, state);
                 };
 
                 $scope.getAvctPercent = (question) => {
@@ -47,7 +48,6 @@ angular.module('easypoll')
                     }
                     return 0;
                 };
-
 
             }
         };

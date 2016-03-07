@@ -7,12 +7,12 @@ angular.module('easypoll')
             templateUrl : 'client/easypoll/views/questions/directives/answersList/answersList.html',
             controller: function($scope) {
 
-                if(!Session.get('answersListlimit')) {
-                    Session.set('answersListlimit', 5);
-                }
+                let stateKey = "answersListState";
+
+                Session.setDefault(stateKey, {limit :5});
 
                 Tracker.autorun(function () {
-                    meteorService.subscribe("AnswersUser", Session.get('answersListlimit'));
+                    meteorService.subscribe("AnswersUser", Session.get(stateKey).limit);
                 });
 
                 $scope.helpers({
@@ -22,8 +22,20 @@ angular.module('easypoll')
                 });
 
                 $scope.loadMore = () => {
-                    Session.set('answersListlimit', parseInt(Session.get('answersListlimit')) + 5);
+                    let state = Session.get(stateKey);
+                    state.limit += 5;
+                    Session.set(stateKey, state);
                 };
+
+                $scope.loadLess = () => {
+                    let state = Session.get(stateKey);
+                    state.limit -= 5;
+                    if (state.limit<5) {
+                        state.limit=5;
+                    }
+                    Session.set(stateKey, state);
+                };
+
             }
         };
     });

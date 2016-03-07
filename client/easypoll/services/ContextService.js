@@ -2,10 +2,7 @@ angular.module('easypoll')
     .service('contextService', function () {
 
 
-        let context = Session.get('context');
-        if(!context) {
-            context={};
-        }
+        let context = Session.get('context') || {};
 
         return {
 
