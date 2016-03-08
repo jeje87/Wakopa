@@ -5,7 +5,7 @@ angular.module('easypoll')
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
-            controller: function($scope, meteorService) {
+            controller: function($scope, meteorService,$interval) {
 
                 let stateKey = "questionListState";
 
@@ -55,7 +55,10 @@ angular.module('easypoll')
 
                 $scope.getNumberResp = (question) => {
                     return question.respondents.length;
-                }
+                };
+
+                let interval = $interval(function() { /*pour maj la minuterie*/ }, 60000);
+                $scope.$on('$destroy', function () { $interval.cancel(interval); });
 
             }
         };
