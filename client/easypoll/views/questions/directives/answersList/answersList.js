@@ -17,7 +17,7 @@ angular.module('easypoll')
 
                 $scope.helpers({
                     questions: () => {
-                        return Questions.findFromPublication("AnswersUser", {}, {limit: 10, sort: {createDate: -1}});
+                        return Questions.findFromPublication("AnswersUser", {}, {sort: {createDate: -1}});
                     }
                 });
 

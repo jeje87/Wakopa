@@ -19,8 +19,9 @@ FindFromPublication.publish('QuestionsUser', function(limit) {
 
 //https://atmospherejs.com/percolate/find-from-publication
 //https://www.discovermeteor.com/blog/pagination-problems-meteor/
-FindFromPublication.publish('AnswersUser', function() {
+FindFromPublication.publish('AnswersUser', function(limit) {
 
+    var dl = limit || 5;
     var user = Meteor.users.findOne(this.userId);
     var mail="-1";
 
@@ -40,6 +41,7 @@ FindFromPublication.publish('AnswersUser', function() {
             "deleteDate": {$exists: false}
         },
         {
+            limit: dl,
             sort: {createDate: -1},
             fields: {_id: 1, label: 1, userId: 1, "respondents._id": 1}
         })
