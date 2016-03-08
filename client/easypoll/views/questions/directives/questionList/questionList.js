@@ -49,6 +49,14 @@ angular.module('easypoll')
                     return 0;
                 };
 
+                $scope.getDateFromNow = (timestamp) => {
+                   return moment(new Date(timestamp)).fromNow();
+                };
+
+                $scope.getNumberResp = (question) => {
+                    return question.respondents.length;
+                }
+
             }
         };
     });

@@ -33,3 +33,4 @@ deanius:promise
 percolate:find-from-publication
 angular-meteor-auth
 appcache
+momentjs:moment

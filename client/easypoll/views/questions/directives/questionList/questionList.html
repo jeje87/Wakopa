@@ -6,15 +6,31 @@
             <div class="row">
                 <span style="display: none;">{{avct=getAvctPercent(question)}}</span>
                 <div class="col-xs-9">
-                    {{question.label}}
+                    <div class="row">
+                        <div class="col-xs-12">{{question.label}}</div>
+                    </div>
                 </div>
                 <div class="col-xs-3">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" aria-valuenow="avct;"
-                             aria-valuemin="0" aria-valuemax="100" ng-style="{width : avct + '%' }">
-                            {{ avct + '%' }}
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <div class="text-right text-nowrap"><span class="glyphicon glyphicon-user"></span> {{getNumberResp(question)}}</div>
                         </div>
-                        <span ng-if="avct===0">0%</span>
+                        <div class="col-xs-8">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="avct;"
+                                     aria-valuemin="0" aria-valuemax="100" ng-style="{width : avct + '%' }">
+                                    {{ avct + '%' }}
+                                </div>
+                                <span class="avct0" ng-if="avct===0">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="question-date text-left">
+                            {{getDateFromNow(question.createDate)}}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

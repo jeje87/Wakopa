@@ -12,9 +12,21 @@
 
                         <tab heading="Questions" ng-attr-selected="tabSelected==0" ng-click="keep(0);">
 
-                            <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
-                                <span class="glyph1icon glyphicon-plus"></span> Add
-                            </button>
+                            <div class="row">
+                                <div class="col-xs-3 col-sm-3">
+                                    <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
+                                        <span class="glyph1icon glyphicon-plus"></span> Add
+                                    </button>
+                                </div>
+                                <div class="col-xs-0 col-sm-3">
+                                </div>
+                                <div class="col-xs-9 col-sm-6">
+                                    <div class="form-group has-feedback searchbox">
+                                        <input type="text" class="form-control" id="inputSuccess2"/>
+                                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                                    </div>
+                                </div>
+                            </div>
 
                             <question-list></question-list>
 

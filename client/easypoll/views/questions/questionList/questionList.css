@@ -3,14 +3,19 @@
 
 }
 
-    .question-list-form-content  {
-        min-height:600px;
-    }
+.question-list-form-content {
+    min-height: 600px;
+}
 
-    .question-list-form #btnAdd {
-        margin-top: 5px;
-        margin-bottom: 10px;
-        margin-left: 5px;
-    }
+.question-list-form #btnAdd {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
 
+.question-list-form .searchbox {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
 
