@@ -2,7 +2,6 @@ angular.module('easypoll')
 
     .controller('navbarCtrl', function ($scope, $state, $location) {
 
-
             $scope.brand = "<span class='glyphicon glyphicon-question-sign'></span> EasyPoll";
 
             $scope.buttons = [];
@@ -83,7 +82,7 @@ angular.module('easypoll')
                 }
             };
 
-            Tracker.autorun(function () {
+            $scope.autorun(() => {
                 manageButtons($location.absUrl().split('?')[0]);
             });
 

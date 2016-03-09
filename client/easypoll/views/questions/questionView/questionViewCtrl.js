@@ -1,9 +1,11 @@
-angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $stateParams,$meteor,$location,Notification,meteorService) {
+angular.module("easypoll").controller("QuestionViewCtrl",
+    function ($scope, $stateParams,$meteor,$location,Notification,meteorService,$reactive) {
 
     //*********************************************************************************************
     //************************************ Déclarations *******************************************
     //*********************************************************************************************
 
+    $reactive(this).attach($scope);
     $scope.results = {};
     $scope.user = {};
     $scope.totValue = 0;
@@ -15,7 +17,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     //renvoi la réponse de l'utilisateur connecté
     let getAnswerUser = function () {
 
-        Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId, function(err,data) {
+        this.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId, function(err,data) {
 
             if(err){
                 Notification.error('An error has occurred (getAnswerUser)');
@@ -35,7 +37,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
     //renvoi les résultats de la question affichée
     let getResultsClient = function () {
 
-        Meteor.call('getResults', $stateParams.questionId  ,function(err,data) {
+        this.call('getResults', $stateParams.questionId  ,function(err,data) {
 
             if(err){
                 Notification.Error('An error has occurred');
@@ -47,10 +49,8 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
                 return prev + cur;
             });
 
-            $scope.safeApply(function () {
-                $scope.results.labels = data.labels;
-                $scope.results.data = data.values;
-            });
+            $scope.results.labels = data.labels;
+            $scope.results.data = data.values;
 
         });
     };
@@ -69,7 +69,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         $scope.user.answers.length = 0;
         $scope.user.answers.push(answer._id);
 
-        Meteor.call('selectAnswer', $stateParams.questionId, answer._id, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
+        this.call('selectAnswer', $stateParams.questionId, answer._id, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
 
             if(err){
                 Notification.error('An error has occurred');
@@ -86,8 +86,9 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         return _.contains($scope.user.answers, answer._id);
     };
 
-    Tracker.autorun(function () {
+    this.autorun(function () {
         meteorService.subscribe("QuestionsView");
+        getResultsClient();
     });
 
     //lie la variable $scope.question à la collection Mongo
@@ -95,10 +96,6 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
         question: () => {
             return Questions.findOne($stateParams.questionId);
         }
-    });
-
-    $scope.autorun(() => {
-        getResultsClient();
     });
 
     $scope.back = () => {
