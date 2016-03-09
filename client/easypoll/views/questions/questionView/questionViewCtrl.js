@@ -38,7 +38,7 @@ angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $sta
             Meteor.call('getResults', $stateParams.questionId, function (err, data) {
 
                 if (err) {
-                    Notification.Error('An error has occurred');
+                    Notification.error('An error has occurred');
                     console.log(err);
                     return;
                 }

@@ -32,7 +32,6 @@
                         </div>
 
                         <span><h5>Your answer:</h5></span>
-                        <button tabindex="-1" ng-click="test()">test</button>
                         <div class="form-group" >
                             <div class="form-group votes" ng-repeat="answer in question.answers">
                                 <button tabindex="-1" ng-click="vote(answer)" type="button" ng-class="selectedByMe(answer) ? 'btn-primary' : 'btn-default'" class="btn btn-block">{{answer.label}}</button>
