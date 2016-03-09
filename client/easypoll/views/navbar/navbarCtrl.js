@@ -1,6 +1,6 @@
 angular.module('easypoll')
 
-    .controller('navbarCtrl', function ($scope, $state) {
+    .controller('navbarCtrl', function ($scope, $state, $location) {
 
 
             $scope.brand = "<span class='glyphicon glyphicon-question-sign'></span> EasyPoll";
@@ -28,54 +28,67 @@ angular.module('easypoll')
                 }
             };
 
-            $scope.$on('$locationChangeSuccess', function(event, next, current) {
-                if(Meteor.user()) {
-                    $scope.buttons.length = 0;
-                    $scope.leftbuttons.length = 0;
-                    //Meteor.user().profile.name.split(" ")[0]
-                    $scope.buttons.push(
-                        {
-                            title: "Sign-out",
-                            action: "signOut",
-                            spanClass: "glyphicon glyphicon-log-out",
-                            buttonClass: " btn btn-default navbar-button"
-                        }
-                    );
-                    if(next.endsWith("questions")) {
-                        $scope.leftbuttons.push(
+            let manageButtons = (next) => {
+                if (Meteor.user() !== undefined) {
+                    if (Meteor.user()) {
+                        $scope.buttons.length = 0;
+                        $scope.leftbuttons.length = 0;
+                        //Meteor.user().profile.name.split(" ")[0]
+                        $scope.buttons.push(
                             {
-                                title: "",
-                                action: "back",
-                                spanClass: "glyphicon glyphicon-arrow-left",
-                                buttonClass: " btn btn-default navbar-button disabled"
-                            }
-                        );
-                    }
-                    else {
-                        $scope.leftbuttons.push(
-                            {
-                                title: "",
-                                action: "back",
-                                spanClass: "glyphicon glyphicon-arrow-left",
+                                title: "Sign-out",
+                                action: "signOut",
+                                spanClass: "glyphicon glyphicon-log-out",
                                 buttonClass: " btn btn-default navbar-button"
                             }
                         );
+                        if (next.endsWith("questions")) {
+                            $scope.leftbuttons.push(
+                                {
+                                    title: "",
+                                    action: "back",
+                                    spanClass: "glyphicon glyphicon-arrow-left",
+                                    buttonClass: " btn btn-default navbar-button disabled"
+                                }
+                            );
+                        }
+                        else {
+                            $scope.leftbuttons.push(
+                                {
+                                    title: "",
+                                    action: "back",
+                                    spanClass: "glyphicon glyphicon-arrow-left",
+                                    buttonClass: " btn btn-default navbar-button"
+                                }
+                            );
+                        }
+                    }
+                    else {
+                        $scope.buttons.length = 0;
+                        $scope.leftbuttons.length = 0;
+                        if (!next.endsWith("login")) {
+                            $scope.buttons.push(
+                                {
+                                    title: "Sign-in",
+                                    action: "signIn",
+                                    spanClass: "glyphicon glyphicon-log-in",
+                                    buttonClass: "btn btn-primary navbar-button"
+                                }
+                            );
+                        }
                     }
                 }
                 else {
-                    $scope.buttons.length = 0;
-                    $scope.leftbuttons.length = 0;
-                    if(!next.endsWith("login")) {
-                        $scope.buttons.push(
-                            {
-                                title: "Sign-in",
-                                action: "signIn",
-                                spanClass: "glyphicon glyphicon-log-in",
-                                buttonClass: "btn btn-primary navbar-button"
-                            }
-                        );
-                    }
+                    console.log("waiting Meteor.user()");
                 }
+            };
+
+            Tracker.autorun(function () {
+                manageButtons($location.absUrl().split('?')[0]);
+            });
+
+            $scope.$on('$locationChangeSuccess', function (event, next, current) {
+                manageButtons(next);
             });
 
         }
