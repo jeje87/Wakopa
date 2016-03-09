@@ -25,13 +25,13 @@ FindFromPublication.publish('AnswersUser', function(limit) {
     var user = Meteor.users.findOne(this.userId);
     var mail="-1";
 
-    if(user.services && user.services.google ) {
+    if(user && user.services && user.services.google ) {
         mail = user.services.google.email;
     }
-    else if(user.services && user.services.facebook) {
+    else if(user && user.services && user.services.facebook) {
         mail = user.services.facebook.email;
     }
-    else if(user.emails) {
+    else if(user && user.emails) {
         mail = user.emails[0].address;
     }
 
