@@ -1,111 +1,116 @@
-angular.module("easypoll").controller("QuestionViewCtrl",
-    function ($scope, $stateParams,$meteor,$location,Notification,meteorService,$reactive) {
+angular.module("easypoll").controller("QuestionViewCtrl", function ($scope, $stateParams, $meteor, $location, Notification, meteorService) {
 
-    //*********************************************************************************************
-    //************************************ Déclarations *******************************************
-    //*********************************************************************************************
+        //*********************************************************************************************
+        //************************************ Déclarations *******************************************
+        //*********************************************************************************************
 
-    $scope.results = {};
-    $scope.user = {};
-    $scope.totValue = 0;
-    var self=this;
-    $reactive(self).attach($scope);
+        $scope.results = {};
+        $scope.user = {};
+        $scope.totValue = 0;
 
-    //*********************************************************************************************
-    //********************************* Méthodes privées ******************************************
-    //*********************************************************************************************
+        //*********************************************************************************************
+        //********************************* Méthodes privées ******************************************
+        //*********************************************************************************************
 
-    //renvoi la réponse de l'utilisateur connecté
-    let getAnswerUser = function () {
+        //renvoi la réponse de l'utilisateur connecté
+        let getAnswerUser = function () {
 
-        self.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId, function(err,data) {
+            Meteor.call('getAnswerUser', $stateParams.questionId, $stateParams.respondentId, $stateParams.answerId, function (err, data) {
 
-            if(err){
-                Notification.error('An error has occurred (getAnswerUser)');
-                console.log(err);
-                return;
-            }
+                if (err) {
+                    Notification.error('An error has occurred (getAnswerUser)');
+                    console.log(err);
+                    return;
+                }
 
-            if(data) {
+                if (data) {
 
-                $scope.user.to = data.email;
-                $scope.user.answers = data.answers;
-            }
+                    $scope.user.to = data.email;
+                    $scope.user.answers = data.answers;
+                }
 
-        });
-    };
-
-    //renvoi les résultats de la question affichée
-    let getResultsClient = function () {
-
-        self.call('getResults', $stateParams.questionId  ,function(err,data) {
-
-            if(err){
-                Notification.error('An error has occurred');
-                console.log(err);
-                return;
-            }
-
-            $scope.totValue = data.values.reduce(function(prev, cur) {
-                return prev + cur;
             });
-            Notification.info('ok');
-      //      $scope.safeApply(function () {
-                $scope.results.labels = data.labels;
-                $scope.results.data = data.values;
-       //     });
+        };
+
+        //renvoi les résultats de la question affichée
+        let getResultsClient = function () {
+
+            Meteor.call('getResults', $stateParams.questionId, function (err, data) {
+
+                if (err) {
+                    Notification.Error('An error has occurred');
+                    console.log(err);
+                    return;
+                }
+
+                $scope.totValue = data.values.reduce(function (prev, cur) {
+                    return prev + cur;
+                });
+
+                $scope.safeApply(function () {
+
+                    $scope.results.labels = data.labels;
+                    $scope.results.data = data.values;
+
+                });
+            });
+        };
+
+        let init = function () {
+            getAnswerUser();
+        };
+
+        //*********************************************************************************************
+        //********************************* Méthodes publiques ****************************************
+        //*********************************************************************************************
+
+        //action du vote
+        $scope.vote = function (answer) {
+
+            $scope.user.answers.length = 0;
+            $scope.user.answers.push(answer._id);
+
+            Meteor.call('selectAnswer', $stateParams.questionId, answer._id, $stateParams.respondentId, $stateParams.answerId, function (err, data) {
+
+                if (err) {
+                    Notification.error('An error has occurred');
+                    console.log(err);
+                    return;
+                }
+
+                //Notification.success('Changes saved successfully');
+
+            });
+        };
+
+        $scope.selectedByMe = function (answer) {
+            return _.contains($scope.user.answers, answer._id);
+        };
+
+        Tracker.autorun(function () {
+            meteorService.subscribe("QuestionsView");
+            getResultsClient();
+            //lie la variable $scope.question à la collection Mongo
 
         });
-    };
 
-    let init = function () {
-        getAnswerUser();
-    };
-
-    //*********************************************************************************************
-    //********************************* Méthodes publiques ****************************************
-    //*********************************************************************************************
-
-    //action du vote
-    $scope.vote = function(answer) {
-
-        $scope.user.answers.length = 0;
-        $scope.user.answers.push(answer._id);
-
-        self.call('selectAnswer', $stateParams.questionId, answer._id, $stateParams.respondentId, $stateParams.answerId ,function(err,data) {
-
-            if(err){
-                Notification.error('An error has occurred');
-                console.log(err);
-                return;
+        $scope.helpers({
+            question: () => {
+                return Questions.findOne($stateParams.questionId);
             }
-
-            //Notification.success('Changes saved successfully');
-
         });
-    };
 
-    $scope.selectedByMe = function(answer) {
-        return _.contains($scope.user.answers, answer._id);
-    };
+        $scope.back = () => {
+            $location.path("/questionList");
+        };
 
-    this.autorun(() => {
-        meteorService.subscribe("QuestionsView");
-        self.question = Questions.findOne($stateParams.questionId);
-        getResultsClient();
-    });
+        //*********************************************************************************************
+        //********************************** Initialisation *******************************************
+        //*********************************************************************************************
 
-    $scope.back = () => {
-        $location.path("/questionList");
-    };
+        init();
 
-    //*********************************************************************************************
-    //********************************** Initialisation *******************************************
-    //*********************************************************************************************
-
-    init();
-
-    //http://localhost:3000/question/view/qXmKcfyHNWpy3ZwD5/sZ2zmuKpLxwxw7vA3/Zt5PMDMGhReZ5zvBb#tabAllAnswers
+        //http://localhost:3000/question/view/qXmKcfyHNWpy3ZwD5/sZ2zmuKpLxwxw7vA3/Zt5PMDMGhReZ5zvBb#tabAllAnswers
 
     }
 );
