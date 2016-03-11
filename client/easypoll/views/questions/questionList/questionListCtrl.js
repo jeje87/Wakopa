@@ -5,10 +5,14 @@ angular.module("easypoll").controller("QuestionListCtrl", function ($scope, $sta
         Session.setDefault(stateKey, {tabSelected: 0});
         $scope.tabSelected = Session.get(stateKey).tabSelected;
 
-        $scope.keep = function(index) {
+        $scope.keep = function (index) {
             let state = Session.get(stateKey);
             state.tabSelected = index;
             Session.set(stateKey, state);
+        };
+
+        $scope.search = function (index) {
+           alert('test');
         };
 
         $scope.focusinControl = {};
