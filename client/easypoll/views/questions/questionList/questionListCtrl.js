@@ -1,6 +1,7 @@
-angular.module("easypoll").controller("QuestionListCtrl", function ($scope, $stateParams, $meteor, $location) {
+angular.module("easypoll").controller("QuestionListCtrl", function ($scope) {
 
         let stateKey = "QuestionListCtrlState";
+        $scope.context ={};
 
         Session.setDefault(stateKey, {tabSelected: 0});
         $scope.tabSelected = Session.get(stateKey).tabSelected;
@@ -9,16 +10,6 @@ angular.module("easypoll").controller("QuestionListCtrl", function ($scope, $sta
             let state = Session.get(stateKey);
             state.tabSelected = index;
             Session.set(stateKey, state);
-        };
-
-        $scope.search = function (index) {
-           alert('test');
-        };
-
-        $scope.focusinControl = {};
-
-        $scope.add = function () {
-            $location.path("/question/new");
         };
 
     }

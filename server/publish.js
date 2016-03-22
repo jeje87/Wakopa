@@ -12,9 +12,15 @@ Meteor.publish('QuestionsView', function () {
     return Questions.find({"deleteDate": {$exists: false}}, {sort: {createDate: -1}, fields: {mails: 0}});
 });
 
-FindFromPublication.publish('QuestionsUser', function(limit) {
+FindFromPublication.publish('QuestionsUser', function(limit, search) {
     var dl = limit || 5;
-    return Questions.find({"userId": this.userId, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
+    if(search && search!="") {
+        return Questions.find({"userId": this.userId, $text: { $search: search }, "deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
+    }
+    else {
+        return Questions.find({"userId": this.userId ,"deleteDate": {$exists: false}},{limit: dl, sort: {createDate: -1}});
+    }
+
 });
 
 //https://atmospherejs.com/percolate/find-from-publication

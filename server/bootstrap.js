@@ -75,5 +75,7 @@ Meteor.startup(function () {
         Templates.insert(templateAnswers);
     }
 
+    Questions._ensureIndex({ "label": "text" })
+
 
 });

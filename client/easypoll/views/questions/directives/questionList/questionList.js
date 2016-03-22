@@ -5,14 +5,15 @@ angular.module('easypoll')
             restrict : 'E',
             scope : {},
             templateUrl : 'client/easypoll/views/questions/directives/questionList/questionList.html',
-            controller: function($scope, meteorService,$interval) {
+            controller: function($scope, meteorService,$interval, $location) {
 
                 let stateKey = "questionListState";
 
-                Session.setDefault(stateKey, {limit :5});
+                Session.setDefault(stateKey, {limit :5, search:""});
 
                 Tracker.autorun(function () {
-                    meteorService.subscribe("QuestionsUser",Session.get(stateKey).limit);
+                    console.log('rerun');
+                    meteorService.subscribe("QuestionsUser",Session.get(stateKey).limit, Session.get(stateKey).search);
                 });
 
                 $scope.helpers({
@@ -20,6 +21,22 @@ angular.module('easypoll')
                         return Questions.findFromPublication("QuestionsUser",{},{sort: {createDate: -1}});
                     }
                 });
+
+                $scope.keypress = function (keyEvent) {
+                    if (keyEvent.which === 13) {
+                        $scope.search();
+                    }
+                };
+
+                $scope.search = function () {
+                    let state = Session.get(stateKey);
+                    state.search = $scope.context.search;
+                    Session.set(stateKey, state);
+                };
+
+                $scope.add = function () {
+                    $location.path("/question/new");
+                };
 
                 $scope.loadMore = () => {
                     let state = Session.get(stateKey);

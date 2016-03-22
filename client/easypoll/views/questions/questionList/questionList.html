@@ -8,27 +8,9 @@
             </div>
             <div class="form-group">
 
-                    <tabset obj="focusinControl">
+                    <tabset>
 
                         <tab heading="Questions" ng-attr-selected="tabSelected==0" ng-click="keep(0);">
-
-                            <div class="row">
-                                <div class="col-xs-3 col-sm-3">
-                                    <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
-                                        <span class="glyphicon glyphicon-plus"></span> Add
-                                    </button>
-                                </div>
-                                <div class="col-xs-0 col-sm-3">
-                                </div>
-                                <div class="col-xs-9 col-sm-6">
-                                    <div class="input-group searchbox">
-                                        <input type="text" class="form-control"/>
-                                        <span class="input-group-addon" ng-click="search()">
-                                            <i class="glyphicon glyphicon-search"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
 
                             <question-list></question-list>
 
