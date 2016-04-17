@@ -8,8 +8,8 @@
   ],
   "setupMongo": true,
   "setupNode": true,
-  "nodeVersion": "0.10.40",
-  "enableUploametoertdProgressBar": true,
+  "nodeVersion": "5.10.1",
+  "enableUploadProgressBar": true,
   "appName": "meteor",
   "app": "../EasyPoll",
   "env": {
