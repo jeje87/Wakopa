@@ -33,7 +33,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
             })
             .state('question', {
                 url: '/question/:id',
-                templateUrl: 'client/easypoll/views/questions/question/question.html',
+                templateUrl: 'client/easypoll/views/questions/question/question2.html',
                 controller: 'QuestionCtrl',
                 resolve:  {
                     "currentUser": ($meteor, $q) => {
