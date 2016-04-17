@@ -8,9 +8,13 @@
     }
 
 
-@media(max-width:767px){
+@media(max-width:768px){
     .margin-top{
         margin-top: 10px;
+    }
+
+    .question-form .panel-group {
+        margin-bottom: 10px;
     }
 }
 

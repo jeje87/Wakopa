@@ -29,6 +29,10 @@
         border-bottom: none;
     }
 
+    .panel-group .panel-default {
+        border-bottom: solid 1px #ddd;
+    }
+
     .panel-body {
         padding: 5px;
     }
