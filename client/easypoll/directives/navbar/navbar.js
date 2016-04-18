@@ -46,6 +46,7 @@ angular.module('easypoll')
                 //=== Observers & Listeners ===//
 
                 $scope.$watch('affixed',function(val,old){
+                    console.log('ici');
                     var b = angular.element('body');
                     // affixed top
                     if(angular.equals(val,'top') && !b.hasClass('navbar-affixed-top')){

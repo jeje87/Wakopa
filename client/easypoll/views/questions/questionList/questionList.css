@@ -3,6 +3,12 @@
 
 }
 
+@media (max-width: 768px) {
+    .question-list-form {
+        margin-top: 50px;
+    }
+}
+
 .question-list-form-content {
     min-height: 600px;
 }

@@ -11,10 +11,10 @@
         cursor: pointer;
     }
 
-
 @media(max-width:768px){
-    .margin-top{
-        margin-top: 10px;
+
+    .question-form {
+        margin-top: 50px;
     }
 
     .question-form .panel-group {

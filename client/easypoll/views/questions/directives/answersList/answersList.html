@@ -14,12 +14,13 @@
            ng-repeat="question in questions">{{question.label}} -- {{question.respondents.length}}</a>
 
     </div>
-
-    <button id="btnLoadMore" type="button" class="btn btn-primary btnLoad" ng-click="loadMore()">
-        <span class="glyphicon glyphicon-circle-arrow-down"></span> More
-    </button>
-    <button id="btnLoadLess" type="button" class="btn btn-primary btnLoad" ng-click="loadLess()">
-        <span class="glyphicon glyphicon-circle-arrow-up"></span> Less
-    </button>
+    <div class="bottom-menu">
+        <button id="btnLoadMore" type="button" class="btn btn-primary btnLoad" ng-click="loadMore()">
+            <span class="glyphicon glyphicon-circle-arrow-down"></span> More
+        </button>
+        <button id="btnLoadLess" type="button" class="btn btn-primary btnLoad" ng-click="loadLess()">
+            <span class="glyphicon glyphicon-circle-arrow-up"></span> Less
+        </button>
+    </div>
 
 </div>

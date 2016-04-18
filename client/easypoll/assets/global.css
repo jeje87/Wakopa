@@ -18,7 +18,7 @@
 
     .panel {
         margin-bottom: 0px;
-        border-bottom: none;
+        /*border-bottom: none;*/
     }
 
     .panel-default, .navbar {
@@ -26,7 +26,7 @@
     }
 
     .panel-default {
-        border-bottom: none;
+        /*border-bottom: none;*/
     }
 
     .panel-group .panel-default {
@@ -39,6 +39,18 @@
 
     .form-group {
         margin-bottom: 5px;
+    }
+
+    nav {
+        border-radius: 0;
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+    }
+
+    nav .panel-default {
+        border-bottom: solid 1px;
     }
 
 }
@@ -108,3 +120,21 @@
     border-radius: 4px;
 }
 
+@media(max-width:768px) {
+    .bottom-menu {
+        bottom: 0;
+        margin-bottom: 0;
+        position: fixed;
+        right: 0;
+        left: 0;
+        z-index: 1030;
+        padding-right: 15px;
+        padding-left: 15px;
+        padding-top: 5px;
+        margin-right: auto;
+        margin-left: auto;
+        height: 45px;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+    }
+}
