@@ -7,6 +7,10 @@
         min-height:600px;
     }
 
+    .question-form .panel-group .panel-heading {
+        cursor: pointer;
+    }
+
 
 @media(max-width:768px){
     .margin-top{
