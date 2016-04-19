@@ -20,9 +20,16 @@
     .question-form .panel-group {
         margin-bottom: 10px;
     }
+
+    .question-form .panel{
+        border-bottom: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
 }
 
 .chart-container {
     max-width: 600px;
     margin: auto;
 }
+

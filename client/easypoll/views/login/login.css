@@ -1,0 +1,14 @@
+
+
+@media(max-width:768px){
+
+    .login-form {
+        margin-top: 50px;
+    }
+
+    .login-form .panel{
+        border-bottom: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+}

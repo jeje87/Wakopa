@@ -33,6 +33,8 @@
 
     .question-list-form .panel{
         border-bottom: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
     }
 
 }
