@@ -1,81 +1,81 @@
 <div class="question-list">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-3 col-sm-3">
+                <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
+                    <span class="glyphicon glyphicon-plus"></span> Add
+                </button>
+            </div>
+            <div class="col-xs-0 col-sm-3">
+            </div>
+            <div class="col-xs-9 col-sm-6">
+                <div class="input-group searchbox">
+                    <input type="text" class="form-control" ng-model="context.search" ng-keypress="keypress($event)"/>
+                    <span class="input-group-addon" ng-click="search()">
+                        <i class="glyphicon glyphicon-search"></i>
+                    </span>
+                </div>
+            </div>
+        </div>
 
-    <div class="row">
-        <div class="col-xs-3 col-sm-3">
-            <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()">
-                <span class="glyphicon glyphicon-plus"></span> Add
+        <div class="list-group list-color">
+
+            <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">
+                <div class="row">
+                    <span style="display: none;">{{avct=getAvctPercent(question)}}</span>
+                    <div class="col-xs-8">
+                        <div class="row">
+                            <div class="col-xs-12">{{question.label}}</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="text-right text-nowrap"><span
+                                        class="glyphicon glyphicon-user"></span> {{getNumberResp(question)}}</div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="avct;"
+                                         aria-valuemin="0" aria-valuemax="100" ng-style="{width : avct + '%' }">
+                                        {{ avct + '%' }}
+                                    </div>
+                                    <span class="avct0" ng-if="avct===0">0%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="question-date text-left">
+                                    {{getDateFromNow(question.createDate)}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <div ng-if="nbQuestionTot==0" class="form-group">
+                <div class="nothing text-center">
+                    <h5>
+                        Click on
+                        <br/><br/>
+                        <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()"><span
+                                class="glyphicon glyphicon-plus"></span> Add question
+                        </button>
+                        <br/><br/>to add your first question
+                    </h5>
+                </div>
+            </div>
+
+        </div>
+        <div class="bottom-menu">
+            <button id="btnLoadMore" type="button" class="btn btn-primary btnLoad" ng-click="loadMore()">
+                <span class="glyphicon glyphicon-circle-arrow-down"></span> More
+            </button>
+            <button id="btnLoadLess" type="button" class="btn btn-primary btnLoad" ng-click="loadLess()">
+                <span class="glyphicon glyphicon-circle-arrow-up"></span> Less
             </button>
         </div>
-        <div class="col-xs-0 col-sm-3">
-        </div>
-        <div class="col-xs-9 col-sm-6">
-            <div class="input-group searchbox">
-                <input type="text" class="form-control" ng-model="context.search" ng-keypress="keypress($event)"/>
-                <span class="input-group-addon" ng-click="search()">
-                    <i class="glyphicon glyphicon-search"></i>
-                </span>
-            </div>
-        </div>
     </div>
-
-    <div class="list-group list-color">
-
-        <a ui-sref="question({ id: question._id })" class="list-group-item" ng-repeat="question in questions">
-            <div class="row">
-                <span style="display: none;">{{avct=getAvctPercent(question)}}</span>
-                <div class="col-xs-8">
-                    <div class="row">
-                        <div class="col-xs-12">{{question.label}}</div>
-                    </div>
-                </div>
-                <div class="col-xs-4">
-                    <div class="row">
-                        <div class="col-xs-4">
-                            <div class="text-right text-nowrap"><span
-                                    class="glyphicon glyphicon-user"></span> {{getNumberResp(question)}}</div>
-                        </div>
-                        <div class="col-xs-8">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="avct;"
-                                     aria-valuemin="0" aria-valuemax="100" ng-style="{width : avct + '%' }">
-                                    {{ avct + '%' }}
-                                </div>
-                                <span class="avct0" ng-if="avct===0">0%</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="question-date text-left">
-                                {{getDateFromNow(question.createDate)}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </a>
-
-        <div ng-if="nbQuestionTot==0" class="form-group">
-            <div class="nothing text-center">
-                <h5>
-                    Click on
-                    <br/><br/>
-                    <button id="btnAdd" type="button" class="btn btn-primary" ng-click="add()"><span
-                            class="glyphicon glyphicon-plus"></span> Add question
-                    </button>
-                    <br/><br/>to add your first question
-                </h5>
-            </div>
-        </div>
-
-    </div>
-    <div class="bottom-menu">
-        <button id="btnLoadMore" type="button" class="btn btn-primary btnLoad" ng-click="loadMore()">
-            <span class="glyphicon glyphicon-circle-arrow-down"></span> More
-        </button>
-        <button id="btnLoadLess" type="button" class="btn btn-primary btnLoad" ng-click="loadLess()">
-            <span class="glyphicon glyphicon-circle-arrow-up"></span> Less
-        </button>
-    </div>
-
 </div>
