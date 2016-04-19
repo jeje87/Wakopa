@@ -37,3 +37,4 @@ standard-minifier-css
 standard-minifier-js
 angular-templates
 pbastowski:angular-babel
+jasny:bootstrap
