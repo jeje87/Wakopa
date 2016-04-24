@@ -3,13 +3,7 @@
 
         <div class="pull-left" ng-if="hasLeftButtons()">
 
-            <!--<span class="user.info">{{username}}</span>-->
-
-            <button type="button" class="btn btn-default navbar-button" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
-                <span class="glyphicon glyphicon-menu-hamburger"></span>
-            </button>
-
-            <button ng-repeat="button in leftbuttons" ng-click="navAction(button.action)" id="" type="button" ng-class="button.buttonClass">
+            <button ng-repeat="button in leftbuttons" ng-click="navAction(button.action)" id="" type="button" ng-class="button.buttonClass" data-canvas="body">
                 <span class="{{button.spanClass}}"></span> {{button.title}}
             </button>
 

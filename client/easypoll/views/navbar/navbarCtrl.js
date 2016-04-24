@@ -2,6 +2,14 @@ angular.module('easypoll')
 
     .controller('navbarCtrl', function ($scope, $state, $location) {
 
+            let offCanvasMenu = $(".navmenu").offcanvas({
+                    toggle: "offcanvas",
+                    target: ".navmenu",
+                    toggle: false,
+                    canvas: "body"
+                }
+            );
+
             $scope.brand = "<span class='glyphicon glyphicon-question-sign'></span> EasyPoll";
 
             $scope.buttons = [];
@@ -21,6 +29,9 @@ angular.module('easypoll')
                         break;
                     case 'back':
                         $state.go("questionList");
+                        break;
+                    case 'offCanvas':
+                        offCanvasMenu.offcanvas('toggle');
                         break;
                     default:
                         break;
@@ -45,9 +56,9 @@ angular.module('easypoll')
                             $scope.leftbuttons.push(
                                 {
                                     title: "",
-                                    action: "back",
-                                    spanClass: "glyphicon glyphicon-arrow-left",
-                                    buttonClass: " btn btn-default navbar-button disabled"
+                                    action: "offCanvas",
+                                    spanClass: "glyphicon glyphicon-menu-hamburger",
+                                    buttonClass: " btn btn-default navbar-button"
                                 }
                             );
                         }
