@@ -31,10 +31,10 @@ mongo
 deanius:promise
 percolate:find-from-publication
 angular-meteor-auth
-appcache
 momentjs:moment
 standard-minifier-css
 standard-minifier-js
 angular-templates
 pbastowski:angular-babel
 jasny:bootstrap
+crosswalk
