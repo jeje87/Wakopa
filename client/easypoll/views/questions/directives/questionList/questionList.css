@@ -29,6 +29,10 @@
         line-height: 20px;
     }
 
+    .question-list .rowQuestionLabel{
+        margin-top: 10px;
+    }
+
 @media(max-width:768px) {
 
     .question-list-form .panel{
