@@ -11,6 +11,16 @@
         cursor: pointer;
     }
 
+    .question-form .panel-heading {
+        font-size: 18px;
+        color: #337ab7;
+    }
+
+    .question-form a[role=tab] {
+        font-size: 18px;
+        color: #337ab7;
+    }
+
 @media(max-width:768px){
 
     .question-form {
