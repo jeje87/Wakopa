@@ -13,6 +13,7 @@
   "appName": "meteor",
   "app": "../EasyPoll",
   "env": {
+    "PORT": "3000",
     "ROOT_URL": "http://www.wakopa.com"
   },
   "deployCheckWaitTime": 30
