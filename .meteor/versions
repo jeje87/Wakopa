@@ -47,6 +47,7 @@ fastclick@1.0.10
 geojson-utils@1.0.7
 gfk:mailgun-api@1.1.0
 google@1.1.10
+hedcet:cordova-google-plus-native-sign-in@1.1.0
 hot-code-push@1.0.3
 html-tools@1.0.8
 htmljs@1.0.8

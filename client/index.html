@@ -2,6 +2,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Poll everywhere !</title>
     <base href="/">
+    <script type="text/javascript" charset="utf-8">
+
+        // Wait for device API libraries to load
+        //
+        function onLoad() {
+            document.addEventListener("deviceready", onDeviceReady, false);
+        }
+
+        function onDeviceReady() {
+            if(Meteor.isCordova){
+                //alert('onDeviceReady');
+                navigator.splashscreen.hide();
+            }
+        }
+
+    </script>
 </head>
 <body>
 <div class="container" ng-cloak ng-app="easypoll" ng-controller='navbarCtrl'>
@@ -27,5 +43,6 @@
     </div>
     <c-navbar brand='brand' userName='username' buttons='buttons' leftbuttons='leftbuttons' navfn='navfn(action)'></c-navbar>
     <div class="container slide" ui-view></div>
+    0.0.4
 </div>
 </body>

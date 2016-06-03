@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "427484179347",
+    "project_id": "easypoll-1038"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427484179347:android:1faf2404d0609111",
+        "android_client_info": {
+          "package_name": "com.wakopa.easypoll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "427484179347-2q63oj0dbh3s117408ut6hjapavqc99c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wakopa.easypoll",
+            "certificate_hash": "7984E5E8A6AD1125FBAFD1ABD380722EEE660DC9"
+          }
+        },
+        {
+          "client_id": "427484179347-b21egkieim026c5hmiq81qi86asbrh1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuXb9_6uQQghCICbk39tOt6AQ2EPyHD0A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
