@@ -61,13 +61,13 @@ angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope,
 
     };
 
-    // $scope.autorun(() => {
-    //     if (Meteor.user() !== undefined) {
-    //         if (Meteor.user()) {
-    //             $location.path('/questions');
-    //         }
-    //     }
-    // });
+    $scope.autorun(() => {
+        if (Meteor.user() !== undefined) {
+            if (Meteor.user()) {
+                $location.path('/questions');
+            }
+        }
+    });
 
 
 

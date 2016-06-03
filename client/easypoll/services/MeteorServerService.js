@@ -28,9 +28,9 @@ angular.module('easypoll')
                 return Meteor.callPromise('getResults', questionId);
 
             },
-            subscribe: (subscription,limit,search) => {
+            subscribe: (subscription,limit,search, callback) => {
 
-                Meteor.subscribe(subscription,limit,search);
+                Meteor.subscribe(subscription,limit,search,callback);
 
             },
             subscribeAnswersUser: (limit) => {

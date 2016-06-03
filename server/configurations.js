@@ -6,8 +6,7 @@ var configureFacebook = function () {
     ServiceConfiguration.configurations.insert({
         service: "facebook",
         appId: Meteor.settings.facebookAppId,
-        secret: Meteor.settings.facebookSecret,
-        loginStyle: "popup"
+        secret: Meteor.settings.facebookSecret
     });
 
 };
@@ -20,8 +19,7 @@ var configureGoogle = function () {
     ServiceConfiguration.configurations.insert({
         service: "google",
         clientId: Meteor.settings.googleAppId,
-        secret: Meteor.settings.googleSecret,
-        loginStyle: "redirect"
+        secret: Meteor.settings.googleSecret
     });
 
 };

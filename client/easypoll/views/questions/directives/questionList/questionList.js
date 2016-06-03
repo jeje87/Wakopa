@@ -8,12 +8,18 @@ angular.module('easypoll')
             controller: function($scope, meteorService,$interval, $location) {
 
                 let stateKey = "questionListState";
+                let splashHidden = false;
 
                 Session.setDefault(stateKey, {limit :5, search:""});
 
                 Tracker.autorun(function () {
-                    console.log('rerun');
-                    meteorService.subscribe("QuestionsUser",Session.get(stateKey).limit, Session.get(stateKey).search);
+                    meteorService.subscribe("QuestionsUser",Session.get(stateKey).limit, Session.get(stateKey).search,  function() {
+                        // when ready
+                        if (Meteor.isCordova && !splashHidden){
+                            navigator.splashscreen.hide();
+                            splashHidden = true;
+                        }
+                    });
                 });
 
                 $scope.helpers({
