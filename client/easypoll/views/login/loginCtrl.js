@@ -33,31 +33,22 @@ angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope,
 
     $scope.loginWithGoogle = function () {
 
+        var loginStyle="popup";
+
         if (Meteor.isCordova) { // signIn through cordova
-            Meteor.cordova_g_plus({
-                cordova_g_plus: true,
-                profile: ["email", "email_verified", "gender", "locale", "name", "picture"]
-            }, function(error) {
-                if (error) {
-                    //error handling code
-                    alert(error);
-                }
-                else
-                {
-                    goToHome();
-                }
-            });
+            loginStyle="redirect";
         }
-        else {
-            Meteor.loginWithGoogle({
-                requestPermissions: [],
-                loginStyle: "popup"
-            }, function (err) {
-                if (!err) {
-                    goToHome();
-                }
-            });
-        }
+
+        alert(loginStyle);
+        
+        Meteor.loginWithGoogle({
+            requestPermissions: [],
+            loginStyle: loginStyle
+        }, function (err) {
+            if (!err) {
+                goToHome();
+            }
+        });
 
     };
 

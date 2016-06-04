@@ -14,7 +14,7 @@
   "app": "../EasyPoll",
   "env": {
     "PORT": "3000",
-    "ROOT_URL": "https://www.wakopa.com"
+    "ROOT_URL": "https://www.wakopa.com:443"
   },
   "deployCheckWaitTime": 30
 }
