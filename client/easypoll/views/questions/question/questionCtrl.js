@@ -9,6 +9,7 @@ angular.module("easypoll").controller("QuestionCtrl",
         //$scope.pageClass = 'page-home';
         $scope.results = {};
         $scope.navSelectedName = "";
+        $scope.urlAnswer = undefined;
 
         Tracker.autorun(function () {
             meteorService.subscribe("Questions");
@@ -55,6 +56,8 @@ angular.module("easypoll").controller("QuestionCtrl",
 
             if ($stateParams.id && $stateParams.id !== "new") {
 
+                $scope.urlAnswer = "http://localhost/answer/" + $stateParams.id;
+                
                 $scope.helpers({
                     question: () => {
                         return Questions.findOne($stateParams.id);
