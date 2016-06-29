@@ -56,7 +56,9 @@ angular.module("easypoll").controller("QuestionCtrl",
 
             if ($stateParams.id && $stateParams.id !== "new") {
 
-                $scope.urlAnswer = "http://localhost/answer/" + $stateParams.id;
+                var url = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
+
+                $scope.urlAnswer = url + "/answer/" + $stateParams.id;
                 
                 $scope.helpers({
                     question: () => {
@@ -176,6 +178,15 @@ angular.module("easypoll").controller("QuestionCtrl",
                 getResultsClient($stateParams.id);
             }
         });
+
+
+        $scope.success = function () {
+            console.log('Copied!');
+        };
+
+        $scope.fail = function (err) {
+            console.error('Error!', err);
+        };
 
         //*********************************************************************************************
         //********************************** Initialisation *******************************************

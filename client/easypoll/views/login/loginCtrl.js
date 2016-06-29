@@ -1,9 +1,16 @@
-angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope, $stateParams, $meteor, $location) {
+angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope, $stateParams, $meteor, $location, contextService) {
 
     let goToHome = () => {
         $scope.safeApply(function () {
             $rootScope.$broadcast('login');
             $location.path('/questions');
+        });
+    };
+
+    let goToReferer = (referer) => {
+        $scope.safeApply(function () {
+            $rootScope.$broadcast('login');
+            $location.path(referer);
         });
     };
 
@@ -39,14 +46,17 @@ angular.module("easypoll").controller("LoginCtrl", function ($scope, $rootScope,
             loginStyle="redirect";
         }
 
-        alert(loginStyle);
-        
         Meteor.loginWithGoogle({
             requestPermissions: [],
             loginStyle: loginStyle
         }, function (err) {
             if (!err) {
-                goToHome();
+                if($stateParams.referer) {
+                    goToReferer($stateParams.referer);
+                }
+                else {
+                    goToHome();
+                }
             }
         });
 

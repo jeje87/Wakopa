@@ -1,0 +1,38 @@
+
+.question-view-form {
+
+}
+
+    .question-view-form .question-view-form-content  {
+        min-height:600px;
+    }
+
+    .question-view-form .question-info  {
+        background-color: white;
+    }
+
+    .question-view-form .pie-legend li {
+        display: list-item;
+        white-space: normal;
+        text-align: left;
+    }
+
+    .question-view-form .votes button {
+        white-space: normal;
+    }
+
+
+@media(max-width:768px) {
+
+    .question-view-form {
+        margin-top: 50px;
+    }
+
+    .question-view-form .panel{
+        border-bottom: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+}
+

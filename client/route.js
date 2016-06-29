@@ -1,8 +1,12 @@
-angular.module("easypoll").run(function($rootScope, $state) {
+angular.module("easypoll").run(function($rootScope, $state, $stateParams) {
     $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {
 
         if (error === "AUTH_REQUIRED") {
             $state.go("login");
+        }
+        else if (error === "AUTH_REQUIRED_ANSWER") {
+            console.log(event);
+            $state.go("login", {referer:"/answer/" + toParams.questionId});
         }
         else if (error.error === 401) {
             $state.go("401");
@@ -11,12 +15,12 @@ angular.module("easypoll").run(function($rootScope, $state) {
             $state.go("error");
         }
 
-
     });
 });
 
 
-angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, $locationProvider,NotificationProvider) {
+angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
+                                            $locationProvider,NotificationProvider) {
 
         $locationProvider.html5Mode(true);
 
@@ -24,7 +28,8 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
             .state('login', {
                 url: '/login',
                 templateUrl: 'client/easypoll/views/login/login.html',
-                controller: 'LoginCtrl'
+                controller: 'LoginCtrl',
+                params: {referer: null}
             })
             .state('register', {
                 url: '/register',
@@ -42,6 +47,29 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider, 
 
                         if (Meteor.userId() == null) {
                             deferred.reject("AUTH_REQUIRED");
+                        }
+                        else {
+                            deferred.resolve(true);
+                        }
+
+                        return deferred.promise;
+
+                    }
+                }
+            })
+            .state('answer', {
+                url: '/answer/:questionId',
+                templateUrl: 'client/easypoll/views/answer/answer.html',
+                controller: 'answerCtrl',
+                params: {questionId: null},
+                resolve: {
+
+                    "isAuthorized": ($q) => {
+
+                        var deferred = $q.defer();
+
+                        if (Meteor.userId() == null) {
+                            deferred.reject("AUTH_REQUIRED_ANSWER");
                         }
                         else {
                             deferred.resolve(true);
