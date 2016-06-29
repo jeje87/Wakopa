@@ -21,16 +21,21 @@
                                      aria-labelledby="headingFour">
                                     <div class="panel-body">
 
-                                        <label>Label:</label>
                                         <textarea type="text" class="form-control" id="txtLabel" name="txtLabel"
                                                   rows="3"
                                                   placeholder="type your question here"
                                                   ng-model="question.label"></textarea>
-                                        <label>Details:</label>
-                                        <textarea type="text" class="form-control" id="txtDetails" name="txtDetails"
-                                                  rows="5"
-                                                  placeholder="if necessary, you can insert details here...)"
-                                                  ng-model="question.details"></textarea>
+
+                                        <div class="spacer5"></div>
+                                        <a href data-toggle="collapse" data-target="#details">Click here for add
+                                            details</a>
+
+                                        <div id="details" class="collapse">
+                                            <textarea type="text" class="form-control" id="txtDetails" name="txtDetails"
+                                                      rows="5"
+                                                      placeholder="you can insert details here"
+                                                      ng-model="question.details"></textarea>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -126,64 +131,6 @@
                                 </div>
                             </div>
 
-                            <!--<div class="panel panel-default">-->
-                                <!--<div class="panel-heading" role="tab" id="headingTwo" data-toggle="collapse"-->
-                                     <!--data-parent="#accordion" data-target="#collapseTwo">-->
-                                    <!--Share-->
-                                <!--</div>-->
-                                <!--<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"-->
-                                     <!--aria-labelledby="headingTwo">-->
-                                    <!--<div class="panel-body">-->
-
-                                        <!--<div ng-if="question.respondents.length==0" class="form-group">-->
-                                            <!--<div class="nothing text-center bg-info">-->
-                                                <!--<h5>-->
-                                                    <!--no voters-->
-                                                <!--</h5>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="form-group" ng-repeat="respondent in question.respondents">-->
-                                            <!--<div class="input-group">-->
-                                                <!--<input type="text" class="form-control" ng-model="respondent.email"-->
-                                                       <!--placeholder="insert an email here">-->
-                                                        <!--<span class="input-group-btn">-->
-                                                            <!--<button ng-click="removeRespondent(respondent._id)"-->
-                                                                    <!--id="btnRemoveItem"-->
-                                                                    <!--type="button" class="btn btn-default"><span-->
-                                                                    <!--class="glyphicon glyphicon-remove"></span></button>-->
-                                                            <!--<button ng-click="sendTo(respondent._id)" id="btnSendToItem"-->
-                                                                    <!--type="button"-->
-                                                                    <!--class="btn btn-default"><span-->
-                                                                    <!--class="glyphicon glyphicon-envelope"></span>-->
-                                                            <!--</button>-->
-                                                        <!--</span>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-xs-6 col-sm-4">-->
-                                                <!--<button id="btnAddRespondent" type="submit" ng-click="addRespondent()"-->
-                                                        <!--class="btn btn-primary btn-block"><span-->
-                                                        <!--class="glyphicon glyphicon-plus"></span>-->
-                                                    <!--Add voter-->
-                                                <!--</button>-->
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-0 col-sm-4">-->
-
-                                            <!--</div>-->
-                                            <!--<div class="col-xs-6 col-sm-4">-->
-                                                <!--<button id="btnSend" type="button" ng-click="sendAll()"-->
-                                                        <!--class="btn btn-primary btn-block"><span-->
-                                                        <!--class="glyphicon glyphicon-envelope"></span> Send to all-->
-                                                <!--</button>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
 
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingFive" data-toggle="collapse"
@@ -204,28 +151,30 @@
 
                                         <div ng-if="urlAnswer!=undefined" class="form-group">
 
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-2">
-                                                    <span>Link to share :</span>
-                                                </div>
-                                                <div class="col-xs-12 col-sm-8">
-                                                    <input type="text" class="form-control" ng-model="urlAnswer">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-2">
-                                                    <button clipboard supported="supported" text="urlAnswer" on-copied="success()" on-error="fail(err)"
+                                            <div class="form-group">
+                                                <label for="urlAnswer">Share a link :</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" id="urlAnswer" type="text"
+                                                           ng-model="urlAnswer">
+                                                    <span class="input-group-btn">
+                                                    <button clipboard supported="supported" text="urlAnswer"
+                                                            on-copied="success()" on-error="fail(err)"
                                                             id="btnCopyUrl"
                                                             type="button"
-                                                            class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Copy
+                                                            class="btn btn-primary btn-block"><span
+                                                            class="glyphicon glyphicon-copy"></span> Copy
                                                     </button>
+                                                    </span>
                                                 </div>
                                             </div>
-                                            <div class="spacer10"></div>
                                             <div class="row">
                                                 <div class="col-xs-6 col-sm-4">
-                                                    <a href="mailto:">
+                                                    <a href ng-click="sendClientMail()">
                                                         <button id="btnSendToItem"
                                                                 type="button"
-                                                                class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Share with email
+                                                                class="btn btn-primary btn-block"><span
+                                                                class="glyphicon glyphicon-envelope"></span> Share with
+                                                            email
                                                         </button>
                                                     </a>
                                                 </div>
@@ -233,13 +182,65 @@
 
                                                 </div>
                                                 <div class="col-xs-6 col-sm-4">
-                                                    <a href="sms:">
+                                                    <a href ng-click="sendSMS()">
                                                         <button id="btnSendToItem"
                                                                 type="button"
-                                                                class="btn btn-primary btn-block"><span class="glyphicon glyphicon-envelope"></span> Share with sms
+                                                                class="btn btn-primary btn-block"><span
+                                                                class="glyphicon glyphicon-envelope"></span> Share with
+                                                            sms
                                                         </button>
                                                     </a>
                                                 </div>
+                                            </div>
+
+                                            <div class="spacer15"></div>
+
+                                            <a href data-toggle="collapse" data-target="#sendWithWakopa">For send email
+                                                with Wakopa service, click here</a>
+
+                                            <div id="sendWithWakopa" class="collapse">
+
+                                                <div class="spacer5"></div>
+
+                                                <div class="form-group" ng-repeat="respondent in question.respondents">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control"
+                                                               ng-model="respondent.email"
+                                                               placeholder="insert an email here">
+                                                        <span class="input-group-btn">
+                                                        <button ng-click="removeRespondent(respondent._id)"
+                                                                id="btnRemoveItem"
+                                                                type="button" class="btn btn-default"><span
+                                                                class="glyphicon glyphicon-remove"></span></button>
+                                                        <button ng-click="sendTo(respondent._id)" id="btnSendToItem"
+                                                                type="button"
+                                                                class="btn btn-default"><span
+                                                                class="glyphicon glyphicon-envelope"></span>
+                                                        </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-4">
+                                                        <button id="btnAddRespondent" type="submit"
+                                                                ng-click="addRespondent()"
+                                                                class="btn btn-primary btn-block"><span
+                                                                class="glyphicon glyphicon-plus"></span>
+                                                            Add voter
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-xs-0 col-sm-4">
+
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-4">
+                                                        <button id="btnSend" type="button" ng-click="sendAll()"
+                                                                class="btn btn-primary btn-block"><span
+                                                                class="glyphicon glyphicon-envelope"></span> Send to all
+                                                        </button>
+                                                    </div>
+                                                </div>
+
                                             </div>
 
                                         </div>
@@ -250,18 +251,18 @@
                             </div>
 
                             <!--<div class="panel panel-default">-->
-                                <!--<div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse"-->
-                                     <!--data-parent="#accordion" data-target="#collapseThree">-->
-                                    <!--Options-->
-                                <!--</div>-->
-                                <!--<div id="collapseThree" class="panel-collapse collapse" role="tabpanel"-->
-                                     <!--aria-labelledby="headingThree">-->
-                                    <!--<div class="panel-body">-->
+                            <!--<div class="panel-heading" role="tab" id="headingThree" data-toggle="collapse"-->
+                            <!--data-parent="#accordion" data-target="#collapseThree">-->
+                            <!--Options-->
+                            <!--</div>-->
+                            <!--<div id="collapseThree" class="panel-collapse collapse" role="tabpanel"-->
+                            <!--aria-labelledby="headingThree">-->
+                            <!--<div class="panel-body">-->
 
-                                        <!--auto-end:-->
+                            <!--auto-end:-->
 
-                                    <!--</div>-->
-                                <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
                             <!--</div>-->
                         </div>
 
@@ -305,8 +306,6 @@
         </div>
 
     </div>
-
-
 
 
 </form>

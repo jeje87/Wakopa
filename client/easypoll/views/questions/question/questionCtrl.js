@@ -1,5 +1,5 @@
 angular.module("easypoll").controller("QuestionCtrl",
-    function ($scope, $stateParams, $meteor, $location, Notification, meteorService) {
+    function ($scope, $stateParams, $meteor, $location, Notification, meteorService, $window) {
 
         //*********************************************************************************************
         //************************************ Déclarations *******************************************
@@ -179,6 +179,31 @@ angular.module("easypoll").controller("QuestionCtrl",
             }
         });
 
+        $scope.sendClientMail = function(){
+
+            var subject = "I have a question for you";
+
+            var body = Meteor.user().profile.name + " send you this question : ";
+            body = body + "%0D%0A%0D%0A";
+            body = body + $scope.question.label;
+            body = body + "%0D%0A%0D%0A";
+            body = body + "To answer, got to : " + $scope.urlAnswer;
+            body = body + "%0D%0A%0D%0A";
+            body = body + "https://www.wakopa.com";
+
+            $window.open("mailto:?subject=" + subject +"&body="+body,"_self");
+        };
+
+        $scope.sendSMS = function(){
+
+            var body = "I have a question for you :";
+            body = body + "%0D%0A";
+            body = body + $scope.question.label;
+            body = body + "%0D%0A";
+            body = body + "To answer, got to : " + $scope.urlAnswer;
+
+            $window.open("sms:?body="+body,"_self");
+        };
 
         $scope.success = function () {
             console.log('Copied!');
