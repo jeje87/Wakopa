@@ -57,7 +57,7 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
         };
 
         let init = function () {
-            getAnswerUser();
+            //getAnswerUser();
         };
 
         //*********************************************************************************************
@@ -96,7 +96,7 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
 
         $scope.helpers({
             question: () => {
-                return Questions.findOne($stateParams.questionId);
+                return Questions.findOne({"answerId" :$stateParams.questionId});
             }
         });
 

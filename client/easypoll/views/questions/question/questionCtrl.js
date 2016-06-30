@@ -10,6 +10,7 @@ angular.module("easypoll").controller("QuestionCtrl",
         $scope.results = {};
         $scope.navSelectedName = "";
         $scope.urlAnswer = undefined;
+        $scope.routeAnswerUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + "/answer/";
 
         Tracker.autorun(function () {
             meteorService.subscribe("Questions");
@@ -56,10 +57,6 @@ angular.module("easypoll").controller("QuestionCtrl",
 
             if ($stateParams.id && $stateParams.id !== "new") {
 
-                var url = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '');
-
-                $scope.urlAnswer = url + "/answer/" + $stateParams.id;
-                
                 $scope.helpers({
                     question: () => {
                         return Questions.findOne($stateParams.id);
@@ -187,7 +184,7 @@ angular.module("easypoll").controller("QuestionCtrl",
             body = body + "%0D%0A%0D%0A";
             body = body + $scope.question.label;
             body = body + "%0D%0A%0D%0A";
-            body = body + "To answer, got to : " + $scope.urlAnswer;
+            body = body + "To answer, got to : " + $scope.routeAnswerUrl + $scope.question.answerId;
             body = body + "%0D%0A%0D%0A";
             body = body + "https://www.wakopa.com";
 
@@ -200,7 +197,7 @@ angular.module("easypoll").controller("QuestionCtrl",
             body = body + "%0D%0A";
             body = body + $scope.question.label;
             body = body + "%0D%0A";
-            body = body + "To answer, got to : " + $scope.urlAnswer;
+            body = body + "To answer, got to : " + $scope.routeAnswerUrl + $scope.question.answerId;
 
             $window.open("sms:?body="+body,"_self");
         };
@@ -212,6 +209,7 @@ angular.module("easypoll").controller("QuestionCtrl",
         $scope.fail = function (err) {
             console.error('Error!', err);
         };
+        
 
         //*********************************************************************************************
         //********************************** Initialisation *******************************************

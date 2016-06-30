@@ -10,6 +10,7 @@ Meteor.methods({
 
             question.createDate = new Date();
             question.userId = Meteor.userId();
+            question.answerId = generateUUID();
 
             var ret =  Questions.insert(question);
 
@@ -43,13 +44,13 @@ Meteor.methods({
         }
 
     },
-    getAnswerUserFromMail: (questionId) => {
+    getAnswerUserFromMail: (answerId) => {
 
         if(Meteor.isServer) {
             let email = getCurrentUserEmail();
 
             let question = Questions.findOne({
-                "_id": questionId,
+                "answerId": questionId,
                 "respondents.email": email
             });
 
@@ -209,11 +210,11 @@ Meteor.methods({
     },
     getResults: (questionId) => {
 
-        var question = Questions.findOne({"_id": questionId});
+        var question = Questions.findOne({"answerId": questionId});
 
         var data = {"_ids": [], "labels": [], "values": []};
 
-        if (Meteor.isServer) {
+        if (question && Meteor.isServer) {
             question.answers.forEach(function (answer) {
                 data._ids.push(answer._id);
                 data.labels.push(answer.label);

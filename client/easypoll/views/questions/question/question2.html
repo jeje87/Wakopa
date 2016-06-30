@@ -27,7 +27,7 @@
                                                   ng-model="question.label"></textarea>
 
                                         <div class="spacer5"></div>
-                                        <a href data-toggle="collapse" data-target="#details">Click here for add
+                                        <a href data-toggle="collapse" data-target="#details">[+] Click here for add
                                             details</a>
 
                                         <div id="details" class="collapse">
@@ -141,7 +141,7 @@
                                      aria-labelledby="headingFive">
                                     <div class="panel-body">
 
-                                        <div ng-if="urlAnswer==undefined" class="form-group">
+                                        <div ng-if="answerId==''" class="form-group">
                                             <div class="nothing text-center bg-info">
                                                 <h5>
                                                     You need to save before...
@@ -149,13 +149,16 @@
                                             </div>
                                         </div>
 
-                                        <div ng-if="urlAnswer!=undefined" class="form-group">
+                                        <div ng-if="answerId!=''" class="form-group">
 
                                             <div class="form-group">
                                                 <label for="urlAnswer">Share a link :</label>
                                                 <div class="input-group">
-                                                    <input class="form-control" id="urlAnswer" type="text"
-                                                           ng-model="urlAnswer">
+                                                    <!--<input class="hide form-control" id="urlAnswer" type="text"-->
+                                                           <!--ng-model="getAnswerUrl(question)">-->
+                                                    <div class="input-like">
+                                                        <a target="_blank" href="{{routeAnswerUrl + question.answerId}}" id="urlAnswer" >{{routeAnswerUrl + question.answerId}}</a>
+                                                    </div>
                                                     <span class="input-group-btn">
                                                     <button clipboard supported="supported" text="urlAnswer"
                                                             on-copied="success()" on-error="fail(err)"
@@ -195,8 +198,7 @@
 
                                             <div class="spacer15"></div>
 
-                                            <a href data-toggle="collapse" data-target="#sendWithWakopa">For send email
-                                                with Wakopa service, click here</a>
+                                            <a href data-toggle="collapse" data-target="#sendWithWakopa">[+] for advanced sharing, click here</a>
 
                                             <div id="sendWithWakopa" class="collapse">
 
