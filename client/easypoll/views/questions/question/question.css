@@ -3,6 +3,10 @@
 
 }
 
+    .question-form .switch-container{
+        margin-top:-5px;
+    }
+
     .question-form-content  {
         min-height:600px;
     }

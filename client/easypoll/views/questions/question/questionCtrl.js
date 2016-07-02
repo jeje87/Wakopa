@@ -11,6 +11,7 @@ angular.module("easypoll").controller("QuestionCtrl",
         $scope.navSelectedName = "";
         $scope.urlAnswer = undefined;
         $scope.routeAnswerUrl = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: '') + "/answer/";
+        $scope.shareMode = "public";
 
         Tracker.autorun(function () {
             meteorService.subscribe("Questions");

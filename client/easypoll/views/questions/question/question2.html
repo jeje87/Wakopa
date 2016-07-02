@@ -136,12 +136,26 @@
                                 <div class="panel-heading" role="tab" id="headingFive" data-toggle="collapse"
                                      data-parent="#accordion" data-target="#collapseFive">
                                     Share
+                                    <div class="switch-container pull-right">
+                                        <input
+                                                bs-switch
+                                                ng-model="shareMode"
+                                                type="checkbox"
+                                                switch-active="{{question.answerId!=undefined}}"
+                                                switch-on-text="Public"
+                                                switch-off-text="Private"
+                                                switch-off-color="warning"
+                                                switch-change="changeSharingMode()"
+                                                ng-true-value="'public'"
+                                                ng-false-value="'private'">
+                                    </div>
+
                                 </div>
                                 <div id="collapseFive" class="panel-collapse collapse" role="tabpanel"
                                      aria-labelledby="headingFive">
                                     <div class="panel-body">
 
-                                        <div ng-if="answerId==''" class="form-group">
+                                        <div ng-show="question.answerId==undefined" class="form-group">
                                             <div class="nothing text-center bg-info">
                                                 <h5>
                                                     You need to save before...
@@ -149,16 +163,28 @@
                                             </div>
                                         </div>
 
-                                        <div ng-if="answerId!=''" class="form-group">
+                                        <div ng-show="question.answerId!=undefined" class="form-group">
 
-                                            <div class="form-group">
-                                                <label for="urlAnswer">Share a link :</label>
-                                                <div class="input-group">
-                                                    <!--<input class="hide form-control" id="urlAnswer" type="text"-->
-                                                           <!--ng-model="getAnswerUrl(question)">-->
-                                                    <div class="input-like">
-                                                        <a target="_blank" href="{{routeAnswerUrl + question.answerId}}" id="urlAnswer" >{{routeAnswerUrl + question.answerId}}</a>
-                                                    </div>
+                                            <div ng-show="shareMode=='public'">
+
+                                                <div class="alert alert-info alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                            aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    In this mode, the sharing is public. All users who have the link can vote, it they registered.
+                                                    You can't show the progression.
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="urlAnswer">Share a link :</label>
+                                                    <div class="input-group">
+                                                        <!--<input class="hide form-control" id="urlAnswer" type="text"-->
+                                                        <!--ng-model="getAnswerUrl(question)">-->
+                                                        <div class="input-like">
+                                                            <a target="_blank"
+                                                               href="{{routeAnswerUrl + question.answerId}}"
+                                                               id="urlAnswer">{{routeAnswerUrl + question.answerId}}</a>
+                                                        </div>
                                                     <span class="input-group-btn">
                                                     <button clipboard supported="supported" text="urlAnswer"
                                                             on-copied="success()" on-error="fail(err)"
@@ -168,39 +194,47 @@
                                                             class="glyphicon glyphicon-copy"></span> Copy
                                                     </button>
                                                     </span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-6 col-sm-4">
+                                                        <a href ng-click="sendClientMail()">
+                                                            <button id="btnSendToItem"
+                                                                    type="button"
+                                                                    class="btn btn-primary btn-block"><span
+                                                                    class="glyphicon glyphicon-envelope"></span> Share
+                                                                with
+                                                                email
+                                                            </button>
+                                                        </a>
+                                                    </div>
+                                                    <div class="col-xs-0 col-sm-4">
+
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-4">
+                                                        <a href ng-click="sendSMS()">
+                                                            <button id="btnSendToItem"
+                                                                    type="button"
+                                                                    class="btn btn-primary btn-block"><span
+                                                                    class="glyphicon glyphicon-envelope"></span> Share
+                                                                with
+                                                                sms
+                                                            </button>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-xs-6 col-sm-4">
-                                                    <a href ng-click="sendClientMail()">
-                                                        <button id="btnSendToItem"
-                                                                type="button"
-                                                                class="btn btn-primary btn-block"><span
-                                                                class="glyphicon glyphicon-envelope"></span> Share with
-                                                            email
-                                                        </button>
-                                                    </a>
+
+
+                                            <div ng-show="shareMode=='private'">
+
+                                                <div class="alert alert-info alert-dismissible" role="alert">
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                            aria-label="Close"><span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    In this mode, the sharing is private. All the voters will receive
+                                                    an unique link. You will show the progression of the vote.
                                                 </div>
-                                                <div class="col-xs-0 col-sm-4">
-
-                                                </div>
-                                                <div class="col-xs-6 col-sm-4">
-                                                    <a href ng-click="sendSMS()">
-                                                        <button id="btnSendToItem"
-                                                                type="button"
-                                                                class="btn btn-primary btn-block"><span
-                                                                class="glyphicon glyphicon-envelope"></span> Share with
-                                                            sms
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                            <div class="spacer15"></div>
-
-                                            <a href data-toggle="collapse" data-target="#sendWithWakopa">[+] for advanced sharing, click here</a>
-
-                                            <div id="sendWithWakopa" class="collapse">
 
                                                 <div class="spacer5"></div>
 
