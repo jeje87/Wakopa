@@ -15,7 +15,7 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
         //renvoi la réponse de l'utilisateur connecté
         let getAnswerUser = function () {
 
-            Meteor.call('getAnswerUser', $stateParams.questionId, function (err, data) {
+            Meteor.call('getAnswerUser', $stateParams.answerId, function (err, data) {
 
                 if (err) {
                     Notification.error('An error has occurred (getAnswerUser)');
@@ -35,8 +35,9 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
         //renvoi les résultats de la question affichée
         let getResultsClient = function () {
 
-            Meteor.call('getResults', $stateParams.questionId, function (err, data) {
+            Meteor.call('getResultsFromAnswer', $stateParams.answerId, function (err, data) {
 
+                console.log(data);
                 if (err) {
                     Notification.error('An error has occurred');
                     console.log(err);
@@ -57,7 +58,7 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
         };
 
         let init = function () {
-            //getAnswerUser();
+            getAnswerUser();
         };
 
         //*********************************************************************************************
@@ -96,7 +97,7 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
 
         $scope.helpers({
             question: () => {
-                return Questions.findOne({"answerId" :$stateParams.questionId});
+                return Questions.findOne({"answerId" :$stateParams.answerId});
             }
         });
 

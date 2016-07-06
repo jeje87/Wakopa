@@ -49,17 +49,21 @@ Meteor.methods({
         if(Meteor.isServer) {
             let email = getCurrentUserEmail();
 
-            let question = Questions.findOne({
-                "answerId": questionId,
-                "respondents.email": email
-            });
+            let question = Questions.findOne({"answerId": answerId});
 
-            for (let i = 0; i < question.respondents.length; i++) {
-                if (question.respondents[i].email === email) {
-                    if (!question.respondents[i].answers) {
-                        question.respondents[i].answers = [];
+            // let question = Questions.findOne({
+            //     "answerId": questionId,
+            //     "respondents.email": email
+            // });
+
+            if(question) {
+                for (let i = 0; i < question.respondents.length; i++) {
+                    if (question.respondents[i].email === email) {
+                        if (!question.respondents[i].answers) {
+                            question.respondents[i].answers = [];
+                        }
+                        return question.respondents[i];
                     }
-                    return question.respondents[i];
                 }
             }
 
@@ -89,6 +93,7 @@ Meteor.methods({
 
             //si on en est là c'est qu'il y'a un prb !!
             return null;
+
         }
 
     },
@@ -210,7 +215,36 @@ Meteor.methods({
     },
     getResults: (questionId) => {
 
-        var question = Questions.findOne({"answerId": questionId});
+        var question = Questions.findOne({"_id": questionId});
+
+        var data = {"_ids": [], "labels": [], "values": []};
+
+        if (question && Meteor.isServer) {
+            question.answers.forEach(function (answer) {
+                data._ids.push(answer._id);
+                data.labels.push(answer.label);
+                data.values.push(0);
+            });
+
+            question.respondents.forEach(function (respondent) {
+                if (respondent.answers) {
+                    respondent.answers.forEach(function (_id) {
+                        var findId = data._ids.indexOf(_id);
+                        if (findId !== -1) {
+                            data.values[findId] += 1;
+                        }
+                    });
+                }
+            });
+        }
+
+        return data;
+
+
+    },
+    getResultsFromAnswer: (answerId) => {
+
+        var question = Questions.findOne({"answerId": answerId});
 
         var data = {"_ids": [], "labels": [], "values": []};
 

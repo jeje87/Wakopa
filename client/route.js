@@ -58,7 +58,7 @@ angular.module('easypoll').config(function ($urlRouterProvider, $stateProvider,
                 }
             })
             .state('answer', {
-                url: '/answer/:questionId',
+                url: '/answer/:answerId',
                 templateUrl: 'client/easypoll/views/answer/answer.html',
                 controller: 'answerCtrl',
                 params: {questionId: null},
