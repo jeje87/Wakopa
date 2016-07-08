@@ -211,6 +211,10 @@ angular.module("easypoll").controller("QuestionCtrl",
             console.error('Error!', err);
         };
         
+        $scope.saveTemplate = function () {
+            
+        };
+        
 
         //*********************************************************************************************
         //********************************** Initialisation *******************************************

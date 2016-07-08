@@ -65,6 +65,7 @@ Meteor.methods({
                         return question.respondents[i];
                     }
                 }
+                return {email:email, answers:[]}
             }
 
             return null;
@@ -105,34 +106,32 @@ Meteor.methods({
             return Meteor.call("getAnswerUserFromIds",questionId, respondentId, answerId);
         }
     },
-    selectAnswerFromEmail: (questionId, selectedAnswerId) => {
+    selectAnswerFromEmail: (answerId, selectedAnswerId) => {
 
         if(Meteor.isServer) {
+
             let email = getCurrentUserEmail();
 
             let question = Questions.findOne({
-                "_id": questionId,
-                "respondents.email": email
+                "answerId": answerId
             });
 
             //supprime les réponses existantes pour cet utilisateur
             Questions.update(
                 {
-                    "_id": question._id, "respondents.email": email
+                    "_id": question._id
                 },
                 {
-                    $set: {'respondents.$.answers': []}
+                    $pull: {'respondents': {email:email}}
                 }
             );
 
-            //si le tableau answers n'existe pas, il est créé
-            //prévu pour les reponses multiples
             Questions.update(
                 {
-                    "_id": question._id, "respondents.email": email
+                    "_id": question._id
                 },
                 {
-                    $addToSet: {"respondents.$.answers": selectedAnswerId}
+                    $push: {'respondents': {email:email, answers:[selectedAnswerId]}}
                 }
             );
 
@@ -176,18 +175,9 @@ Meteor.methods({
         }
 
     },
-    selectAnswer: (questionId, selectedAnswerId, respondentId, answerId) => {
+    selectAnswer: (answerId, selectedAnswerId) => {
 
-        if (!respondentId) {
-
-           return Meteor.call("selectAnswerFromEmail",questionId, selectedAnswerId);
-
-        }
-        else {
-
-            return Meteor.call("selectAnswerFromIds",questionId, selectedAnswerId, respondentId, answerId);
-
-        }
+           return Meteor.call("selectAnswerFromEmail",answerId, selectedAnswerId);
 
     },
     isAuthorized: (questionId, respondentId, answerId) => {

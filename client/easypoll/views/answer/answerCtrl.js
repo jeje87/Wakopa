@@ -37,7 +37,6 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
 
             Meteor.call('getResultsFromAnswer', $stateParams.answerId, function (err, data) {
 
-                console.log(data);
                 if (err) {
                     Notification.error('An error has occurred');
                     console.log(err);
@@ -71,7 +70,7 @@ angular.module("easypoll").controller("answerCtrl", function ($scope, $statePara
             $scope.user.answers.length = 0;
             $scope.user.answers.push(answer._id);
 
-            Meteor.call('selectAnswer', $stateParams.questionId, answer._id, $stateParams.respondentId, $stateParams.answerId, function (err, data) {
+            Meteor.call('selectAnswer', $stateParams.answerId, answer._id, function (err, data) {
 
                 if (err) {
                     Notification.error('An error has occurred');
