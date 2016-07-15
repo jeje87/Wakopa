@@ -1,5 +1,5 @@
 angular.module("easypoll").controller("QuestionCtrl",
-    function ($scope, $stateParams, $meteor, $location, Notification, meteorService, $window) {
+    function ($scope, $stateParams, $meteor, $location, Notification, meteorService, $window, clipboard) {
 
         //*********************************************************************************************
         //************************************ Déclarations *******************************************
@@ -201,6 +201,19 @@ angular.module("easypoll").controller("QuestionCtrl",
             body = body + "To answer, got to : " + $scope.routeAnswerUrl + $scope.question.answerId;
 
             $window.open("sms:?body="+body,"_self");
+        };
+
+        $scope.copy = function () {
+            if (!clipboard.supported) {
+                Notification.warning('Sorry, copy to clipboard is not supported');
+            } else {
+                clipboard.copyText($scope.routeAnswerUrl + $scope.question.answerId);
+                Notification.success('Copied to clipboard');
+            }
+        };
+
+        $scope.openLink = function () {
+            $window.open($scope.routeAnswerUrl + $scope.question.answerId, "_blank");
         };
 
         $scope.success = function () {
